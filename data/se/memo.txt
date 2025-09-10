@@ -1,0 +1,18 @@
+se_0 start
+se_1 kttei
+se_2 kyannseru
+se_3 chara hennkou
+se_4 click
+se_5 殴り
+se_6 豪列剣
+se_7 sukiru2
+se_8 ステータス上昇
+se_9 ヒール
+(se_10 kuria)
+
+bgm_0 start
+bgm_1 stage1
+bgm_2 stage2
+bgm_3 stage3
+bgm_4 kuria
+bgm_5 over
