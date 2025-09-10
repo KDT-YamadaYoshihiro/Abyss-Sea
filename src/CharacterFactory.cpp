@@ -210,3 +210,9 @@ const Skill* CharacterFactory::GetSkillData(int id) const
     }
     return nullptr; // 見つからなかった場合
 }
+
+// プレイヤーデータテーブルサイズ
+const int CharacterFactory::PlayerTableSize = sizeof(PlayerTable) / sizeof(CharacterData);
+
+// エネミーデータテーブルサイズ
+const int CharacterFactory::EnemyTableSize = sizeof(EnemyTable) / sizeof(CharacterData);

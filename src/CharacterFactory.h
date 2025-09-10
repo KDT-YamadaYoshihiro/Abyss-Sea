@@ -54,6 +54,11 @@ public:
 	const CharacterData* GetCharacterData(int id) const;
 	const Skill* GetSkillData(int id) const;
 
+	// プレイヤーのデータテーブルサイズ
+	static const int PlayerTableSize;
+	// エネミーのデータテーブルサイズ
+	static const int EnemyTableSize;
+
 	const std::vector<CharacterData>& getPlayerTable() const { return PlayerTable; }
 
 

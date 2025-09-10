@@ -108,7 +108,7 @@ public:
 		stage = Manager::Instance().getStageScreen();
 
 		// エネミーを生成
-		enemies.push_back(CharacterFactory::CreateEnemy(stage,stage));
+		enemies.push_back(CharacterFactory::CreateEnemy(stage));
 
 		bgm = Manager::Instance().getbgm();
 		se = Manager::Instance().getSe();
