@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\class.h">
+      <UniqueIdentifier>{5ee2d9ba-7ee9-41f9-9f4a-a2ac5f735f1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\class.cpp">
+      <UniqueIdentifier>{bf76fb56-cd3b-455f-8c1d-e0e7bc5091cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\system.cpp">
+      <UniqueIdentifier>{1d9816fd-6ea6-4b54-8652-918ec4af74ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\system.h">
+      <UniqueIdentifier>{007485cf-759b-4867-8c7f-b9444d08f0b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\class.h\CStage">
+      <UniqueIdentifier>{35d96224-ba05-4d93-866c-613c871cf39b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\class.cpp\CStage">
+      <UniqueIdentifier>{beb334f3-6d09-43b2-8905-836777631298}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Character">
+      <UniqueIdentifier>{245da408-0c97-426d-9a05-4dfdf6a79a58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Character\Enemy">
+      <UniqueIdentifier>{ce6cae31-9522-4c7b-9bc2-1999dc2dee73}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\class.cpp\Character">
+      <UniqueIdentifier>{36af180a-8e0b-4121-bc70-b02b90c6e174}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Character\Player">
+      <UniqueIdentifier>{6c7bbf0b-a0d7-4764-b80e-238fae2d36e7}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\GameMain.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\InPutKey.cpp">
+      <Filter>ソース ファイル\system.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\InPutPad.cpp">
+      <Filter>ソース ファイル\system.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Float2.cpp">
+      <Filter>ソース ファイル\system.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Manager.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CBattle.cpp">
+      <Filter>ソース ファイル\class.cpp\CStage</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CStage.cpp">
+      <Filter>ソース ファイル\class.cpp\CStage</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CTitle.cpp">
+      <Filter>ソース ファイル\class.cpp\CStage</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CResult.cpp">
+      <Filter>ソース ファイル\class.cpp\CStage</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CharacterFactory.cpp">
+      <Filter>ソース ファイル\class.cpp\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI.cpp">
+      <Filter>ソース ファイル\class.cpp</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CPartySelect.cpp">
+      <Filter>ソース ファイル\class.cpp\CStage</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\GameMain.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Manager.h">
+      <Filter>ヘッダー ファイル\class.h</Filter>
+    </ClInclude>
+    <ClInclude Include="src\InPutPad.h">
+      <Filter>ヘッダー ファイル\system.h</Filter>
+    </ClInclude>
+    <ClInclude Include="src\InPutKey.h">
+      <Filter>ヘッダー ファイル\system.h</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Float2.h">
+      <Filter>ヘッダー ファイル\system.h</Filter>
+    </ClInclude>
+    <ClInclude Include="src\typedef.h">
+      <Filter>ヘッダー ファイル\system.h</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CMap.h">
+      <Filter>ヘッダー ファイル\class.h</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CTitle.h">
+      <Filter>ヘッダー ファイル\class.h\CStage</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CStage.h">
+      <Filter>ヘッダー ファイル\class.h\CStage</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CBattle.h">
+      <Filter>ヘッダー ファイル\class.h\CStage</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CResult.h">
+      <Filter>ヘッダー ファイル\class.h\CStage</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CBase.h">
+      <Filter>ヘッダー ファイル\class.h\CStage</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CPlayer.h">
+      <Filter>ヘッダー ファイル\Character\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CEnemy.h">
+      <Filter>ヘッダー ファイル\Character\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Mouse.h">
+      <Filter>ヘッダー ファイル\system.h</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UI.h">
+      <Filter>ヘッダー ファイル\class.h</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CLoad.h">
+      <Filter>ヘッダー ファイル\class.h</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Character.h">
+      <Filter>ヘッダー ファイル\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CharacterData.h">
+      <Filter>ヘッダー ファイル\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CharacterFactory.h">
+      <Filter>ヘッダー ファイル\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CBattle_SP.h">
+      <Filter>ヘッダー ファイル\class.h</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CEffect.h">
+      <Filter>ヘッダー ファイル\class.h</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CPartySelect.h">
+      <Filter>ヘッダー ファイル\class.h\CStage</Filter>
+    </ClInclude>
+    <ClInclude Include="src\enum.h">
+      <Filter>ヘッダー ファイル\class.h</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
