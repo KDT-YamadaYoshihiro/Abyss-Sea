@@ -38,7 +38,7 @@ void CResult::Update()
 		// 初期化
 		levelUpDiff.assign(party.size(), 0); 
 
-		// 経験値100以上で1LvUp
+		// 経験値MaxExp以上で1LvUp
 		for (size_t i = 0; i < party.size(); i++) {
 			auto& p = party[i];
 			p->addExp(preMamber);
@@ -47,7 +47,6 @@ void CResult::Update()
 			int beforeLevel = p->getLv();
 			// レベル30以上ならレベルアップは終了する
 				while (p->getLv() < LV_MAX && p->getExp() >= p->getMaxExp()) {
-					p->levelUp();
 					if (players[i]->getId() == p->getId()) {
 						players[i]->levelUp();
 					}
