@@ -46,13 +46,12 @@ void CResult::Update()
 			// レベルが上がる前のレベルを記録
 			int beforeLevel = p->getLv();
 			// レベル30以上ならレベルアップは終了する
-			if (p->getLv() < LV_MAX) {
-				while (players[i]->getExp() <= players[i]->getMaxExp()) {
-					if (players[i]->getId() == p->getId()) {
-						players[i]->levelUp();
-					}
+			while (p->getLv() < LV_MAX && players[i]->getExp() >= players[i]->getMaxExp()) {
+				if (players[i]->getId() == p->getId()) {
+					players[i]->levelUp();
 				}
 			}
+			
 			
 			// レベルアップ後のレベルを記録
 			int afterLevel = p->getLv();

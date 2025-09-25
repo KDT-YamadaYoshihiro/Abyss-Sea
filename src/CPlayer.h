@@ -34,13 +34,13 @@ public:
 
 	// コンストラクタ
 	Player(int id, const std::string& name, int hp, int atk, int def,
-		int agr, int lv, int exp, const SkillData& skill) 
-		: Character(id,name,hp,atk, def, agr,lv, exp, skill),
+		int agr, int lv, int exp, const SkillData& skill)
+		: Character(id, name, hp, atk, def, agr, lv, exp, skill),
 		posX(0),
-		posY(0)
+		posY(0),
+		maxExp(100)
 	{
 
-		maxExp = getMaxExp();
 		minDamage = MIN_DAMAGE;
 
 		ui =std::make_shared<UI>();
