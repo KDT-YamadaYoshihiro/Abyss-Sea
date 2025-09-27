@@ -48,11 +48,11 @@ void CStage::Render()
 	DrawTriangle(TrX1, TrY1, TrX1 - 50, TrY2, TrX1 - 50, TrY3, GetColor(255, 0, 0), true);
 
 	// åàíËÉ{É^ÉìÅiéläpÅj
-	SetFontSize(50);
-	DrawFormatString(boxX, boxY, GetColor(255, 255, 255), "<íßêÌ>");
+	SetFontSize(FONT_BIGSIZE);
+	ui->Button(boxX,boxY, boxX + boxSizeX, boxY + boxSizeY, CLoad::Instance().getButtonGrh(CHALLEMGE));
 
 	// ÉXÉeÅ[ÉWñº
-	SetFontSize(50);
+	SetFontSize(FONT_BIGSIZE);
 	DrawFormatString(posX[STAGE1], posY[STAGE1], GetColor(255, 255, 255), "Åystage1:ïYÇ§ãõâeÅHÅz");
 	DrawFormatString(posX[STAGE2], posY[STAGE2], GetColor(255, 255, 255), "Åystage2:ìﬁóéÇÃíÍÇÃÉÇÉmÅz");
 	DrawFormatString(posX[STAGE3], posY[STAGE3], GetColor(255, 255, 255), "Åystage3:ê[ï£ÇÃã∞ï|Åz");

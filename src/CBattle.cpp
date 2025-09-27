@@ -113,7 +113,8 @@ void CBattle::Render()
 
 		// 行動キャンセル用のボタン
 		SetFontSize(FONT_BIGSIZE);
-		DrawFormatString(WINDOW_W - 160, 70, GetColor(255, 255, 255), "<戻る>");
+		ui->Button(boxX, boxY, boxX + sizeW, boxY + sizeH, CLoad::Instance().getButtonGrh(BACK));
+
 
 		for (auto& t : TargetList) {
 			Position pos = GetCharacterCenter(t);

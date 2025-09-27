@@ -78,10 +78,10 @@ public:
 		}
 
 		// 決定ボタン座標
-		boxX = 900.0f;
-		boxY = 600.0f;
+		boxX = 1000.0f;
+		boxY = 700.0f;
 		boxSizeX = 200.0f;
-		boxSizeY = 100.0f;
+		boxSizeY = 80.0f;
 
 		// ステージ番号
 		stageNum = 0;

@@ -22,6 +22,8 @@ class CLoad {
 
 	// メニューボタン
 	int menuBT;
+	// 各種ボタン
+	int button[BUTTON_MAX];
 
 	//　プレイヤー関連
 	int PlayerGrh[PLAYER_MAX];
@@ -55,6 +57,12 @@ class CLoad {
 		sklButton = LoadGraph("data/ui/sklB.jpg");
 		// メニューボタン
 		menuBT = LoadGraph("data/bg/menu.png");
+
+		for (int i = 0; i < BUTTON_MAX; i++) {
+			char filepath[64];
+			sprintf_s(filepath, "data/ui/ui_%d.png", i);
+			button[i] = LoadGraph(filepath);
+		}
 
 		for (int i = 0; i < AMOUNT_MAX; i++) {
 			char filepath[64];
@@ -164,6 +172,8 @@ public:
 	int getSklButtonGrh() const { return sklButton; }
 	// メニューボタン
 	int getMenuButton() const { return menuBT; }
+	// ボタン
+	int getButtonGrh(int arg_index) const { return button[arg_index]; }
 	// アイコン枠
 	int getAmountGrh(int arg_index) const { return amount[arg_index]; }
  	// プレイヤー

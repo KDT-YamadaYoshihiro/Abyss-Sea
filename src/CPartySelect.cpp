@@ -14,12 +14,15 @@ void CPartySelect::Update()
 		if (frame == 30 && CheckBoxClick(boxX, boxY, sizeW, sizeH)) {
 			// フェードアウトスタート関数
 			fade->fadeStart(fade->FADE_CLAUSE);
+			screen_change = true;
 		}
 
 		// 戻るボタンでスクリーンをステージ選択画面に切り替える
-		if (frame == 30 && CheckBoxClick(20, 20, 200, 100)) {
+		if (frame == 30 && CheckBoxClick(20, 20, sizeW, sizeH)) {
 			se->PlaySe(CLoad::Instance().getSeHandle(SE_CANCEL));
-			Manager::Instance().ChangeScreen<CStage>();
+			// フェードアウトスタート関数
+			fade->fadeStart(fade->FADE_CLAUSE);
+			screen_change = false;
 		}
 
 		// パーティー枠をクリックで変更モードに（全キャラクター一覧を展開）
@@ -88,8 +91,13 @@ void CPartySelect::Update()
 
 	if (fade->checkClause(WINDOW_W)) {
 		Manager::Instance().setParty(party);
-		Manager::Instance().ChangeScreen<CBattle>();
 		bgm->stopBgm(CLoad::Instance().getBgmHandle(BGM_START));
+		if (screen_change) {
+			Manager::Instance().ChangeScreen<CBattle>();
+		}
+		else {
+			Manager::Instance().ChangeScreen<CStage>();
+		}
 	}
 
 }
@@ -104,7 +112,7 @@ void CPartySelect::Render()
 			int posX = baseX + spacingX * i;
 			int posY = baseY;
 
-			SetFontSize(30);
+			SetFontSize(FONT_SIZE);
 			std::string name = (party[i] ? party[i]->getName() : "未設定");
 
 			// 現在のパーティーメンバーのbody画像を表示。
@@ -129,12 +137,12 @@ void CPartySelect::Render()
 		}
 
 		// 推奨LEVEL表示
-		SetFontSize(30);
+		SetFontSize(FONT_SIZE);
 		DrawFormatString(textPosX, textPosY, GetColor(255, 255, 255), "推奨レベル:%2d", Suggest);
 
 		// バトル開始ボタン
-		SetFontSize(50);
-		DrawFormatString(boxX, boxY, GetColor(255, 255, 255), "<バトル開始>");
+		SetFontSize(FONT_BIGSIZE);
+		ui->Button(boxX, boxY, boxX + sizeW, boxY + sizeH, CLoad::Instance().getButtonGrh(START));
 
 	}
 	else if (uiState == PartyUIState::SELECTING) {
@@ -176,14 +184,15 @@ void CPartySelect::Render()
 		DrawFormatString(textPosX, textPosY, GetColor(255, 255, 255), "推奨レベル:%2d", Suggest);
 
 		// 変更決定ボタン
-		SetFontSize(50);
-		DrawFormatString(boxX, boxY, GetColor(255, 255, 255), "<決定>");
+		SetFontSize(FONT_BIGSIZE);
+		ui->Button(boxX, boxY, boxX + sizeW, boxY + sizeH, CLoad::Instance().getButtonGrh(DECISION));
 
 	}
 
 	// ステージ選択画面に戻るボタン
 	SetFontSize(50);
-	DrawFormatString(20, 10, GetColor(255, 255, 255), "<戻る>");
+	ui->Button(20, 20, 20 + sizeW, 20 + sizeH, CLoad::Instance().getButtonGrh(BACK));
+
 
 	fade->fadeCircleDraw(WINDOW_W / 2, WINDOW_H / 2);
 

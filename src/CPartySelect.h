@@ -56,6 +56,9 @@ class CPartySelect : public ScreenBase {
 	int textPosX = -1;
 	int textPosY = -1;
 
+	// 画面切り替え
+	bool screen_change;
+
 public:
 
 	// 初期化
@@ -90,10 +93,10 @@ public:
 		selectedIndex = -1;
 
 		// 座標とサイズ
-		boxX = 900;
-		boxY = 720;
-		sizeW = 300;
-		sizeH = 100;
+		boxX = 1000;
+		boxY = 700;
+		sizeW = 200;
+		sizeH = 80;
 
 		frame = 0;
 
@@ -109,6 +112,8 @@ public:
 		Suggest = Manager::Instance().getSuggest();
 		textPosX = WINDOW_W - 250;
 		textPosY = 50;
+
+		screen_change = true;
 	}
 
 	// 更新処理

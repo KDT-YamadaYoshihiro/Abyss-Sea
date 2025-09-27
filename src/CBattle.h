@@ -112,6 +112,12 @@ class CBattle : public ScreenBase {
 	// 終了フレームカウント
 	int endFrame;
 
+	// 戻るボタンの座標、サイズ変数
+	int boxX = -1;
+	int boxY = -1;
+	int sizeW = -1;
+	int sizeH = -1;
+
 public:
 
 	// 初期化
@@ -145,6 +151,12 @@ public:
 		nameMax = 6;
 		blendNum = 50;
 		blendSpeed = 1;
+
+		boxX = WINDOW_W - 220;
+		boxY = 180;
+		sizeW = 200;
+		sizeH = 80;
+
 	};
 
 	// 更新処理
@@ -460,7 +472,7 @@ private:
 		
 		// 行動キャンセル
 		// 指定の場所をクリックした際（またはescキー）、行動選択に戻る。
-		if (CheckBoxClick(WINDOW_W - 130, 70, FONT_BIGSIZE * 2, FONT_BIGSIZE)) {
+		if (CheckBoxClick(boxX, boxY, sizeW, sizeH)) {
 			se->PlaySe(CLoad::Instance().getSeHandle(SE_CANCEL));
 			targetInput = TargetInput::ACTIONCHOICE;
 		}

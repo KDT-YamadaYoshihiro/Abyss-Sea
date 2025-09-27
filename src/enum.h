@@ -93,3 +93,18 @@ enum class PartyUIState {
 	NORMAL,     // パーティ表示のみ
 	SELECTING   // キャラ選択中（一覧展開）
 };
+
+// ui
+enum BUTTON {
+	CHALLEMGE,
+	BACK,
+	YES,
+	NO,
+	CONTINUE,
+	GIVEUP,
+	SETTING,
+	START,
+	DECISION,
+
+	BUTTON_MAX
+};
