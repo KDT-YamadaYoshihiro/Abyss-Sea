@@ -154,28 +154,43 @@ void CBattle::Render()
 		case CBattle::MenuState::NONE:
 
 			SetFontSize(FONT_BIGSIZE);
-			DrawFormatString(WINDOW_W / 2 - (FONT_BIGSIZE * 1.5) , 250, GetColor(255, 255, 255), "続ける");
-			DrawFormatString(WINDOW_W / 2 - (FONT_BIGSIZE * 1.5), 350, GetColor(255, 255, 255), "再挑戦");
-			DrawFormatString(WINDOW_W / 2 - (FONT_BIGSIZE * 2), 450, GetColor(255, 255, 255), "リタイア");
-			DrawFormatString(WINDOW_W / 2 - FONT_BIGSIZE, 550, GetColor(255, 255, 255), "設定");
+
+			ui->Button(buttonX, buttonY, buttonX + sizeW, buttonY + sizeH, CLoad::Instance().getButtonGrh(CONTINUE));
+			ui->Button(buttonX, buttonY + 100, buttonX + sizeW, buttonY + 100 + sizeH, CLoad::Instance().getButtonGrh(RETRY));
+			ui->Button(buttonX, buttonY + 200, buttonX + sizeW, buttonY + 200 + sizeH, CLoad::Instance().getButtonGrh(GIVEUP));
+			ui->Button(buttonX, buttonY + 300, buttonX + sizeW, buttonY + 300 + sizeH, CLoad::Instance().getButtonGrh(SETTING));
+			
+
 
 			break;
 		case CBattle::MenuState::RETRY:
 
 			// 文字
 			SetFontSize(FONT_BIGSIZE);
-			DrawFormatString(WINDOW_W / 2 - (FONT_BIGSIZE *4),		WINDOW_H / 2 - (FONT_BIGSIZE * 1.5), GetColor(255, 255, 255), "再挑戦しますか？");
-			DrawFormatString(WINDOW_W / 2 - (FONT_BIGSIZE * 3),	WINDOW_H / 2 + (FONT_BIGSIZE * 1.5), GetColor(255, 255, 255), "はい");
-			DrawFormatString(WINDOW_W / 2 + FONT_BIGSIZE,			WINDOW_H / 2 + (FONT_BIGSIZE * 1.5), GetColor(255, 255, 255), "いいえ");
+			DrawFormatString(WINDOW_W / 2 - (FONT_BIGSIZE * 4),		WINDOW_H / 2 - (FONT_BIGSIZE * 1.5), GetColor(255, 255, 255), "再挑戦しますか？");
+
+			{
+				int x1 = WINDOW_W / 2 - (FONT_BIGSIZE * 6);
+				int x2 = WINDOW_W / 2 + (FONT_BIGSIZE * 2.5);
+				int y = WINDOW_H / 2 + (FONT_BIGSIZE * 1.5);
+				ui->Button(x1, y, x1 + sizeW, y + sizeH, CLoad::Instance().getButtonGrh(YES));
+				ui->Button(x2, y, x2 + sizeW, y + sizeH, CLoad::Instance().getButtonGrh(NO));
+			}
 
 			break;
+
 		case CBattle::MenuState::RETIRE:
 
 			// 文字
 			SetFontSize(FONT_BIGSIZE);
 			DrawFormatString(WINDOW_W / 2 - (FONT_BIGSIZE * 4.5), WINDOW_H / 2 - (FONT_BIGSIZE * 1.5), GetColor(255, 255, 255), "リタイアしますか？");
-			DrawFormatString(WINDOW_W / 2 - (FONT_BIGSIZE * 3), WINDOW_H / 2 + (FONT_BIGSIZE * 1.5), GetColor(255, 255, 255), "はい");
-			DrawFormatString(WINDOW_W / 2 + FONT_BIGSIZE, WINDOW_H / 2 + (FONT_BIGSIZE * 1.5), GetColor(255, 255, 255), "いいえ");
+			{
+				int x1 = WINDOW_W / 2 - (FONT_BIGSIZE * 6);
+				int x2 = WINDOW_W / 2 + (FONT_BIGSIZE * 2.5);
+				int y = WINDOW_H / 2 + (FONT_BIGSIZE * 1.5);
+				ui->Button(x1, y, x1 + sizeW, y + sizeH, CLoad::Instance().getButtonGrh(YES));
+				ui->Button(x2, y, x2 + sizeW, y + sizeH, CLoad::Instance().getButtonGrh(NO));
+			}
 
 			break;
 
@@ -235,7 +250,8 @@ void CBattle::Render()
 				DrawTriangle(trPosX[i], trPosY[i], x1,y1,x2,y2, GetColor(255, 255, 255), true);
 			}
 
-			DrawFormatString(WINDOW_W / 2 - (FONT_BIGSIZE*2), WINDOW_H - 200, GetColor(255, 255, 255), "<決定>");
+			ui->Button(WINDOW_W / 2 - (FONT_BIGSIZE * 2), WINDOW_H - 100, WINDOW_W / 2 - (FONT_BIGSIZE * 2) + sizeW, WINDOW_H - 100 + sizeH, CLoad::Instance().getButtonGrh(DECISION));
+
 
 			break;
 

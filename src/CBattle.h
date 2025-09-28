@@ -118,6 +118,10 @@ class CBattle : public ScreenBase {
 	int sizeW = -1;
 	int sizeH = -1;
 
+	// 他ボタンの座標
+	int buttonX = -1;
+	int buttonY = -1;
+
 public:
 
 	// 初期化
@@ -157,6 +161,8 @@ public:
 		sizeW = 200;
 		sizeH = 80;
 
+		buttonX = WINDOW_W / 2 - (FONT_BIGSIZE * 1.5);
+		buttonY = 250;
 	};
 
 	// 更新処理
@@ -773,27 +779,27 @@ private:
 
 			// 選択画面の表示
 			// バトル再開
-			if (CheckBoxClick(WINDOW_W / 2 - (FONT_BIGSIZE * 1.5), 250, FONT_BIGSIZE * 3, FONT_BIGSIZE)) {
+			if (CheckBoxClick(buttonX, buttonY, sizeW, sizeH)) {
 				state = State::BATTLE;
 				// se再生
 				se->PlaySe(CLoad::Instance().getSeHandle(SE_CLICK));
 			}
 			// 再挑戦
-			if (CheckBoxClick(WINDOW_W / 2 - (FONT_BIGSIZE * 1.5), 350, FONT_BIGSIZE * 3, FONT_BIGSIZE)) {
+			if (CheckBoxClick(buttonX, buttonY + 100, sizeW, sizeH)) {
 				// モード変更
 				menuState = MenuState::RETRY;
 				// se再生
 				se->PlaySe(CLoad::Instance().getSeHandle(SE_CLICK));
 			}
 			// リタイア
-			if (CheckBoxClick(WINDOW_W / 2 - (FONT_BIGSIZE * 2), 450, FONT_BIGSIZE * 4, FONT_BIGSIZE)) {
+			if (CheckBoxClick(buttonX, buttonY + 200, sizeW, sizeH)) {
 				// モード変更
 				menuState = MenuState::RETIRE;
 				// se再生
 				se->PlaySe(CLoad::Instance().getSeHandle(SE_CLICK));
 			}
 			// （設定）
-			if (CheckBoxClick(WINDOW_W / 2 - FONT_BIGSIZE, 550, FONT_BIGSIZE * 2, FONT_BIGSIZE)) {
+			if (CheckBoxClick(buttonX, buttonY + 300, sizeW, sizeH)) {
 				menuState = MenuState::SETTING;
 				// se再生
 				se->PlaySe(CLoad::Instance().getSeHandle(SE_CLICK));
@@ -806,7 +812,7 @@ private:
 
 			// 再確認
 			// はい
-			if (CheckBoxClick(WINDOW_W / 2 - (FONT_BIGSIZE * 3), WINDOW_H / 2 + (FONT_BIGSIZE * 1.5), FONT_BIGSIZE * 2, FONT_BIGSIZE)) {
+			if (CheckBoxClick(WINDOW_W / 2 - (FONT_BIGSIZE * 6), WINDOW_H / 2 + (FONT_BIGSIZE * 1.5), sizeW, sizeH)) {
 				// fadeを軌道
 				fade->fadeStart(fade->FADE_CLAUSE);
 				// 再挑戦
@@ -818,7 +824,7 @@ private:
 
 			}
 			// いいえ
-			if (CheckBoxClick(WINDOW_W / 2 + FONT_BIGSIZE, WINDOW_H / 2 + (FONT_BIGSIZE * 1.5), FONT_BIGSIZE * 3, FONT_BIGSIZE)) {
+			if (CheckBoxClick(WINDOW_W / 2 + (FONT_BIGSIZE * 2.5), WINDOW_H / 2 + (FONT_BIGSIZE * 1.5), sizeW, sizeH)) {
 				// MENUの選択画面に戻る
 				menuState = MenuState::NONE;
 				// se再生
@@ -831,7 +837,7 @@ private:
 
 			// 再確認
 			// はい
-			if (CheckBoxClick(WINDOW_W / 2 - (FONT_BIGSIZE * 3), WINDOW_H / 2 + (FONT_BIGSIZE * 1.5), FONT_BIGSIZE * 2, FONT_BIGSIZE)) {
+			if (CheckBoxClick(WINDOW_W / 2 - (FONT_BIGSIZE * 6), WINDOW_H / 2 + (FONT_BIGSIZE * 1.5), sizeW, sizeH)) {
 
 				// Party全員を死亡判定に
 				for (auto& p : Manager::Instance().getParty()) {
@@ -845,7 +851,7 @@ private:
 				bgm->stopBgm(CLoad::Instance().getBgmHandle(1 + Manager::Instance().getStageScreen()));
 			}
 			// いいえ
-			if (CheckBoxClick(WINDOW_W / 2 + FONT_BIGSIZE, WINDOW_H / 2 + (FONT_BIGSIZE * 1.5), FONT_BIGSIZE * 3, FONT_BIGSIZE)) {
+			if (CheckBoxClick(WINDOW_W / 2 + (FONT_BIGSIZE * 2.5), WINDOW_H / 2 + (FONT_BIGSIZE * 1.5), sizeW, sizeH)) {
 				// MENUの選択画面に戻る
 				menuState = MenuState::NONE;
 				// se再生
@@ -908,7 +914,7 @@ private:
 			}
 
 			// 決定ボタンを押した際
-			if (CheckBoxClick(WINDOW_W / 2 - (FONT_BIGSIZE * 2), WINDOW_H - 200, FONTSIZE * 3, FONTSIZE)) {
+			if (CheckBoxClick(WINDOW_W / 2 - (FONT_BIGSIZE * 2), WINDOW_H - 100, sizeW, sizeH)) {
 				// MENUの選択画面に戻る
 				menuState = MenuState::NONE;
 				se->PlaySe(CLoad::Instance().getSeHandle(SE_CLICK));
