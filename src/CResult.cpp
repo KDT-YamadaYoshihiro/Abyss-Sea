@@ -69,7 +69,7 @@ void CResult::Update()
 		// (CResult ->	CStage
 		//				CBattle
 		//				CTitle )
-	if (CheckBoxClick(700, 700, TEXT_SIZE * 2, TEXT_SIZE)) {
+	if (CheckBoxClick(box, box, sizeW, sizeH)) {
 
 		auto& players = Manager::Instance().getParty();
 
@@ -184,6 +184,7 @@ void CResult::Render()
 
 	// Œˆ’èƒ{ƒ^ƒ“
 	DrawFormatString(700, 700, GetColor(255, 255, 255), "Œˆ’è");
+	ui->Button(box, box, box + sizeW, box + sizeH, CLoad::Instance().getButtonGrh(DECISION));
 
 }
 

@@ -29,6 +29,9 @@ class CResult : public ScreenBase {
 	// 各キャラクターのレベルアップ数
 	std::vector<int> levelUpDiff;
 
+	//　UI
+	std::shared_ptr<UI> ui;
+
 	// 音
 	std::shared_ptr<Sound>bgm;
 	std::shared_ptr<Sound> se;
@@ -66,6 +69,11 @@ class CResult : public ScreenBase {
 	// 画面切り替え防止用フレームカウント
 	int ResultFrame = -1;
 
+	// 決定ボタン座標
+	int box = -1;
+	int sizeW = -1;
+	int sizeH = -1;
+
 public:
 	
 	// 初期化	
@@ -74,6 +82,9 @@ public:
 		// 音源
 		bgm = Manager::Instance().getbgm();
 		se = Manager::Instance().getSe();
+
+		// UI
+		ui = std::make_shared<UI>();
 
 		// フェード
 		fade = Manager::Instance().getFade();
@@ -108,6 +119,9 @@ public:
 		//　初期化
 		this->Init();
 
+		box = 700;
+		sizeW = 200;
+		sizeH = 80;
 	}
 
 private:
