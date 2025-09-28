@@ -86,7 +86,8 @@ void CBattle::Render()
 		players[i]->setPosX(x);
 		players[i]->setPosY(y);
 		//	–{‘Ì
-		players[i]->Render(x, y, CLoad::Instance().getPlayerGrh(i));
+		int id = players[i]->getId() / 10000 - 11;
+		players[i]->Render(x, y, CLoad::Instance().getPlayerGrh(id));
 		
 	}
 	

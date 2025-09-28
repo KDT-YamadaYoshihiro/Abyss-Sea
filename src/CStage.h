@@ -84,7 +84,7 @@ public:
 		boxSizeY = 80.0f;
 
 		// ステージ番号
-		stageNum = 0;
+		stageNum = STAGE1;
 
 		// 三角形の座標
 		TrX1 = 150.0f;

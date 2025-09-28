@@ -66,6 +66,7 @@ void CStage::Triangle()
 
 	// ‰~‚ªClick‚³‚ê‚½‚ç
 	for (int i = 0; i < CIRCLEMAX; i++) {
+
 		if (CheckBoxClick(posX[i],posY[i],700,50)) {
 			// ŽOŠpŒ`‚ÌÀ•W‚ðClick‚µ‚½‰~‚Ìã•”‚É‚·‚é
 			stageNum = i;
