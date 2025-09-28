@@ -171,6 +171,40 @@ public:
 		DrawFormatString(arg_x + 60, arg_y + 30, GetColor(255, 255, 255), "%s",text);
 	}
 
+	//　改行関数
+	// テキストと改行する文字数
+	std::string LineBreakText(const std::string& text, size_t lineFew)
+	{
+
+		std::string result;
+		std::size_t count = 0;
+
+		for (char ch : text) {
+			result += ch;
+			count++;
+
+			// 指定文字数ごとに改行
+			if (count >= lineFew * 2) {
+				result += '\n';
+				count = 0;
+			}
+		}
+
+		return result;
+
+	}
+
+	// 改行や不要な制御文字を取り除く
+	std::string sanitize(const std::string& str) {
+		std::string result;
+		for (char ch : str) {
+			// '\r' を無視する
+			if (ch != '\r') {
+				result += ch;
+			}
+		}
+		return result;
+	}
 };
 
 
@@ -278,4 +312,6 @@ public:
 		return check;
 
 	}
+
+
 };

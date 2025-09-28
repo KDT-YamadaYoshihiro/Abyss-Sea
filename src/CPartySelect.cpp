@@ -117,7 +117,8 @@ void CPartySelect::Render()
 
 			// 現在のパーティーメンバーのbody画像を表示。
 			if (party[i]) {
-				DrawRectGraph(posX, posY, scrX, scrY, grhSizeX, grhSizeY, CLoad::Instance().getPbodyGrh(i), TRUE);
+				int id = party[i]->getId() / 10000 - 11;
+				DrawRectGraph(posX, posY, scrX, scrY, grhSizeX, grhSizeY, CLoad::Instance().getPbodyGrh(id), TRUE);
 				// 枠の表示
 				DrawExtendGraph(posX, posY, posX + grhSizeX, posY + grhSizeY, CLoad::Instance().getAmountGrh(BODY), true);
 			}
@@ -176,7 +177,8 @@ void CPartySelect::Render()
 			DrawString(infoX, infoY + 40, buf, GetColor(255, 255, 255));
 
 			DrawString(infoX, infoY + 80, ("スキル: " + c->getSkillName()).c_str(), GetColor(255, 255, 255));
-			DrawString(infoX, infoY + 120, ("説明: " + c->getDetails()).c_str(), GetColor(255, 255, 255));
+			std::string detail = ui->LineBreakText(c->getDetails(), 13);
+			DrawString(infoX, infoY + 120, ("説明: " + detail).c_str(), GetColor(255, 255, 255));
 		}
 
 		// 推奨LEVEL表示
