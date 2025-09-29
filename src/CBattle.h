@@ -122,6 +122,9 @@ class CBattle : public ScreenBase {
 	int buttonX = -1;
 	int buttonY = -1;
 
+	// スキル説明の表示有無
+	bool skdescDraw = false;
+
 public:
 
 	// 初期化
@@ -163,6 +166,8 @@ public:
 
 		buttonX = WINDOW_W / 2 - (FONT_BIGSIZE * 1.5);
 		buttonY = 250;
+
+		skdescDraw = false;
 	};
 
 	// 更新処理
@@ -370,6 +375,7 @@ private:
 			if (sp->getSP() > 0) {
 				se->PlaySe(CLoad::Instance().getSeHandle(SE_CLICK));
 				arg_character->setActionChoice(SKILL);
+				skdescDraw = true;
 				targetInput = TargetInput::LISTCREATE;
 			}
 			else {
@@ -476,11 +482,13 @@ private:
 	// ターゲットの選択
 	void TargetChoice(std::shared_ptr<Character> arg_character) {
 		
+
 		// 行動キャンセル
 		// 指定の場所をクリックした際（またはescキー）、行動選択に戻る。
 		if (CheckBoxClick(boxX, boxY, sizeW, sizeH)) {
 			se->PlaySe(CLoad::Instance().getSeHandle(SE_CANCEL));
 			targetInput = TargetInput::ACTIONCHOICE;
+			skdescDraw = false;
 		}
 
 		// 単一ターゲット選択
@@ -502,6 +510,7 @@ private:
 				arg_character->takeAction(v);
 
 				if (arg_character->getActionChoice() == SKILL) {
+
 					switch (arg_character->getEfType())
 					{
 					case EffectType::EF_NONE:
@@ -578,6 +587,9 @@ private:
 			// チェンジモードをfalseに
 			p->setAnimChange(false);
 		}
+
+		// 説明の非表示
+		skdescDraw = false;
 
 		// ターゲット選択モードをオフ
 		targetInput = TargetInput::P_NONE;

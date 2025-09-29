@@ -116,13 +116,22 @@ void CBattle::Render()
 		SetFontSize(FONT_BIGSIZE);
 		ui->Button(boxX, boxY, boxX + sizeW, boxY + sizeH, CLoad::Instance().getButtonGrh(BACK));
 
-
 		for (auto& t : TargetList) {
 			Position pos = GetCharacterCenter(t);
 			// 赤色の枠
 			DrawCircle(pos.x, pos.y, 40, GetColor(255, 0, 0), FALSE); 
 		}
+
 	}
+	
+	// スキル選択時説明の表示
+	if (skdescDraw) {
+		// 説明の表示
+		SetFontSize(FONT_MINSIZE);
+		DrawFormatString(100, 200, GetColor(255, 255, 255), turnOrder[currentTurnIndex]->getSkillName().c_str());
+		DrawFormatString(100, 200 + FONT_MINSIZE, GetColor(255, 255, 255), turnOrder[currentTurnIndex]->getDetails().c_str());
+	}
+
 
 	// 
 	if (targetInput == TargetInput::ACTIONCHOICE) {
