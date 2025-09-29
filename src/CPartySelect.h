@@ -102,7 +102,7 @@ public:
 
 		// ‰æ‘œ•\¦—p‚Ì•Ï”
 		baseX = 100;
-		baseY = 150;
+		baseY = 180;
 		scrX = 60;
 		scrY = 0;
 		grhSizeX = 250;

@@ -105,6 +105,8 @@ void CPartySelect::Update()
 // 描画処理
 void CPartySelect::Render()
 {
+	DrawString(100, 110, "パーティー編成", GetColor(255, 255, 255), true);
+
 	if (uiState == PartyUIState::NORMAL) {
 		// パーティー表示中
 		for (int i = 0; i < (int)party.size(); i++) {
