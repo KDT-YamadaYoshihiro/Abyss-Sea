@@ -1,10 +1,8 @@
 ﻿#pragma once
 #include "UI.h"
-
 #include "CStage.h"
 #include "CharacterFactory.h"
 #include "Character.h"
-
 
 // バトルスクリーンクラス
 class CBattle : public ScreenBase {

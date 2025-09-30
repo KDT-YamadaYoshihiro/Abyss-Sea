@@ -56,6 +56,8 @@ void CStage::Render()
 	DrawFormatString(posX[STAGE1], posY[STAGE1], GetColor(255, 255, 255), "ystage1:•Y‚¤‹›‰eHz");
 	DrawFormatString(posX[STAGE2], posY[STAGE2], GetColor(255, 255, 255), "ystage2:“Þ—Ž‚Ì’ê‚Ìƒ‚ƒmz");
 	DrawFormatString(posX[STAGE3], posY[STAGE3], GetColor(255, 255, 255), "ystage3:[•£‚Ì‹°•|z");
+
+	ui->DrawStage(posX[STAGE1], posY[STAGE1], 300, 500, 1, STAGE1 + 1, "y•Y‚¤‹›‰ez", CLoad::Instance().getStageFrameGrh());
 	
 	// ƒtƒF[ƒh
 	fade->fadeCircleDraw(WINDOW_W / 2, WINDOW_H / 2);

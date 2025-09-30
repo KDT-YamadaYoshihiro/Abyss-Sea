@@ -28,7 +28,7 @@ class Manager {
 	int Exp = -1;
 
 	// mouseÀ•W
-	bool window_mode = false;
+	bool window_mode = true;
 	int mouseX = -1;
 	int mouseY = -1;
 

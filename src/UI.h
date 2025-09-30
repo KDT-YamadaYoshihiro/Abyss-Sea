@@ -13,7 +13,9 @@
 // SP用の円のサイズ
 #define SP_RADIUS	20
 
-
+// ステージ枠のサイズ調整数
+#define STAGE_START		30
+#define STAGE_GOAL		50
 
 // UIクラス
 class UI {
@@ -164,29 +166,40 @@ public:
 
 	};
 
-	// ステージ選択枠
-	//void DrawStage(int arg_x, int arg_y, int arg_sizeX, int arg_sizeY,int arg_suggest, int arg_number,std::string arg_stageName, int arg_handle) {
-	//
-	//	// ベースを描画
-	//	int sizeX = arg_x + arg_sizeX;
-	//	int sizeY = arg_y + arg_sizeY;
-	//	DrawBox(arg_x, arg_y, sizeX, sizeY, GetColor(0, 0, 0), true);
-	//	// 枠の描画
-	//	DrawExtendGraph(arg_x, arg_y, sizeX, sizeY, arg_handle, true);
-	//
-	//	//　ステージナンバーの表示
-	//	SetFontSize(30);
-	//	DrawFormatString(,,GetColor(255,255,255),("stage" + arg_number));
-	//
-	//	// 推奨レベルの表示
-	//	SetFontSize(10);
-	//	DrawFormatString(,,GetColor(255,255,255),"推奨レベル:%2d", arg_suggest);
+	 //ステージ選択枠
+	void DrawStage(int arg_x, int arg_y, int arg_sizeX, int arg_sizeY,int arg_suggest, int arg_number,std::string arg_stageName, int arg_handle) {
+	
+		//　ステージナンバーの表示
+		SetFontSize(30);
+		DrawFormatString(arg_x + 90, arg_y + 30,GetColor(255,255,255),"stage%02d",arg_number);
+	
+		// 推奨レベルの表示
+		SetFontSize(10);
+		DrawFormatString(arg_x + 20, arg_y + 50,GetColor(255,255,255),"推奨レベル:%2d", arg_suggest);
 
-	//	// ステージネームの表示
-	//	SetFontSize(30);
-	//	DrawFormatString(,,GetColor(255,255,255),arg_stageName.c_str());
+		// ステージネームの表示
+		SetFontSize(50);
+		int width = GetDrawStringWidth(arg_stageName.c_str(),-1);
+		int x2 = (arg_x + arg_sizeX / 2) - width / 2;
+		DrawFormatString( x2, arg_y + 200, GetColor(255,255,255),arg_stageName.c_str());
 
-	//}
+	}
+
+	// 枠の描画
+	void stageFrame(int arg_x, int arg_y, int arg_sizeX, int arg_sizeY, int arg_handle) {
+		// ベースを描画
+		int sizeX = arg_x + arg_sizeX;
+		int sizeY = arg_y + arg_sizeY;
+		DrawBox(arg_x, arg_y, sizeX, sizeY, GetColor(0, 0, 0), true);
+
+		// 枠の描画
+		int x = arg_x - STAGE_START;
+		int y = arg_y - STAGE_START;
+		int w = x + arg_sizeX + STAGE_GOAL;
+		int h = y + arg_sizeY + STAGE_GOAL;
+		DrawExtendGraph(x, y, w, h, arg_handle, true);
+
+	}
 
 	// ボタン
 	void DecButton(int arg_x, int arg_y, int arg_sizeW, int arg_sizeH, const TCHAR* text) {
