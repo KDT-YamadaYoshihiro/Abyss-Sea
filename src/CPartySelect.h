@@ -62,43 +62,35 @@ class CPartySelect : public ScreenBase {
 public:
 
 	// 初期化
-	CPartySelect() {
-
+	CPartySelect():
 		// UI生成
-		ui = std::make_shared<UI>();
-
+		ui(std::make_shared<UI>()),
 		// 音源
-		bgm = Manager::Instance().getbgm();
-		se = Manager::Instance().getSe();
+		bgm(Manager::Instance().getbgm()), 
+		se(Manager::Instance().getSe()),
+		// フェード
+		fade(Manager::Instance().getFade()),
+		// パーティメンバー
+		party(Manager::Instance().getParty()),
+		// 全キャラクター
+		allChara(Manager::Instance().getPlayers()),
+		// バトルスタート
+		uiState(PartyUIState::NORMAL),
+		selectedSlot(-1),
+		selectedIndex(-1),
+		// 座標とサイズ
+		boxX(1000),
+		boxY(700),
+		sizeW(200),
+		sizeH(80),
+		frame(0)
+	{
 
-		fade = Manager::Instance().getFade();
 
-
-		// 現在のパーティーメンバーをマネージャーから取得
-		party = Manager::Instance().getParty();
 		// パーティーが四人いるか確認
 		if (party.size() < 4) {
 			party.resize(4, nullptr);
 		}
-
-		// 全キャラ一覧を生成
-		int tableSize = Manager::Instance().getPlayers().size();
-
-		// 
-		allChara = Manager::Instance().getPlayers();
-
-		uiState = PartyUIState::NORMAL;
-
-		selectedSlot = -1;
-		selectedIndex = -1;
-
-		// 座標とサイズ
-		boxX = 1000;
-		boxY = 700;
-		sizeW = 200;
-		sizeH = 80;
-
-		frame = 0;
 
 		// 画像表示用の変数
 		baseX = 100;

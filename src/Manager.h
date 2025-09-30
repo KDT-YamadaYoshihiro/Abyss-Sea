@@ -33,11 +33,11 @@ class Manager {
 	int mouseY = -1;
 
 	// ‰¹—Êİ’è
-	int bgmVolume;
-	int seVolume;
+	int bgmVolume = -1;
+	int seVolume = -1;
 
 	// „§LEVEL
-	int Suggest;
+	int Suggest = -1;
 
 
     // ƒVƒ“ƒOƒ‹ƒgƒ“

@@ -61,43 +61,36 @@ public:
 
 
 	// 初期化
-	CStage() {
+	CStage()
+		:ui(std::make_shared<UI>()),
+		bgm(Manager::Instance().getbgm()),
+		se(Manager::Instance().getSe()),
+		fade(Manager::Instance().getFade()),
+		// 決定ボタン座標
+		boxX(1000.0f),		
+		boxY(700.0f),
+		boxSizeX(200.0f),
+		boxSizeY(80.0f),
+		// ステージ番号
+		stageNum(STAGE1),
+		// 三角形の座標
+		TrX1(150.0f),
+		TrY1(WINDOW_W / 2 - 350),
+		TrX2(TrX1 - 50),
+		TrY2(TrY1 - 50),
+		TrX3(TrX1 + 50),
+		TrY3(TrY1 - 50),
+		Suggest(0),
+		speed(0.0f),
+		vec(0.1f)
+	{
 		
-		ui = std::make_shared<UI>();
-
-		bgm = Manager::Instance().getbgm();
-		se = Manager::Instance().getSe();
-
-		fade = Manager::Instance().getFade();
-
 		bgm->PlayBgm(CLoad::Instance().getBgmHandle(BGM_START));
 		// 文字座標
 		for (int i = 0; i < CIRCLEMAX; i++) {
 			posX[i] = 100;
 			posY[i] = 200 + i * 100;
 		}
-
-		// 決定ボタン座標
-		boxX = 1000.0f;
-		boxY = 700.0f;
-		boxSizeX = 200.0f;
-		boxSizeY = 80.0f;
-
-		// ステージ番号
-		stageNum = STAGE1;
-
-		// 三角形の座標
-		TrX1 = 150.0f;
-		TrY1 = WINDOW_W / 2 - 350.0f;
-		TrX2 = TrX1 - 50;
-		TrY2 = TrY1 - 50;
-		TrX3 = TrX1 + 50;
-		TrY3 = TrY1 - 50;
-
-		Suggest = -1;
-
-		speed = 0.0f;
-		vec = 0.1f;
 	};
 
 	// デストラクタ

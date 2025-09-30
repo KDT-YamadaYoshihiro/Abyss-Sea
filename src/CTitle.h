@@ -16,9 +16,9 @@ class CTitle : public ScreenBase {
 
 	std::shared_ptr<Fade> fade;
 
-	float posX;
-	float posY;
-	float sway;
+	float posX = -1.0f;
+	float posY = -1.0f;
+	float sway = -1.0f;
 
 	int bgPosX[TWO];
 	int bgPosY[TWO];
@@ -29,12 +29,14 @@ public:
 
 	void Render() override;
 
-	CTitle() {
-
-		bgm = Manager::Instance().getbgm();
-		se = Manager::Instance().getSe();
-		fade = Manager::Instance().getFade();
-
+	CTitle():
+		bgm(Manager::Instance().getbgm()),
+		se(Manager::Instance().getSe()),
+		fade(Manager::Instance().getFade()),
+		posX(WINDOW_W / 2.0f),
+		posY(600.0f),
+		sway(1.0f)
+	{
 		for (int i = 0; i < TWO; i++) {
 			ui[i] = std::make_shared<UI>();
 			
@@ -44,10 +46,6 @@ public:
 			bgPosX[1] = WINDOW_W;
 			bgPosY[1] = 0;
 		}
-
-		posX = WINDOW_W / 2.0f;
-		posY = 600.0f;
-		sway = 1.0f;
 
 
 	};

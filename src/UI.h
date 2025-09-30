@@ -164,6 +164,22 @@ public:
 
 	};
 
+	// ステージ選択枠
+	void DrawStage(int arg_x, int arg_y, int arg_sizeX, int arg_sizeY,int arg_suggest, int arg_number,std::string arg_stageName) {
+	
+		// ベースを描画
+		int sizeX = arg_x + arg_sizeX;
+		int sizeY = arg_y + arg_sizeY;
+		DrawBox(arg_x, arg_y, sizeX, sizeY, GetColor(0, 0, 0), true);
+		// 枠の描画
+	
+		//　ステージナンバーの表示
+	
+		// 推奨レベルの表示
+	
+		// ステージネームの表示
+	}
+
 	// ボタン
 	void DecButton(int arg_x, int arg_y, int arg_sizeW, int arg_sizeH, const TCHAR* text) {
 		DrawLineBox(arg_x, arg_y, arg_x + arg_sizeW, arg_y + arg_sizeH, GetColor(255, 255, 255), true);

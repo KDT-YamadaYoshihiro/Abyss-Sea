@@ -128,19 +128,31 @@ class CBattle : public ScreenBase {
 public:
 
 	// 初期化
-	CBattle() {
+	CBattle() :
+		// ボタン座標
+		ButtonX(50),
+		atButtonY(WINDOW_H / 2),
+		skButtonY(atButtonY + 100),
+		ButtonSizeX(200),
+		ButtonSizeY(50),
+		clickFrame(0),
+		nameMax(6),
+		blendNum(50),
+		blendSpeed(1),
+		// UIボタン座標
+		boxX(WINDOW_W - 220),
+		boxY(180),
+		sizeW(200),
+		sizeH(80),
+		buttonX(WINDOW_W / 2 - (FONT_BIGSIZE * 1.5)),
+		buttonY(250),
+		skdescDraw(false)
+	{
 		
 		// 座標変数
 		for (int i = 0; i < PLAYER_MAX; i++) { pPosX[i] = 300 + (i % 2) * 50; pPosY[i] = WINDOW_H / 2 + 50; }
 		for (int i = 0; i < ENEMY_MAX; i++) { ePosX = WINDOW_W / 2 + 300; ePosY = WINDOW_H / 2 + 150; }
 		
-		// ボタン座標
-		ButtonX = 50;
-		atButtonY = WINDOW_H / 2;
-		skButtonY = atButtonY + (50 * 2);
-		ButtonSizeX = 200;
-		ButtonSizeY = 50;
-		speed = 5;
 
 		// 初期化関数
 		BattleInit();
@@ -153,21 +165,6 @@ public:
 		trPosY[SE_UP] = WINDOW_H / 2 - 120;
 		trPosX[SE_DOWN] = WINDOW_W / 2 + 260;
 		trPosY[SE_DOWN] = WINDOW_H / 2 + 70;
-
-		clickFrame = 0;
-		nameMax = 6;
-		blendNum = 50;
-		blendSpeed = 1;
-
-		boxX = WINDOW_W - 220;
-		boxY = 180;
-		sizeW = 200;
-		sizeH = 80;
-
-		buttonX = WINDOW_W / 2 - (FONT_BIGSIZE * 1.5);
-		buttonY = 250;
-
-		skdescDraw = false;
 	};
 
 	// 更新処理
