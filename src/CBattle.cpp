@@ -142,6 +142,10 @@ void CBattle::Render()
 		// スキルポイントの表示
 		ui->SkillPoint(100, 300, SP_RADIUS, sp->getSP(), sp->getMaxSP());
 	}
+
+	// 行動中のキャラクターのステータス
+	ui->SelectStatus(50, WINDOW_H - 600, 300, 500, CLoad::Instance().getPfaceGrh());
+
 	// メニューバーの表示
 	SetFontSize(FONT_BIGSIZE);
 	if (state == State::BATTLE) {

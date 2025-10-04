@@ -212,9 +212,6 @@ public:
 		int x2 = (arg_x + arg_sizeX / 2) - width / 2;
 		DrawFormatString(x2, arg_y + 40, GetColor(255, 255, 255), arg_stageName.c_str());
 
-		// 
-
-
 	}
 
 	// ボタン
@@ -222,6 +219,48 @@ public:
 		DrawLineBox(arg_x, arg_y, arg_x + arg_sizeW, arg_y + arg_sizeH, GetColor(255, 255, 255), true);
 		SetFontSize(30);
 		DrawFormatString(arg_x + 60, arg_y + 30, GetColor(255, 255, 255), "%s",text);
+	}
+
+	// バトル中のステータス表示
+	void SelectStatus(int arg_x, int arg_y, int arg_sizeX, int arg_sizeY,int arg_handle,
+		std::string name, int arg_atk, int arg_def, int arg_agr) {
+
+		const int ICON_SIZE = 60;  // アイコンの表示サイズ
+
+		//　背景（黒）
+		int sizeX = arg_x + arg_sizeX;
+		int sizeY = arg_y + arg_sizeY;
+		DrawBox(arg_x, arg_y, sizeX, sizeY, GetColor(0,0,0),true);
+		// 枠(白)
+		DrawLine(arg_x, arg_y, sizeX, sizeY, GetColor(255, 255, 255), true);
+
+		// アイコン画像
+		int drawX = arg_x + 10;
+		int drawY = arg_y + 10;
+		DrawExtendGraph(drawX, drawY, drawX + ICON_SIZE, drawY + ICON_SIZE, arg_handle, TRUE);
+
+		// status
+		// NAME
+		int y = drawY + ICON_SIZE + 10;
+		DrawFormatString(drawX, y, GetColor(255, 255, 255),name.c_str(), true);
+
+		// Lv
+		DrawFormatString(drawX + 30, y, GetColor(255, 255, 255), "Lv.%2d", true);
+
+		const int draw_max = 3;
+		for (int i = 0; i < draw_max; i++) {
+			int x = drawX + ICON_SIZE;
+			int y[draw_max];
+			y[i] = arg_x + 10 + (i * 30);
+			// ATK
+			DrawFormatString(x, y[0], GetColor(255, 255, 255), "ATK.%4d",arg_atk, true);
+
+			// DEF
+			DrawFormatString(drawX, y[1], GetColor(255, 255, 255), "DEF.%4d", arg_def, true);
+
+			// AGR
+			DrawFormatString(drawX, y[2], GetColor(255, 255, 255), "AGR.%4d", arg_agr, true);
+		}
 	}
 
 	//　改行関数
