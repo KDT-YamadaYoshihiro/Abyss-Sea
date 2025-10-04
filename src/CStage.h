@@ -45,13 +45,19 @@ class CStage : public ScreenBase {
 	float TrY3 = -1;
 
 	// 推奨レベル表示
-	int Suggest = -1;
+	int suggest = -1;
 
 	// パーティーメンバーの確認
 	bool selectMode = false;
 
 	float speed = -1.0f;
 	float vec = -1.0f;
+
+	// ステージ詳細表
+	int doc_posX[STAGE_MAX];
+	int doc_posY[STAGE_MAX];
+	std::string doc_name[STAGE_MAX];
+
 
 public:
 
@@ -72,7 +78,7 @@ public:
 		boxSizeX(200.0f),
 		boxSizeY(80.0f),
 		// ステージ番号
-		stageNum(STAGE1),
+		stageNum(-1),
 		// 三角形の座標
 		TrX1(150.0f),
 		TrY1(WINDOW_W / 2 - 350),
@@ -80,7 +86,7 @@ public:
 		TrY2(TrY1 - 50),
 		TrX3(TrX1 + 50),
 		TrY3(TrY1 - 50),
-		Suggest(0),
+		suggest(0),
 		speed(0.0f),
 		vec(0.1f)
 	{
@@ -88,9 +94,14 @@ public:
 		bgm->PlayBgm(CLoad::Instance().getBgmHandle(BGM_START));
 		// 文字座標
 		for (int i = 0; i < CIRCLEMAX; i++) {
-			posX[i] = 100;
-			posY[i] = 200 + i * 100;
+			posX[i] = 150;
+			posY[i] = 200 + i * 150;
 		}
+
+		doc_name[STAGE1] = "【漂う魚影】";
+		doc_name[STAGE2] = "【奈落の底のモノ】";
+		doc_name[STAGE3] = "【深淵の恐怖】";
+
 	};
 
 	// デストラクタ

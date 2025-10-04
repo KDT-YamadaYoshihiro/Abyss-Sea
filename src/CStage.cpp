@@ -30,7 +30,7 @@ void CStage::Update()
 	if (fade->checkClause(WINDOW_W)) {
 		se->PlaySe(CLoad::Instance().getSeHandle(SE_DECISION));
 		Manager::Instance().setStageScreen(stageNum);
-		Manager::Instance().setSuggest(Suggest);
+		Manager::Instance().setSuggest(suggest);
 		Manager::Instance().ChangeScreen<CPartySelect>();
 	}
 
@@ -48,28 +48,29 @@ void CStage::Render()
 	DrawTriangle(TrX1, TrY1, TrX1 - 50, TrY2, TrX1 - 50, TrY3, GetColor(255, 0, 0), true);
 
 	// åàíËÉ{É^ÉìÅiéläpÅj
-	SetFontSize(FONT_BIGSIZE);
-	ui->Button(boxX,boxY, boxX + boxSizeX, boxY + boxSizeY, CLoad::Instance().getButtonGrh(CHALLEMGE));
+	if (stageNum != -1) {
+		SetFontSize(FONT_BIGSIZE);
+		ui->Button(boxX, boxY, boxX + boxSizeX, boxY + boxSizeY, CLoad::Instance().getButtonGrh(CHALLEMGE));
+	}
 
 	// ÉXÉeÅ[ÉWñº
 	SetFontSize(FONT_BIGSIZE);
-	DrawFormatString(posX[STAGE1], posY[STAGE1], GetColor(255, 255, 255), "Åystage1:ïYÇ§ãõâeÅHÅz");
-	DrawFormatString(posX[STAGE2], posY[STAGE2], GetColor(255, 255, 255), "Åystage2:ìﬁóéÇÃíÍÇÃÉÇÉmÅz");
-	DrawFormatString(posX[STAGE3], posY[STAGE3], GetColor(255, 255, 255), "Åystage3:ê[ï£ÇÃã∞ï|Åz");
+	for (int i = 0; i < STAGE_MAX; i++) {
+		ui->DrawStage(posX[i], posY[i], 500, 100, i + 1, doc_name[i], CLoad::Instance().getStageFrameGrh());
+	}
 
-	ui->DrawStage(posX[STAGE1], posY[STAGE1], 300, 500, 1, STAGE1 + 1, "ÅyïYÇ§ãõâeÅz", CLoad::Instance().getStageFrameGrh());
-	
 	// ÉtÉFÅ[Éh
 	fade->fadeCircleDraw(WINDOW_W / 2, WINDOW_H / 2);
 }
 
+// éOäpå`ÇÃç¿ïW
 void CStage::Triangle()
 {
 
 	// â~Ç™ClickÇ≥ÇÍÇΩÇÁ
 	for (int i = 0; i < CIRCLEMAX; i++) {
 
-		if (CheckBoxClick(posX[i],posY[i],700,50)) {
+		if (CheckBoxClick(posX[i], posY[i], 700, 100)) {
 			// éOäpå`ÇÃç¿ïWÇClickÇµÇΩâ~ÇÃè„ïîÇ…Ç∑ÇÈ
 			stageNum = i;
 			se->PlaySe(CLoad::Instance().getSeHandle(SE_CLICK));
@@ -78,46 +79,46 @@ void CStage::Triangle()
 			switch (stageNum)
 			{
 			case STAGE1:
-				TrX1 = posX[STAGE1];
-				TrY1 = posY[STAGE1] + 25;
+				TrX1 = posX[STAGE1] - 50;
+				TrY1 = posY[STAGE1] + 50;
 				TrX2 = TrX1 - 50;
 				TrY2 = TrY1 + 20;
 				TrX3 = TrX1 - 50;
 				TrY3 = TrY1 - 20;
 
-				Suggest = 1;
+				suggest = 1;
 
 				break;
 
 			case STAGE2:
-				TrX1 = posX[STAGE2];
-				TrY1 = posY[STAGE2] + 25;
+				TrX1 = posX[STAGE2] - 50;
+				TrY1 = posY[STAGE2] + 50;
 				TrX2 = TrX1 - 50;
 				TrY2 = TrY1 + 20;
 				TrX3 = TrX1 - 50;
 				TrY3 = TrY1 - 20;
 
-				Suggest = 10;
+				suggest = 10;
 
 				break;
 
 			case STAGE3:
-				TrX1 = posX[STAGE3];
-				TrY1 = posY[STAGE3] + 25;
+				TrX1 = posX[STAGE3] - 50;
+				TrY1 = posY[STAGE3] + 50;
 				TrX2 = TrX1 - 50;
 				TrY2 = TrY1 + 20;
 				TrX3 = TrX1 - 50;
 				TrY3 = TrY1 - 20;
 
-				Suggest = 25;
+				suggest = 25;
 
-				break;
-
-			default:
 				break;
 			}
 
 		}
+
+		
 	}
 
 }
+
