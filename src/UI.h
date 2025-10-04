@@ -232,7 +232,7 @@ public:
 		int sizeY = arg_y + arg_sizeY;
 		DrawBox(arg_x, arg_y, sizeX, sizeY, GetColor(0,0,0),true);
 		// ˜g(”’)
-		DrawLine(arg_x, arg_y, sizeX, sizeY, GetColor(255, 255, 255), true);
+		DrawLineBox(arg_x, arg_y, sizeX, sizeY, GetColor(255, 255, 255), true);
 
 		// ƒAƒCƒRƒ“‰æ‘œ
 		int drawX = arg_x + 10;
@@ -241,6 +241,7 @@ public:
 
 		// status
 		// NAME
+		SetFontSize(20);
 		int y = drawY + ICON_SIZE + 10;
 		DrawFormatString(drawX, y, GetColor(255, 255, 255),name.c_str(), true);
 
@@ -249,17 +250,17 @@ public:
 
 		const int draw_max = 3;
 		for (int i = 0; i < draw_max; i++) {
-			int x = drawX + ICON_SIZE;
+			int x = drawX + ICON_SIZE + 10;
 			int y[draw_max];
-			y[i] = arg_x + 10 + (i * 30);
+			y[i] = arg_y + 10 + (i * 30);
 			// ATK
 			DrawFormatString(x, y[0], GetColor(255, 255, 255), "ATK.%4d",arg_atk, true);
 
 			// DEF
-			DrawFormatString(drawX, y[1], GetColor(255, 255, 255), "DEF.%4d", arg_def, true);
+			DrawFormatString(x, y[1], GetColor(255, 255, 255), "DEF.%4d", arg_def, true);
 
 			// AGR
-			DrawFormatString(drawX, y[2], GetColor(255, 255, 255), "AGR.%4d", arg_agr, true);
+			DrawFormatString(x, y[2], GetColor(255, 255, 255), "AGR.%4d", arg_agr, true);
 		}
 	}
 

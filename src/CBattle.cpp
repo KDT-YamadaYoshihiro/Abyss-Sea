@@ -144,8 +144,10 @@ void CBattle::Render()
 	}
 
 	// 行動中のキャラクターのステータス
-	ui->SelectStatus(50, WINDOW_H - 600, 300, 500, CLoad::Instance().getPfaceGrh());
-
+	if (currentTurnIndex < turnOrder.size()) {
+		ui->SelectStatus(50, WINDOW_H - 120, 300, 100, turnOrder[currentTurnIndex]->getFaceHandle(), turnOrder[currentTurnIndex]->getName(),
+			turnOrder[currentTurnIndex]->getAttack(), turnOrder[currentTurnIndex]->getDefense(), turnOrder[currentTurnIndex]->getSpeed());
+	}
 	// メニューバーの表示
 	SetFontSize(FONT_BIGSIZE);
 	if (state == State::BATTLE) {
