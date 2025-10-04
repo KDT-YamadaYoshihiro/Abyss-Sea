@@ -14,8 +14,8 @@
 #define SP_RADIUS	20
 
 // ステージ枠のサイズ調整数
-#define STAGE_START		30
-#define STAGE_GOAL		50
+#define FRAME_X		30
+#define FRAME_Y		10
 
 // UIクラス
 class UI {
@@ -49,23 +49,14 @@ class UI {
 public:
 
 	UI()
+		:frame(0),
+		scrX(-1),scrY(-1),
+		startScrX(-1),startScrY(-1),
+		prev_type(WAIT),
+		totalFrames(3),
+		AnimWait(false)
 	{
-
-		frame = 0;
-
-		scrX = -1;
-		scrY = -1;
-
-		startScrX = -1;
-		startScrY = -1;
-
-		prev_type = WAIT;
-
-		totalFrames = 3;
-
-		AnimWait = false;
-
-		
+	
 	};
 	virtual ~UI() = default;
 
@@ -92,7 +83,6 @@ public:
 	void Button(int arg_x, int arg_y, int arg_scrX, int arg_scrY, int arg_handle) {
 		DrawExtendGraph(arg_x, arg_y, arg_scrX, arg_scrY, arg_handle, true);
 	}
-
 
 	// スキルポイントの描画
 	void SkillPoint(float arg_x, float arg_y, float arg_radius, int arg_skillPT, int arg_skillMaxPT) {
@@ -167,37 +157,63 @@ public:
 	};
 
 	 //ステージ選択枠
-	void DrawStage(int arg_x, int arg_y, int arg_sizeX, int arg_sizeY,int arg_suggest, int arg_number,std::string arg_stageName, int arg_handle) {
+	void DrawStage(int arg_x, int arg_y, int arg_sizeX, int arg_sizeY, int arg_number,std::string arg_stageName, int arg_handle) {
 	
+		StageFrame(arg_x, arg_y, arg_sizeX, arg_sizeY, arg_handle);
 		//　ステージナンバーの表示
 		SetFontSize(30);
-		DrawFormatString(arg_x + 90, arg_y + 30,GetColor(255,255,255),"stage%02d",arg_number);
-	
-		// 推奨レベルの表示
-		SetFontSize(10);
-		DrawFormatString(arg_x + 20, arg_y + 50,GetColor(255,255,255),"推奨レベル:%2d", arg_suggest);
+		DrawFormatString(arg_x + 10, arg_y + 5,GetColor(255,255,255),"stage%02d",arg_number);
 
+		int sizeX = arg_x + arg_sizeX;
+		int sizeY = arg_y + arg_sizeY;
+		DrawBox(arg_x, arg_y, sizeX, sizeY, GetColor(255, 255, 255), false);
+	
 		// ステージネームの表示
 		SetFontSize(50);
 		int width = GetDrawStringWidth(arg_stageName.c_str(),-1);
 		int x2 = (arg_x + arg_sizeX / 2) - width / 2;
-		DrawFormatString( x2, arg_y + 200, GetColor(255,255,255),arg_stageName.c_str());
+		DrawFormatString( x2, arg_y + 40, GetColor(255,255,255),arg_stageName.c_str());
 
 	}
 
 	// 枠の描画
-	void stageFrame(int arg_x, int arg_y, int arg_sizeX, int arg_sizeY, int arg_handle) {
+	void StageFrame(int arg_x, int arg_y, int arg_sizeX, int arg_sizeY, int arg_handle) {
 		// ベースを描画
 		int sizeX = arg_x + arg_sizeX;
 		int sizeY = arg_y + arg_sizeY;
 		DrawBox(arg_x, arg_y, sizeX, sizeY, GetColor(0, 0, 0), true);
 
 		// 枠の描画
-		int x = arg_x - STAGE_START;
-		int y = arg_y - STAGE_START;
-		int w = x + arg_sizeX + STAGE_GOAL;
-		int h = y + arg_sizeY + STAGE_GOAL;
-		DrawExtendGraph(x, y, w, h, arg_handle, true);
+		int x = arg_x - FRAME_X;
+		int y = arg_y - FRAME_Y;
+		int sizeX2 = sizeX + FRAME_X;
+		int sizeY2 = sizeY + FRAME_Y;
+		DrawExtendGraph(x, y, sizeX2, sizeY2, arg_handle, true);
+
+	}
+
+	// ステージ詳細表示（クリック時）
+	void StageDoc(int arg_x, int arg_y, int arg_sizeX, int arg_sizeY, int arg_suggest, int arg_number, std::string arg_stageName, int arg_handle) {
+
+		// ベース画像を表示
+		DrawExtendGraph(arg_x,arg_y,arg_sizeX,arg_sizeY,arg_handle,true);
+
+		//　ステージナンバーの表示
+		SetFontSize(30);
+		DrawFormatString(arg_x + 10, arg_y + 5, GetColor(255, 255, 255), "stage%02d", arg_number);
+
+		// 推奨レベルの表示
+		SetFontSize(30);
+		DrawFormatString(arg_x + 20, arg_y + 50,GetColor(255,255,255),"推奨レベル:%2d", arg_suggest);
+
+		// ステージ名
+		SetFontSize(50);
+		int width = GetDrawStringWidth(arg_stageName.c_str(), -1);
+		int x2 = (arg_x + arg_sizeX / 2) - width / 2;
+		DrawFormatString(x2, arg_y + 40, GetColor(255, 255, 255), arg_stageName.c_str());
+
+		// 
+
 
 	}
 

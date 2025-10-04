@@ -149,6 +149,7 @@
     <ClCompile Include="src\InPutKey.cpp" />
     <ClCompile Include="src\InPutPad.cpp" />
     <ClCompile Include="src\Manager.cpp" />
+    <ClCompile Include="src\QuestBoard.cpp" />
     <ClCompile Include="src\UI.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +173,7 @@
     <ClInclude Include="src\InPutPad.h" />
     <ClInclude Include="src\Manager.h" />
     <ClInclude Include="src\Mouse.h" />
+    <ClInclude Include="src\QuestBoard.h" />
     <ClInclude Include="src\typedef.h" />
     <ClInclude Include="src\UI.h" />
   </ItemGroup>

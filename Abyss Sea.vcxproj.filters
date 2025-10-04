@@ -78,6 +78,9 @@
     <ClCompile Include="src\CPartySelect.cpp">
       <Filter>ソース ファイル\class.cpp\CStage</Filter>
     </ClCompile>
+    <ClCompile Include="src\QuestBoard.cpp">
+      <Filter>ソース ファイル\class.cpp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameMain.h">
@@ -144,6 +147,9 @@
       <Filter>ヘッダー ファイル\class.h\CStage</Filter>
     </ClInclude>
     <ClInclude Include="src\enum.h">
+      <Filter>ヘッダー ファイル\class.h</Filter>
+    </ClInclude>
+    <ClInclude Include="src\QuestBoard.h">
       <Filter>ヘッダー ファイル\class.h</Filter>
     </ClInclude>
   </ItemGroup>
