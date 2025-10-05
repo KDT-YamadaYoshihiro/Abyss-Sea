@@ -1,5 +1,6 @@
 #pragma once
 #include "Manager.h"
+#include "QuestBoard.h"
 
 // ステージ選択スクリーンクラス
 class CStage : public ScreenBase {
@@ -22,6 +23,9 @@ class CStage : public ScreenBase {
 
 	// フェード
 	std::shared_ptr<Fade> fade;
+
+	// クエストボード
+	QuestBoard board;
 
 	// 選択するステージアイコン（文字）
 	float posX[CIRCLEMAX];				// X座標
@@ -101,6 +105,11 @@ public:
 		doc_name[STAGE1] = "【漂う魚影】";
 		doc_name[STAGE2] = "【奈落の底のモノ】";
 		doc_name[STAGE3] = "【深淵の恐怖】";
+
+		board.addRequest({ 0,"stage1:漂う魚影", "深海に潜む影を討伐せよ" });
+		board.addRequest({ 1,"stage2:奈落の底のモノ", "深海に巣くう脅威を取り払え" });
+		board.addRequest({ 2,"stage3:深淵の恐怖", "深淵に住まう王を討伐せよ" });
+
 
 	};
 

@@ -1,8 +1,9 @@
 #pragma once
 #include <vector>
 #include <string>
+#include <cmath>
 
-class RequestPaper {
+struct RequestPaper {
 
 	int stageID;				// ステージID
 	int x;						// 現在表示座標
@@ -28,9 +29,13 @@ private:
 	int currentStage = 0;				// 現在のステージ
 	int nextStage = 0;					// 現表示中の次のステージ番号
 	bool isMoving = false;				// 移動中か
+	int baseX = 900;
+	int baseY = 100;
 	float offsetX = 1280.0f;			// 画面外右位置
 
 public:
+	// 初期化（初期位置設定）
+	void Init();
 	// クエストの追加
 	void addRequest(const RequestPaper& r) { requests.push_back(r); }
 	// ステージ内容のセット

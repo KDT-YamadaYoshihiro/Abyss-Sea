@@ -17,6 +17,8 @@ void CStage::Update()
 		TrX1 += speed;
 		if (speed <= -1.0f) { vec *= -1; }
 		if (speed >= 1.0f) { vec *= -1; }
+			
+		board.Update();
 
 		// ステージスクリーン中に決定ボタンが押されたら画面が切り替わる
 		// (CStage -> CPatySelect)
@@ -59,6 +61,11 @@ void CStage::Render()
 		ui->DrawStage(posX[i], posY[i], 500, 100, i + 1, doc_name[i], CLoad::Instance().getStageFrameGrh());
 	}
 
+	// 依頼書
+	if (stageNum != -1) {
+		board.Draw();
+	}
+
 	// フェード
 	fade->fadeCircleDraw(WINDOW_W / 2, WINDOW_H / 2);
 }
@@ -74,6 +81,8 @@ void CStage::Triangle()
 			// 三角形の座標をClickした円の上部にする
 			stageNum = i;
 			se->PlaySe(CLoad::Instance().getSeHandle(SE_CLICK));
+			// 依頼書の表示変更
+			board.setStage(i);
 
 			// 選択中のステージの上部に三角形を描画させる。
 			switch (stageNum)

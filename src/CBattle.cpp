@@ -97,9 +97,9 @@ void CBattle::Render()
 		p->powerRender();
 	}
 
+	// 深海っぽくするために、青のボックス描画
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, blendNum);
 	DrawBox(0, 0, WINDOW_W, WINDOW_H, (0, 0, 255), true);
-
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND,0);
 
 	// 何ターン目か表示
@@ -145,9 +145,9 @@ void CBattle::Render()
 
 	// 行動中のキャラクターのステータス
 	if (currentTurnIndex < turnOrder.size()) {
-		ui->SelectStatus(50, WINDOW_H - 120, 300, 100, turnOrder[currentTurnIndex]->getFaceHandle(), turnOrder[currentTurnIndex]->getName(),
-			turnOrder[currentTurnIndex]->getAttack(), turnOrder[currentTurnIndex]->getDefense(), turnOrder[currentTurnIndex]->getSpeed());
+		ui->SelectStatus(20, WINDOW_H - 120, 330, 100, turnOrder[currentTurnIndex]->getFaceHandle(), turnOrder[currentTurnIndex]);
 	}
+
 	// メニューバーの表示
 	SetFontSize(FONT_BIGSIZE);
 	if (state == State::BATTLE) {
