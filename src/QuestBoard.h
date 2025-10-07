@@ -29,7 +29,7 @@ private:
 	int currentStage = 0;				// 現在のステージ
 	int nextStage = 0;					// 現表示中の次のステージ番号
 	bool isMoving = false;				// 移動中か
-	int baseX = 900;
+	int baseX = 750;
 	int baseY = 100;
 	float offsetX = 1280.0f;			// 画面外右位置
 

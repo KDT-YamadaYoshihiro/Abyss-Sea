@@ -244,35 +244,28 @@ public:
 		// status
 		// NAME
 		SetFontSize(20);
-		int y = drawY + ICON_SIZE + 10;
+		int y = drawY + ICON_SIZE + 5;
 		DrawFormatString(drawX, y, GetColor(255, 255, 255), character->getName().c_str(), true);
-
-
-		const int draw_max = 3;
-		for (int i = 0; i < draw_max; i++) {
-
-			int x = drawX + ICON_SIZE + 10;
-			int y[draw_max];
-			y[i] = arg_y + 20 + (i * 30);
+	
+		{
+			const int size = 30;
+			int x1 = drawX + ICON_SIZE + 10;
+			int x2 = drawX + ICON_SIZE + 150;
+			int y = arg_y + size/2;
 
 			// Lv
-			DrawFormatString(x , y[0], GetColor(255, 255, 255), "Lv.%2d", character->getLv(), true);
+			DrawFormatString(x1, y, GetColor(255, 255, 255), "Lv.%2d", character->getLv(), true);
 			// HP
-			DrawFormatString(x, y[1], GetColor(255, 255, 255), "HP\n%4d/%4d", character->getHp(), character->getMaxHp(), true);
+			DrawFormatString(x1, y + size, GetColor(255, 255, 255), "HP\n%4d/%4d", character->getHp(), character->getMaxHp(), true);
 
-		}
-		for (int i = 0; i < draw_max; i++) {
-			int x = drawX + ICON_SIZE + 150;
-			int y[draw_max];
-			y[i] = arg_y + 10 + (i * 30);
 			// ATK
-			DrawFormatString(x, y[0], GetColor(255, 255, 255), "ATK.%4d", character->getAttack(), true);
+			DrawFormatString(x2, y, GetColor(255, 255, 255), "ATK.%4d", character->getAttack(), true);
 
 			// DEF
-			DrawFormatString(x, y[1], GetColor(255, 255, 255), "DEF.%4d", character->getDefense(), true);
+			DrawFormatString(x2, y + size, GetColor(255, 255, 255), "DEF.%4d", character->getDefense(), true);
 
 			// AGR
-			DrawFormatString(x, y[2], GetColor(255, 255, 255), "AGR.%4d", character->getSpeed(), true);
+			DrawFormatString(x2, y + (size * 2), GetColor(255, 255, 255), "AGR.%4d", character->getSpeed(), true);
 		}
 	}
 

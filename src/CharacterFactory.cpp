@@ -106,7 +106,7 @@ std::shared_ptr<Character> CharacterFactory::CreateCharacter(int id)
 	CharacterData data = getCharacter(id);
 	SkillData skill = getSkill(data.skID);
 
-	if (data.ID == id) { // 頭桁=1 → プレイヤー
+	if (id < 100) { // 頭桁=1 → プレイヤー
 		return std::make_shared<Player>(
 			data.ID, data.Name, data.HP, data.ATK,
 			data.DEF, data.AGR, data.Lv, data.Exp, skill

@@ -63,7 +63,7 @@ void CStage::Render()
 
 	// 依頼書
 	if (stageNum != -1) {
-		board.Draw(CLoad::Instance().getStageDoc(),200,500);
+		board.Draw(CLoad::Instance().getStageDoc(),400,500);
 	}
 
 	// フェード

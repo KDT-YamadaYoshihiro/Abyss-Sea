@@ -106,9 +106,9 @@ public:
 		doc_name[STAGE2] = "y“Ş—‚Ì’ê‚Ìƒ‚ƒmz";
 		doc_name[STAGE3] = "y[•£‚Ì‹°•|z";
 
-		board.addRequest({ 0,"stage1:•Y‚¤‹›‰e", "[ŠC‚Éö‚Ş‰e‚ğ“¢”°‚¹‚æ" });
-		board.addRequest({ 1,"stage2:“Ş—‚Ì’ê‚Ìƒ‚ƒm", "[ŠC‚É‘ƒ‚­‚¤‹ºˆĞ‚ğæ‚è•¥‚¦" });
-		board.addRequest({ 2,"stage3:[•£‚Ì‹°•|", "[•£‚ÉZ‚Ü‚¤‰¤‚ğ“¢”°‚¹‚æ" });
+		board.addRequest({ 0,"•Y‚¤‹›‰e", "[ŠC‚Éö‚Ş‰e‚ğ“¢”°‚¹‚æ" });
+		board.addRequest({ 1,"“Ş—‚Ì’ê‚Ìƒ‚ƒm", "[ŠC‚É‘ƒ‚­‚¤‹ºˆĞ‚ğæ‚è•¥‚¦" });
+		board.addRequest({ 2,"[•£‚Ì‹°•|", "[•£‚ÉZ‚Ü‚¤‰¤‚ğ“¢”°‚¹‚æ" });
 
 
 	};

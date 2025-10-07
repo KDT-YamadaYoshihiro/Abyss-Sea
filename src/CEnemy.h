@@ -35,7 +35,7 @@ public:
     // faceƒnƒ“ƒhƒ‹Žæ“¾
     int getFaceHandle() const override
     {
-        int index = (this->ID / 10000) - 21;
+        int index = this->ID - 100;
         return CLoad::Instance().getEfaceGrh(index);
     }
 

@@ -116,8 +116,12 @@ void QuestBoard::Draw(int arg_handle, int arg_sizeX, int arg_sizeY)
 		DrawExtendGraph(r.x - 10, r.y - 10, r.x + arg_sizeX, r.y + arg_sizeY, arg_handle, true);
 
 		// ÉeÉLÉXÉg
-		DrawFormatString((int)r.x, (int)r.y, GetColor(255, 255, 255), "Åy%sÅz", r.title.c_str());
-		DrawFormatString((int)r.x, (int)r.y + 40, GetColor(255, 255, 255), "%s", r.description.c_str());
+		SetFontSize(50);
+		DrawFormatString((int)r.x, (int)r.y, GetColor(255, 255, 255), "stage%d",i+1);
+		DrawFormatString((int)r.x + 20, (int)r.y + 80, GetColor(255, 255, 255), "%s", r.title.c_str());
+		SetFontSize(18);
+		DrawFormatString((int)r.x, (int)r.y + 150, GetColor(255, 255, 255), "%s", r.description.c_str());
+
 	}
 
 }
