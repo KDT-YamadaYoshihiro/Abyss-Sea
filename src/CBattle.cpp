@@ -70,7 +70,8 @@ void CBattle::Render()
 		e->setPosX(ePosX);
 		e->setPosY(ePosY);
 		//	–{‘Ì
-		e->Render(ePosX, ePosY, CLoad::Instance().getEnemyGrh((e_id / 10000) - 21));
+		int id = e->getId() - 100;
+		e->Render(ePosX, ePosY, CLoad::Instance().getEnemyGrh(id));
 		e->powerRender();
 
 		if (!e->getAlive()) { e->DeadAnimDraw(); }
@@ -86,8 +87,7 @@ void CBattle::Render()
 		players[i]->setPosX(x);
 		players[i]->setPosY(y);
 		//	–{‘Ì
-		int id = players[i]->getId() / 10000 - 11;
-		players[i]->Render(x, y, CLoad::Instance().getPlayerGrh(id));
+		players[i]->Render(x, y, CLoad::Instance().getPlayerGrh(players[i]->getId()));
 		
 	}
 	

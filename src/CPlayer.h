@@ -50,10 +50,10 @@ public:
 	// デストラクタ
 	virtual ~Player() = default;
 
+	// フェイスハンドルのゲット関数
 	int getFaceHandle() const override
 	{
-		int index = (this->ID / 10000) - 11;
-		return CLoad::Instance().getPfaceGrh(index);
+		return CLoad::Instance().getPfaceGrh(this->getId());
 	}
 
 	// アニメーションタイプのゲット、セット

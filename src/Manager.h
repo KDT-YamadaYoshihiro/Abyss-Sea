@@ -82,19 +82,19 @@ public:
 		{
 		case STAGE1:
 
-			num = 210001;
+			num = 100;
 
 			break;
 
 		case STAGE2:
 
-			num = 220001;
+			num = 101;
 
 			break;
 
 		case STAGE3:
 
-			num = 230001;
+			num = 102;
 
 			break;
 

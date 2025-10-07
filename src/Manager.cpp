@@ -9,9 +9,9 @@ void Manager::Init()
 	CharacterFactory::Instance().LoadSkillTable("data/Table/SkillTable.csv");
 
 	 // 全プレイヤー生成
-	for (int id : { 110001, 120001, 130001, 140001, 150001 }) {
+	for (int i = 0; i < PLAYER_MAX; i++) {
 		auto player =  std::dynamic_pointer_cast<Player>(
-			CharacterFactory::Instance().CreateCharacter(id));
+			CharacterFactory::Instance().CreateCharacter(i));
 		players.push_back(player);
 	}
 

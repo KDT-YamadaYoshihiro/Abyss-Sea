@@ -11,13 +11,14 @@ enum class EffectType {
 	EF_SKILL1,
 	EF_SKILL2,
 	EF_HEAL,
-	EF_BUFF
+	EF_BUFF,
+	EF_ALL_SKILL1,
+	EF_ALL_SKILL2
 };
 
 // キャラクターデータ
 struct CharacterData
 {
-
 	int ID;
 	std::string Name;
 	int HP;
@@ -28,7 +29,6 @@ struct CharacterData
 	int Exp;
 	int skID;
 	bool Alive;
-
 };
 
 // スキルクラス			攻撃,  回復, 攻撃力バフ,　速度バフ, 防御力バフ, 無し

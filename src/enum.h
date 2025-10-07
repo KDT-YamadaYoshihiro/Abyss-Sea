@@ -25,6 +25,10 @@ enum PLAYER {
 	ALIA,
 	PINOT,
 	KAGE,
+	RAIZEL,
+	ELINA,
+	ALDEUS,
+	ARDINA,
 
 	PLAYER_MAX			// プレイヤー最大数
 };
@@ -35,6 +39,7 @@ enum ENEMY {
 	MERFOLK,
 	DEEPONES,
 	KTANID,
+	GHOUL,
 
 	ENEMY_MAX			//　最大数(for文用)
 };

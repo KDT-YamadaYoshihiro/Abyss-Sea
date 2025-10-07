@@ -88,3 +88,36 @@ void QuestBoard::Draw() const
 		DrawFormatString((int)r.x, (int)r.y + 40, GetColor(255, 255, 255), "%s", r.description.c_str());
 	}
 }
+
+void QuestBoard::Draw(int arg_handle)
+{
+	// 重なり順に描画（下の方から順に）
+	int max = requests.size() - 1;
+	for (int i = max; i >= 0; i--) {
+		const auto& r = requests[i];
+
+		// 画像描画
+		DrawExtendGraph(r.x - 10, r.y - 10, r.x + 300, r.y + 400, arg_handle, true);
+
+		// テキスト
+		DrawFormatString((int)r.x, (int)r.y, GetColor(255, 255, 255), "【%s】", r.title.c_str());
+		DrawFormatString((int)r.x, (int)r.y + 40, GetColor(255, 255, 255), "%s", r.description.c_str());
+	}
+}
+
+void QuestBoard::Draw(int arg_handle, int arg_sizeX, int arg_sizeY)
+{
+	// 重なり順に描画（下の方から順に）
+	int max = requests.size() - 1;
+	for (int i = max; i >= 0; i--) {
+		const auto& r = requests[i];
+
+		// 画像描画
+		DrawExtendGraph(r.x - 10, r.y - 10, r.x + arg_sizeX, r.y + arg_sizeY, arg_handle, true);
+
+		// テキスト
+		DrawFormatString((int)r.x, (int)r.y, GetColor(255, 255, 255), "【%s】", r.title.c_str());
+		DrawFormatString((int)r.x, (int)r.y + 40, GetColor(255, 255, 255), "%s", r.description.c_str());
+	}
+
+}

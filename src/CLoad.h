@@ -121,9 +121,6 @@ class CLoad {
 			sprintf_s(filepath, "data/se/se_%d.mp3", i);
 			seh[i] = LoadSoundMem(filepath);
 		}
-
-		// ‚»‚Ì‘¼
-
 	};
 
 	// delete

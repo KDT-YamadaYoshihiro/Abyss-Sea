@@ -44,4 +44,8 @@ public:
 	void Update();
 	// 描画
 	void Draw() const;
+	// 描画、画像ハンドルあり
+	void Draw(int arg_handle);
+	// 描画、画像ハンドルあり、サイズ指定あり
+	void Draw(int arg_handle, int arg_sizeX, int arg_sizeY);
 };

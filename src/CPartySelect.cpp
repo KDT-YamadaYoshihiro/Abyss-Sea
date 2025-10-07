@@ -119,8 +119,7 @@ void CPartySelect::Render()
 
 			// 現在のパーティーメンバーのbody画像を表示。
 			if (party[i]) {
-				int id = party[i]->getId() / 10000 - 11;
-				DrawRectGraph(posX, posY, scrX, scrY, grhSizeX, grhSizeY, CLoad::Instance().getPbodyGrh(id), TRUE);
+				DrawRectGraph(posX, posY, scrX, scrY, grhSizeX, grhSizeY, CLoad::Instance().getPbodyGrh(party[i]->getId()), TRUE);
 				// 枠の表示
 				DrawExtendGraph(posX, posY, posX + grhSizeX, posY + grhSizeY, CLoad::Instance().getAmountGrh(BODY), true);
 			}
