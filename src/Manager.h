@@ -27,10 +27,8 @@ class Manager {
 	// 経験値
 	int Exp = -1;
 
-	// mouse座標
+	// ウィンドウモード
 	bool window_mode = true;
-	int mouseX = -1;
-	int mouseY = -1;
 
 	// 音量設定
 	int bgmVolume = -1;

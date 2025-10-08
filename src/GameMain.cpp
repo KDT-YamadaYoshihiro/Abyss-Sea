@@ -35,6 +35,7 @@ void CGame::Run()
 	{
 		//	リフレッシュレートを設定するための処理
 		clock_t check_fps = clock() + CLOCKS_PER_SEC / 60;
+		SetMouseDispFlag(TRUE);
 
 		clsDx();
 		ClearDrawScreen();

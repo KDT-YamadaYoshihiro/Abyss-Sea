@@ -111,11 +111,6 @@ public:
 
 	}
 
-	void animDraw() {
-		if (hasAttackEffect()) {attackEffect->effectDraw(targetPosX, targetPosY, targetSizeW, targetSizeH);}
-		if (hasSkillEffect()) {skillEffect->effectDraw(targetPosX, targetPosY, targetSizeW, targetSizeH);}
-	}
-
 	// 経験値取得
 	void addExp(int value) {
 		this->Exp += value;
@@ -297,6 +292,14 @@ public:
 		//　名前とレベル表示
 		//DrawFormatString(posX + 5, posY - 40, GetColor(255, 255, 255), "%s",this->Name.c_str());
 		//DrawFormatString(posX + 5, posY - 25, GetColor(255, 255, 255), "Lv:%d", this->Lv);
+
+
+	}
+
+	void EffectDraw(int arg_x, int arg_y) {
+		// エフェクト
+		if (hasAttackEffect()) { attackEffect->effectDraw(targetPosX, targetPosY, targetSizeW, targetSizeH); }
+		if (hasSkillEffect()) { skillEffect->effectDraw(arg_x, arg_y, targetSizeW, targetSizeH); }
 
 	}
 

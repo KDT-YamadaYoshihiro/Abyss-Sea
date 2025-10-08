@@ -22,7 +22,6 @@ class Effect {
 
 public:
 
-
 	// èâä˙âª
 	Effect(int arg_grh)
 		:ef_grh(arg_grh)
@@ -46,6 +45,10 @@ public:
 		else if (imageSizeW == 1280 && imageSizeH == 5760) {
 			scrSizeW = 640;
 			scrSizeH = 480;
+		}
+		else if (imageSizeW == 960 && imageSizeH == 384) {
+			scrSizeW = imageSizeW / 5;
+			scrSizeH = imageSizeH / 2;
 		}
 		else {
 			scrSizeW = 120;

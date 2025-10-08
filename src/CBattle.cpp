@@ -90,10 +90,18 @@ void CBattle::Render()
 		players[i]->Render(x, y, CLoad::Instance().getPlayerGrh(players[i]->getId()));
 		
 	}
+
+	for (size_t p = 0; p < Manager::Instance().getParty().size(); p++) {
+
+		for (size_t i = 0; i < TargetList.size(); i++) {
+			auto& players = Manager::Instance().getParty();
+
+			players[p]->EffectDraw(TargetList[i]->getPosX(), TargetList[i]->getPosY());
+		}
+	}
 	
 	// プレイヤーのエフェクトアニメーション
 	for (auto& p : Manager::Instance().getParty()) {
-		p->animDraw();
 		p->powerRender();
 	}
 

@@ -15,8 +15,6 @@ class CLoad {
 	int stageFrame;
 	// ステージ詳細表示用のベース
 	int stageDoc;
-	// フルスクリーン用カーソル
-	int cursor;
 	// 攻撃ボタン、スキルボタン
 	int atkButton;
 	int sklButton;
@@ -58,8 +56,6 @@ class CLoad {
 		stageFrame = LoadGraph("data/ui/stageFrame.png");
 		// ステージベース
 		stageDoc = LoadGraph("data/ui/stageDoc.png");
-		// カーソル
-		cursor = LoadGraph("data/bg/mouse_cursor.png");
 		// ボタン
 		atkButton = LoadGraph("data/ui/atkB.jpg");
 		sklButton = LoadGraph("data/ui/sklB.jpg");
@@ -131,7 +127,6 @@ class CLoad {
 		DeleteGraph(stageBg);
 		DeleteGraph(stageFrame);
 		DeleteGraph(stageDoc);
-		DeleteGraph(cursor);
 		DeleteGraph(atkButton);
 		DeleteGraph(sklButton);
 		DeleteGraph(menuBT);
@@ -182,8 +177,6 @@ public:
 	int getStageFrameGrh() const { return stageFrame; }
 	// ステージベース
 	int getStageDoc() const { return stageDoc;}
-	// カーソル
-	int getCursorGrh() const { return cursor; }
 	// ボタン
 	int getAtkButtonGrh() const { return atkButton; }
 	int getSklButtonGrh() const { return sklButton; }

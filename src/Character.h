@@ -201,7 +201,6 @@ public:
 		}
 	}
 
-
 	// エネミー側で使用
 	std::shared_ptr<Effect> getDeadEffect() const { return deadEffect; }
 	bool hasDeadEffect() const { return deadEffect->getEfDraw(); }

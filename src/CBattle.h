@@ -456,6 +456,37 @@ private:
 				arg_character->takeAction(TargetList);
 				// spの更新
 				updataSP(arg_character);
+				// エフェクト再生
+				if (arg_character->getActionChoice() == SKILL) {
+					switch (arg_character->getEfType()) {
+
+					case EffectType::EF_ALL_SKILL1:
+
+
+						for (auto& target : TargetList) {
+							arg_character->PlaySkillEffect(target->getPosX(), target->getPosY(), 80, 80);
+						}
+						// se再生
+						se->PlaySe(CLoad::Instance().getSeHandle(SE_SKILL2));
+						break;
+
+					case EffectType::EF_ALL_SKILL2:
+						arg_character->PlaySkillEffect(1000, WINDOW_H / 2 + 300, 250, 350);
+
+						// se再生
+						se->PlaySe(CLoad::Instance().getSeHandle(SE_SKILL2));
+						break;
+
+					case EffectType::EF_DEBUFF:
+						for (auto& target : TargetList) {
+							arg_character->PlaySkillEffect(target->getPosX(), target->getPosY(), 50, 40);
+						}
+						// se再生
+						se->PlaySe(CLoad::Instance().getSeHandle(SE_BUFF));
+						break;
+					}
+
+				}
 				// ターゲット選択モードをオフ
 				targetInput = TargetInput::END;
 
@@ -471,6 +502,33 @@ private:
 				arg_character->takeAction(TargetList);
 				// spの更新
 				updataSP(arg_character);
+				// エフェクト再生
+				if (arg_character->getActionChoice() == SKILL) {
+					switch (arg_character->getEfType()) {
+
+					case EffectType::EF_HEAL:
+
+						for (auto i = 0; i < TargetList.size(); i++) {
+							arg_character->PlaySkillEffect(TargetList[i]->getPosX(), TargetList[i]->getPosY(), 30, 40);
+						}
+						
+						// se再生
+						se->PlaySe(CLoad::Instance().getSeHandle(SE_HEAL));
+						break;
+
+					case EffectType::EF_BUFF:
+						for (auto i = 0; i < TargetList.size(); i++) {
+							arg_character->PlaySkillEffect(TargetList[i]->getPosX(), TargetList[i]->getPosY(), 50, 40);
+						}
+						
+						// se再生
+						se->PlaySe(CLoad::Instance().getSeHandle(SE_BUFF));
+						break;
+
+					}
+
+				}
+
 				// ターゲット選択モードをオフ
 				targetInput = TargetInput::END;
 

@@ -27,9 +27,6 @@ void Manager::Init()
 
 	ChangeScreen<CTitle>();
 
-	mouseX = -1;
-	mouseY = -1;
-
 	bgmVolume = 7;
 	seVolume = 7;
 }
@@ -55,12 +52,6 @@ void Manager::Render()
 {
 	// スクリーンポインター描画処理
 	scrPtr->Render();
-
-	GetMousePoint(&mouseX, &mouseY);
-	// カーソル描画
-	if (!window_mode) {
-		DrawExtendGraph(mouseX, mouseY, mouseX + 30, mouseY + 30, CLoad::Instance().getCursorGrh(), true);
-	}
 
 	// フェード
 	fade->fadeCircleDraw(WINDOW_W / 2, WINDOW_H / 2);

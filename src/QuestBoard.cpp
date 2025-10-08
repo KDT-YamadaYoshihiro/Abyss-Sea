@@ -120,7 +120,7 @@ void QuestBoard::Draw(int arg_handle, int arg_sizeX, int arg_sizeY)
 		DrawFormatString((int)r.x, (int)r.y, GetColor(255, 255, 255), "stage%d",i+1);
 		DrawFormatString((int)r.x + 20, (int)r.y + 80, GetColor(255, 255, 255), "%s", r.title.c_str());
 		SetFontSize(18);
-		DrawFormatString((int)r.x, (int)r.y + 150, GetColor(255, 255, 255), "%s", r.description.c_str());
+		DrawFormatString((int)r.x + 50, (int)r.y + 150, GetColor(255, 255, 255), "%s", r.description.c_str());
 
 	}
 
