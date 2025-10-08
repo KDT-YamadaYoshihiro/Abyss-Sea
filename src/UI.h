@@ -303,6 +303,9 @@ public:
 		}
 		return result;
 	}
+
+	// バフ、デバフアイコン描画
+	void stateIcon();
 };
 
 
