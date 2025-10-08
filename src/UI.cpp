@@ -65,4 +65,19 @@ void UI::PlayerAnim(GRTYPE& arg_type)
 
 }
 
+void UI::stateIcon(int arg_x, int arg_y, int arg_handle, int arg_turn)
+{
+	// アイコンの幅と高さ
+	const int icon_size = 20;
+
+	// アイコン描画
+	// 幅を合わせた描画
+	int size_x = arg_x + icon_size;
+	int size_y = arg_y + icon_size;
+	DrawExtendGraph(arg_x, arg_y, size_x, size_y, arg_handle, true);
+	// 残りターン数
+	DrawFormatString(size_x, size_y, GetColor(255, 255, 255), "%d", arg_turn);
+
+}
+
 

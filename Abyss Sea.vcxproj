@@ -153,6 +153,7 @@
     <ClCompile Include="src\UI.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Calculation.h" />
     <ClInclude Include="src\CBase.h" />
     <ClInclude Include="src\CBattle.h" />
     <ClInclude Include="src\CBattle_SP.h" />

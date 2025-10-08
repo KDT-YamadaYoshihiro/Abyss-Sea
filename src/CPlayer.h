@@ -89,10 +89,19 @@ public:
 		case EffectType::EF_SKILL2:
 			if (hasSkillEffect()) { skillEffect->PlayAnim(); }
 			break;
+		case EffectType::EF_ALL_SKILL1:
+			if (hasSkillEffect()) { skillEffect->PlayAnim(); }
+			break;
+		case EffectType::EF_ALL_SKILL2:
+			if (hasSkillEffect()) { skillEffect->PlayAnim(); }
+			break;
 		case EffectType::EF_HEAL:
 			if (hasSkillEffect()) { skillEffect->sidePlayAnim(); }
 			break;
 		case EffectType::EF_BUFF:
+			if (hasSkillEffect()) { skillEffect->sidePlayAnim(); }
+			break;
+		case EffectType::EF_DEBUFF:
 			if (hasSkillEffect()) { skillEffect->sidePlayAnim(); }
 			break;
 		default:
@@ -103,7 +112,7 @@ public:
 	}
 
 	void animDraw() {
-		if (hasAttackEffect()) {attackEffect->effectDraw(targetPosX, targetPosY,targetSizeW,targetSizeH);}
+		if (hasAttackEffect()) {attackEffect->effectDraw(targetPosX, targetPosY, targetSizeW, targetSizeH);}
 		if (hasSkillEffect()) {skillEffect->effectDraw(targetPosX, targetPosY, targetSizeW, targetSizeH);}
 	}
 
@@ -149,9 +158,9 @@ public:
 
 			//ターゲットを攻撃
 			for (auto& tar : targets) {
-				damage = (this->ATK * getAtkbuff()) - (tar->getDefense() * tar->getDefbuff());
+				damage = cal->DamageCal(this->ATK , getAtkbuff() ,tar->getDefense() , tar->getDefbuff());
 				//ダメージの最低保証
-				if (damage < minDamage * tar->getDefbuff()) damage = minDamage * tar->getDefbuff();
+				if (damage < minDamage) damage = minDamage;
 				// ターゲットを攻撃
 				tar->takeDamage(damage);
 				tar->damageRenderStart(tar->getPosX() - 150, tar->getPosY() - 150, 40, damage);
@@ -182,7 +191,7 @@ public:
 	}
 
 	// スキル
-	void useSkill(std::shared_ptr<Character>& arg_targets, SkillType arg_type, float arg_power, int arg_trun/*,int arg_combo*/) {
+	void useSkill(std::shared_ptr<Character>& arg_targets, SkillType arg_type, float arg_power, int arg_trun) {
 
 		int damage = -1;
 		int heal = -1;
@@ -196,12 +205,12 @@ public:
 			// 対象者に攻撃力
 			// ダメージ量を計算
 			// combo数追加を実装予定
-			damage = static_cast<int>((this->ATK * arg_power) * getAtkbuff()) - arg_targets->getDefense();
+			damage = cal->DamageCal(this->ATK , arg_power , getAtkbuff(), arg_targets->getDefense());
 			// ０未満にしない
-			if (damage < 0) damage = 0;
+			if (damage < minDamage) damage = minDamage;
 			//　ダメージ関数
 			arg_targets->takeDamage(damage);
-			// ダメージ描画s
+			// ダメージ描画
 			arg_targets->damageRenderStart(arg_targets->getPosX() - 150, arg_targets->getPosY() - 150,40, damage);
 			// アニメーションタイプ
 			AnimType = SKILL;
@@ -212,7 +221,7 @@ public:
 
 			// 対象者のHPを上昇
 			// HP回復量を計算
-			heal = static_cast<int>(this->HP * arg_power);
+			heal = cal->Healcal(this->maxHp, arg_power);
 			// ヒール関数
 			arg_targets->takeHeal(heal);
 			// 回復描画
@@ -286,8 +295,8 @@ public:
 
 		SetFontSize(15);
 		//　名前とレベル表示
-		DrawFormatString(posX + 5, posY - 40, GetColor(255, 255, 255), "%s",this->Name.c_str());
-		DrawFormatString(posX + 5, posY - 25, GetColor(255, 255, 255), "Lv:%d", this->Lv);
+		//DrawFormatString(posX + 5, posY - 40, GetColor(255, 255, 255), "%s",this->Name.c_str());
+		//DrawFormatString(posX + 5, posY - 25, GetColor(255, 255, 255), "Lv:%d", this->Lv);
 
 	}
 

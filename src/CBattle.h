@@ -3,6 +3,7 @@
 #include "CStage.h"
 #include "CharacterFactory.h"
 #include "Character.h"
+#include "Calculation.h"
 
 // バトルスクリーンクラス
 class CBattle : public ScreenBase {
@@ -61,6 +62,8 @@ class CBattle : public ScreenBase {
 	//std::shared_ptr<Fade> retryFade;
 
 	std::shared_ptr<Effect> effect;
+
+	std::shared_ptr< Calculation> cal;
 
 	// 現在ターンのインデックス
 	int currentTurnIndex = 0;
@@ -198,6 +201,7 @@ private:
 		auto enemy = CharacterFactory::Instance().CreateCharacter(e_id);
 		enemies.push_back(enemy);
 
+		cal = std::make_shared<Calculation>();
 
 		// キャラクターリセット
 		for (auto& p : Manager::Instance().getParty()) {
@@ -274,7 +278,9 @@ private:
 		for (std::size_t i = 0; i < size - 1; ++i) {
 			bool swapped = false;
 			for (std::size_t j = 0; j < size - 1 - i; ++j) {
-				if ((array[j]->getSpeed() * array[j]->getAgrbuff()) < (array[j + 1]->getSpeed() * array[j + 1]->getAgrbuff())) {
+				int j_speed = cal->BuffCal(array[j]->getSpeed(), array[j]->getAgrbuff());
+				int j_next_speed = cal->BuffCal(array[j + 1]->getSpeed(), array[j + 1]->getAgrbuff());
+				if (j_speed < j_next_speed) {
 					std::swap(array[j], array[j + 1]);
 					swapped = true;
 				}
@@ -286,8 +292,9 @@ private:
 	// 毎ターン行うソート
 	void TurnOrder() {
 
+		// 過去のソート情報を削除
 		turnOrder.clear();
-
+		// 生きているキャラをソート対象に
 		for (const auto& p : Manager::Instance().getParty()) {
 			if (p->getAlive() == true) turnOrder.push_back(p);
 		}
@@ -307,9 +314,9 @@ private:
 	// ソートした物をアイコン上に
 	void DrawTurnOrderIcons(int x, int y) const
 	{
-		const int ICON_SIZE = 60;  // アイコンの表示サイズ
-		const int PADDING = 10;    // アイコンの間隔
-		int drawX = x;
+		const int ICON_SIZE = 60;	// アイコンの表示サイズ
+		const int PADDING = 10;		// アイコンの間隔
+		int drawX = x;				//　スタート地点
 
 		for (size_t i = 0; i < turnOrder.size(); ++i) {
 			const auto& ch = turnOrder[i];
@@ -330,6 +337,7 @@ private:
 				name = name.substr(0, nameMax);
 			}
 			DrawFormatString(drawX, y + ICON_SIZE + 4, GetColor(255, 255, 255), "%s",name.c_str()); 
+			// 次のキャラの描画位置を横にずらす
 			drawX += ICON_SIZE + PADDING;
 		}
 	}
@@ -510,24 +518,69 @@ private:
 					{
 					case EffectType::EF_NONE:
 						break;
+
 					case EffectType::EF_SKILL1:
 						arg_character->PlaySkillEffect(selectTarget->getPosX(), selectTarget->getPosY(), 300, 250);
 						// se再生
 						se->PlaySe(CLoad::Instance().getSeHandle(SE_SKILL1));
 						break;
+
 					case EffectType::EF_SKILL2:
-						arg_character->PlaySkillEffect(selectTarget->getPosX(), selectTarget->getPosY(), 250, 250);
+						arg_character->PlaySkillEffect(selectTarget->getPosX(), selectTarget->getPosY(), 350, 250);
 						// se再生
 						se->PlaySe(CLoad::Instance().getSeHandle(SE_SKILL2));
 						break;
+
+					case EffectType::EF_ALL_SKILL1:
+
+						arg_character->PlaySkillEffect(selectTarget->getPosX(), selectTarget->getPosY(), 50, 250);
+						
+						// se再生
+						se->PlaySe(CLoad::Instance().getSeHandle(SE_SKILL2));
+						break;
+
+					case EffectType::EF_ALL_SKILL2:
+						arg_character->PlaySkillEffect(selectTarget->getPosX(), selectTarget->getPosY(), 50, 250);
+						
+						// se再生
+						se->PlaySe(CLoad::Instance().getSeHandle(SE_SKILL2));
+						break;
+
 					case EffectType::EF_HEAL:
-						arg_character->PlaySkillEffect(selectTarget->getPosX(), selectTarget->getPosY(), 30, 40);
+						if (arg_character->getTargetType() == SkillTargetType::SINGLE_ALLY) {
+							arg_character->PlaySkillEffect(selectTarget->getPosX(), selectTarget->getPosY(), 30, 40);
+						}
+						else {
+							for (auto& target : TargetList) {
+								arg_character->PlaySkillEffect(target->getPosX(), target->getPosY(), 30, 40);
+							}
+						}
 						// se再生
 						se->PlaySe(CLoad::Instance().getSeHandle(SE_HEAL));
 						break;
+
 					case EffectType::EF_BUFF:
-						arg_character->PlaySkillEffect(selectTarget->getPosX(), selectTarget->getPosY(), 50, 40);
+						if (arg_character->getTargetType() == SkillTargetType::SINGLE_ALLY) {
+							arg_character->PlaySkillEffect(selectTarget->getPosX(), selectTarget->getPosY(), 50, 40);
+						}
+						else {
+							for (auto& target : TargetList) {
+								arg_character->PlaySkillEffect(target->getPosX(), target->getPosY(), 50, 40);
+							}
+						}
 						// se再生
+						se->PlaySe(CLoad::Instance().getSeHandle(SE_BUFF));
+						break;
+
+					case EffectType::EF_DEBUFF:
+						if (arg_character->getTargetType() == SkillTargetType::SINGLE_ENEMY) {
+							arg_character->PlaySkillEffect(selectTarget->getPosX(), selectTarget->getPosY(), 50, 40);
+						}
+						else {
+							for (auto& target : TargetList) {
+								arg_character->PlaySkillEffect(target->getPosX(), target->getPosY(), 50, 40);
+							}
+						}						// se再生
 						se->PlaySe(CLoad::Instance().getSeHandle(SE_BUFF));
 						break;
 
@@ -694,7 +747,6 @@ private:
 		}
 
 	}
-
 
 	// メインループ関数
 	// バトル

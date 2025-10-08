@@ -10,10 +10,13 @@ enum class EffectType {
 	EF_ATTACK,
 	EF_SKILL1,
 	EF_SKILL2,
+	EF_ALL_SKILL1,
+	EF_ALL_SKILL2,
 	EF_HEAL,
 	EF_BUFF,
-	EF_ALL_SKILL1,
-	EF_ALL_SKILL2
+	EF_DEBUFF,
+
+	EF_MAX
 };
 
 // キャラクターデータ
@@ -43,7 +46,6 @@ struct BuffEffect {
 	int agrturn = 0; // 残りターン
 	float defMultiplier = 1.0f;
 	int defturn = 0; // 残りターン
-
 };
 
 // スキルデータ

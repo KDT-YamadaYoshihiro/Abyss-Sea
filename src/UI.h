@@ -305,7 +305,7 @@ public:
 	}
 
 	// バフ、デバフアイコン描画
-	void stateIcon();
+	void stateIcon(int arg_x, int arg_y, int arg_handle, int arg_turn);
 };
 
 

@@ -13,35 +13,44 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="ヘッダー ファイル\class.h">
-      <UniqueIdentifier>{5ee2d9ba-7ee9-41f9-9f4a-a2ac5f735f1c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\class.cpp">
-      <UniqueIdentifier>{bf76fb56-cd3b-455f-8c1d-e0e7bc5091cf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\system.cpp">
-      <UniqueIdentifier>{1d9816fd-6ea6-4b54-8652-918ec4af74ba}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\system.h">
-      <UniqueIdentifier>{007485cf-759b-4867-8c7f-b9444d08f0b6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ヘッダー ファイル\class.h\CStage">
-      <UniqueIdentifier>{35d96224-ba05-4d93-866c-613c871cf39b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\class.cpp\CStage">
-      <UniqueIdentifier>{beb334f3-6d09-43b2-8905-836777631298}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Character">
       <UniqueIdentifier>{245da408-0c97-426d-9a05-4dfdf6a79a58}</UniqueIdentifier>
     </Filter>
     <Filter Include="ヘッダー ファイル\Character\Enemy">
       <UniqueIdentifier>{ce6cae31-9522-4c7b-9bc2-1999dc2dee73}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\class.cpp\Character">
-      <UniqueIdentifier>{36af180a-8e0b-4121-bc70-b02b90c6e174}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ヘッダー ファイル\Character\Player">
       <UniqueIdentifier>{6c7bbf0b-a0d7-4764-b80e-238fae2d36e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Battle">
+      <UniqueIdentifier>{df46f364-c8f2-48e0-a38e-1757d4866bc5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\UI">
+      <UniqueIdentifier>{134b9767-62c0-4d0d-8e88-aced7e9696a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\System.h">
+      <UniqueIdentifier>{007485cf-759b-4867-8c7f-b9444d08f0b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\System.cpp">
+      <UniqueIdentifier>{1d9816fd-6ea6-4b54-8652-918ec4af74ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Class.h">
+      <UniqueIdentifier>{5ee2d9ba-7ee9-41f9-9f4a-a2ac5f735f1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Stage">
+      <UniqueIdentifier>{35d96224-ba05-4d93-866c-613c871cf39b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Stage">
+      <UniqueIdentifier>{beb334f3-6d09-43b2-8905-836777631298}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Class.cpp">
+      <UniqueIdentifier>{bf76fb56-cd3b-455f-8c1d-e0e7bc5091cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Character">
+      <UniqueIdentifier>{36af180a-8e0b-4121-bc70-b02b90c6e174}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\UI">
+      <UniqueIdentifier>{ab280ba7-ace5-4b5e-8d98-c6bba3c9fc34}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -49,69 +58,66 @@
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\InPutKey.cpp">
-      <Filter>ソース ファイル\system.cpp</Filter>
+      <Filter>ソース ファイル\System.cpp</Filter>
     </ClCompile>
     <ClCompile Include="src\InPutPad.cpp">
-      <Filter>ソース ファイル\system.cpp</Filter>
+      <Filter>ソース ファイル\System.cpp</Filter>
     </ClCompile>
     <ClCompile Include="src\Manager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="src\CBattle.cpp">
-      <Filter>ソース ファイル\class.cpp\CStage</Filter>
+      <Filter>ソース ファイル\Stage</Filter>
     </ClCompile>
     <ClCompile Include="src\CStage.cpp">
-      <Filter>ソース ファイル\class.cpp\CStage</Filter>
+      <Filter>ソース ファイル\Stage</Filter>
     </ClCompile>
     <ClCompile Include="src\CTitle.cpp">
-      <Filter>ソース ファイル\class.cpp\CStage</Filter>
+      <Filter>ソース ファイル\Stage</Filter>
     </ClCompile>
     <ClCompile Include="src\CResult.cpp">
-      <Filter>ソース ファイル\class.cpp\CStage</Filter>
+      <Filter>ソース ファイル\Stage</Filter>
     </ClCompile>
     <ClCompile Include="src\CharacterFactory.cpp">
-      <Filter>ソース ファイル\class.cpp\Character</Filter>
-    </ClCompile>
-    <ClCompile Include="src\UI.cpp">
-      <Filter>ソース ファイル\class.cpp</Filter>
+      <Filter>ソース ファイル\Character</Filter>
     </ClCompile>
     <ClCompile Include="src\CPartySelect.cpp">
-      <Filter>ソース ファイル\class.cpp\CStage</Filter>
+      <Filter>ソース ファイル\Stage</Filter>
     </ClCompile>
     <ClCompile Include="src\QuestBoard.cpp">
-      <Filter>ソース ファイル\class.cpp</Filter>
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UI.cpp">
+      <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameMain.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\Manager.h">
-      <Filter>ヘッダー ファイル\class.h</Filter>
-    </ClInclude>
     <ClInclude Include="src\InPutPad.h">
-      <Filter>ヘッダー ファイル\system.h</Filter>
+      <Filter>ヘッダー ファイル\System.h</Filter>
     </ClInclude>
     <ClInclude Include="src\InPutKey.h">
-      <Filter>ヘッダー ファイル\system.h</Filter>
+      <Filter>ヘッダー ファイル\System.h</Filter>
     </ClInclude>
     <ClInclude Include="src\typedef.h">
-      <Filter>ヘッダー ファイル\system.h</Filter>
+      <Filter>ヘッダー ファイル\System.h</Filter>
     </ClInclude>
     <ClInclude Include="src\CTitle.h">
-      <Filter>ヘッダー ファイル\class.h\CStage</Filter>
+      <Filter>ヘッダー ファイル\Stage</Filter>
     </ClInclude>
     <ClInclude Include="src\CStage.h">
-      <Filter>ヘッダー ファイル\class.h\CStage</Filter>
+      <Filter>ヘッダー ファイル\Stage</Filter>
     </ClInclude>
     <ClInclude Include="src\CBattle.h">
-      <Filter>ヘッダー ファイル\class.h\CStage</Filter>
+      <Filter>ヘッダー ファイル\Stage</Filter>
     </ClInclude>
     <ClInclude Include="src\CResult.h">
-      <Filter>ヘッダー ファイル\class.h\CStage</Filter>
+      <Filter>ヘッダー ファイル\Stage</Filter>
     </ClInclude>
     <ClInclude Include="src\CBase.h">
-      <Filter>ヘッダー ファイル\class.h\CStage</Filter>
+      <Filter>ヘッダー ファイル\Stage</Filter>
     </ClInclude>
     <ClInclude Include="src\CPlayer.h">
       <Filter>ヘッダー ファイル\Character\Player</Filter>
@@ -120,13 +126,10 @@
       <Filter>ヘッダー ファイル\Character\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="src\Mouse.h">
-      <Filter>ヘッダー ファイル\system.h</Filter>
-    </ClInclude>
-    <ClInclude Include="src\UI.h">
-      <Filter>ヘッダー ファイル\class.h</Filter>
+      <Filter>ヘッダー ファイル\System.h</Filter>
     </ClInclude>
     <ClInclude Include="src\CLoad.h">
-      <Filter>ヘッダー ファイル\class.h</Filter>
+      <Filter>ヘッダー ファイル\Class.h</Filter>
     </ClInclude>
     <ClInclude Include="src\Character.h">
       <Filter>ヘッダー ファイル\Character</Filter>
@@ -137,20 +140,29 @@
     <ClInclude Include="src\CharacterFactory.h">
       <Filter>ヘッダー ファイル\Character</Filter>
     </ClInclude>
-    <ClInclude Include="src\CBattle_SP.h">
-      <Filter>ヘッダー ファイル\class.h</Filter>
-    </ClInclude>
     <ClInclude Include="src\CEffect.h">
-      <Filter>ヘッダー ファイル\class.h</Filter>
+      <Filter>ヘッダー ファイル\Class.h</Filter>
     </ClInclude>
     <ClInclude Include="src\CPartySelect.h">
-      <Filter>ヘッダー ファイル\class.h\CStage</Filter>
+      <Filter>ヘッダー ファイル\Stage</Filter>
     </ClInclude>
     <ClInclude Include="src\enum.h">
-      <Filter>ヘッダー ファイル\class.h</Filter>
+      <Filter>ヘッダー ファイル\Class.h</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UI.h">
+      <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
     <ClInclude Include="src\QuestBoard.h">
-      <Filter>ヘッダー ファイル\class.h</Filter>
+      <Filter>ヘッダー ファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Manager.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CBattle_SP.h">
+      <Filter>ヘッダー ファイル\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Calculation.h">
+      <Filter>ヘッダー ファイル\Battle</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

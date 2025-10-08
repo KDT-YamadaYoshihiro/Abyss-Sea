@@ -43,6 +43,10 @@ public:
 			scrSizeW = 480;
 			scrSizeH = 480;
 		}
+		else if (imageSizeW == 1280 && imageSizeH == 5760) {
+			scrSizeW = 640;
+			scrSizeH = 480;
+		}
 		else {
 			scrSizeW = 120;
 			scrSizeH = 120;

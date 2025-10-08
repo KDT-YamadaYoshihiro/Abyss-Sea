@@ -133,7 +133,7 @@ void CBattle::Render()
 	}
 
 
-	// 
+	// UI
 	if (targetInput == TargetInput::ACTIONCHOICE) {
 		// ƒ{ƒ^ƒ“‚Ì•\Ž¦
 		ui->Button(ButtonX, atButtonY, ButtonX + ButtonSizeX, atButtonY + ButtonSizeY, CLoad::Instance().getAtkButtonGrh());

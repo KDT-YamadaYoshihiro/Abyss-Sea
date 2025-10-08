@@ -37,8 +37,8 @@ class CLoad {
 	int EnemyGrh[ENEMY_MAX];
 	int EfaceGrh[ENEMY_MAX];
 
-#define EF_MAX	7
-	int effGrh[EF_MAX];
+	const int efMax = static_cast<int>(EffectType::EF_MAX);
+	int effGrh[static_cast<int>(EffectType::EF_MAX)];
 
 	// 音ハンドル
 	// SE
@@ -102,7 +102,7 @@ class CLoad {
 		}
 		
 		// エフェクト
-		for (int i = 0; i < EF_MAX; i++) {
+		for (int i = 0; i < efMax; i++) {
 			char filepah[64];
 			sprintf_s(filepah, "data/effect/effect_%d.png", i);
 			effGrh[i] = LoadGraph(filepah);
@@ -149,7 +149,7 @@ class CLoad {
 			DeleteGraph(EnemyGrh[i]);
 			DeleteGraph(EfaceGrh[i]);
 		}
-		for (int i = 0; i < EF_MAX; i++) {
+		for (int i = 0; i < efMax; i++) {
 
 			DeleteGraph(effGrh[i]);
 		}

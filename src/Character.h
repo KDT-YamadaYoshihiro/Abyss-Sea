@@ -4,6 +4,7 @@
 
 #include "CBattle_SP.h"
 #include "CharacterData.h"
+#include "Calculation.h"
 
 // キャラクター基底クラス
 class Character {
@@ -33,6 +34,8 @@ protected:
 	// 死亡時エフェクト(エネミーの時)
 	std::shared_ptr<Effect> deadEffect;
 
+	// 計算クラス
+	std::shared_ptr<Calculation> cal;
 
 	// アイコン画像ハンドル変数
 	int faceGrh = -1;
@@ -87,6 +90,7 @@ public:
 		attackEffect = std::make_shared<Effect>(CLoad::Instance().getEffectGrh(EffectType::EF_ATTACK));
 		skillEffect = std::make_shared<Effect>(CLoad::Instance().getEffectGrh(Skill.effectType));
 		deadEffect = std::make_shared<Effect>(CLoad::Instance().getEffectGrh(EffectType::EF_NONE));
+		cal = std::make_shared<Calculation>();
 		actionChoice = -1;
 		posX = -1;
 		posY = -1;

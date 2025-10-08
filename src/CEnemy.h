@@ -71,7 +71,7 @@ public:
         
         // ターゲットが決まれば、ターゲットを攻撃
         for (auto& tar : targets) {
-            int damage = this->ATK - tar->getDefense();
+            int damage =cal->DamageCal(this->ATK , tar->getDefense());
             if (damage < 1) damage = 1;
             tar->takeDamage(damage);
             moveCheck = true;
