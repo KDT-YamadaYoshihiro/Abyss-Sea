@@ -36,9 +36,9 @@ enum PLAYER {
 //	エネミー
 enum ENEMY {
 	// エネミー
-	MERFOLK,
-	DEEPONES,
-	KTANID,
+	ZPTHOMMOG,
+	YTHOGTHA,
+	CTHULHU,
 	GHOUL,
 
 	ENEMY_MAX			//　最大数(for文用)

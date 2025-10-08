@@ -106,9 +106,9 @@ public:
 		doc_name[STAGE2] = "y“Ş—‚Ì’ê‚Ìƒ‚ƒmz";
 		doc_name[STAGE3] = "y[•£‚Ì‹°•|z";
 
-		board.addRequest({ 0,"•Y‚¤‹›‰e", "[ŠC‚Éö‚Ş‰e‚ğ“¢”°‚¹‚æ" });
-		board.addRequest({ 1,"“Ş—‚Ì’ê‚Ìƒ‚ƒm", "[ŠC‚É‘ƒ‚­‚¤‹ºˆĞ‚ğæ‚è•¥‚¦" });
-		board.addRequest({ 2,"[•£‚Ì‹°•|", "[•£‚ÉZ‚Ü‚¤‰¤‚ğ“¢”°‚¹‚æ" });
+		board.addRequest({ 0,"•Y‚¤‹›‰e", "[ŠC‚Éö‚Ş‰e‚ğ“¢”°‚¹‚æ" , 5, CLoad::Instance().getEfaceGrh(ZPTHOMMOG)});
+		board.addRequest({ 1,"“Ş—‚Ì’ê‚Ìƒ‚ƒm", "[ŠC‚É‘ƒ‚­‚¤‹ºˆĞ‚ğæ‚è•¥‚¦", 15, CLoad::Instance().getEfaceGrh(YTHOGTHA) });
+		board.addRequest({ 2,"[•£‚Ì‹°•|", "[•£‚ÉZ‚Ü‚¤‰¤‚ğ“¢”°‚¹‚æ", 22, CLoad::Instance().getEfaceGrh(CTHULHU) });
 
 
 	};

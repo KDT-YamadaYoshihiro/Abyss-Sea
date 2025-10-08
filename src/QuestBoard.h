@@ -11,14 +11,16 @@ struct RequestPaper {
 	int targetX;				// 移動先座標
 	int targetY;
 	int speed;					// 移動速度
+	int needLv;					// 推奨レベル
+	int enemy_iconHandle;		// エネミーアイコンハンドル
 	bool active;				// 表示中か
 
 	std::string title;			// ステージタイトル
 	std::string description;	// 説明
 
-	RequestPaper(int id, const std::string& t, const std::string& d)
-		: stageID(id), x(1280), y(100), targetX(900), targetY(100), speed(20.0f), active(false),
-		title(t), description(d) {
+	RequestPaper(int arg_id, const std::string& arg_title, const std::string& arg_desc,int arg_needLv, int arg_handle)
+		: stageID(arg_id), x(1280), y(100), targetX(900), targetY(100), speed(20.0f), needLv(arg_needLv), enemy_iconHandle(arg_handle), active(false),
+		title(arg_title), description(arg_desc) {
 	}
 };
 
