@@ -44,6 +44,7 @@ void CStage::Render()
 	// 背景
 	DrawExtendGraph(0, 0, WINDOW_W, WINDOW_H, CLoad::Instance().getStageBgGrh(), true);
 
+	SetFontSize(FONT_BIGSIZE);
 	DrawString(100, 100, "ステージ", GetColor(255, 255, 255), true);
 
 	// 選択中の三角形

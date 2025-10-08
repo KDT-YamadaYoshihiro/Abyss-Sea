@@ -90,6 +90,9 @@
     <ClCompile Include="src\UI.cpp">
       <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
+    <ClCompile Include="src\CutIn.cpp">
+      <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameMain.h">
@@ -163,6 +166,9 @@
     </ClInclude>
     <ClInclude Include="src\Calculation.h">
       <Filter>ヘッダー ファイル\Battle</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CutIn.h">
+      <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

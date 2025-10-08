@@ -134,6 +134,8 @@ void CBattle::Render()
 	
 	// スキル選択時説明の表示
 	if (skdescDraw) {
+		// 
+		//DrawBox()
 		// 説明の表示
 		SetFontSize(FONT_MINSIZE);
 		DrawFormatString(100, 200, GetColor(255, 255, 255), turnOrder[currentTurnIndex]->getSkillName().c_str());
