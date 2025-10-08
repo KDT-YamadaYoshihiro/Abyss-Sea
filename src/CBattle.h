@@ -533,14 +533,14 @@ private:
 
 					case EffectType::EF_ALL_SKILL1:
 
-						arg_character->PlaySkillEffect(selectTarget->getPosX(), selectTarget->getPosY(), 50, 250);
+						arg_character->PlaySkillEffect(selectTarget->getPosX(), selectTarget->getPosY(), 250, 250);
 						
 						// se再生
 						se->PlaySe(CLoad::Instance().getSeHandle(SE_SKILL2));
 						break;
 
 					case EffectType::EF_ALL_SKILL2:
-						arg_character->PlaySkillEffect(selectTarget->getPosX(), selectTarget->getPosY(), 50, 250);
+						arg_character->PlaySkillEffect(selectTarget->getPosX(), selectTarget->getPosY(), 250, 350);
 						
 						// se再生
 						se->PlaySe(CLoad::Instance().getSeHandle(SE_SKILL2));
