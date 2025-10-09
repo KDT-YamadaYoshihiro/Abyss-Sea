@@ -151,7 +151,7 @@ public:
 	{
 		
 		// 座標変数
-		for (int i = 0; i < PLAYER_MAX; i++) { pPosX[i] = 300 + (i % 2) * 50; pPosY[i] = WINDOW_H / 2 + 50; }
+		for (int i = 0; i < PLAYER_MAX; i++) { pPosX[i] = 300 + (i % 2) * 50; pPosY[i] = WINDOW_H / 2 + 60; }
 		for (int i = 0; i < ENEMY_MAX; i++) { ePosX = WINDOW_W / 2 + 300; ePosY = WINDOW_H / 2 + 150; }
 		
 
@@ -392,272 +392,143 @@ private:
 	//　ターゲットリスト作成
 	void TargetListCreate(std::shared_ptr<Character> arg_character) {
 
-		// ターゲット選択
-		if (arg_character->getActionChoice() == ATTACK) {		// 通常攻撃時
+		TargetList.clear();
 
-			// リスト生成
-			for (auto& e : enemies) {
-				// ターゲット決定
+		// 攻撃 or スキルで敵/味方をリストアップ
+		if (arg_character->getActionChoice() == ATTACK ||
+			arg_character->getTargetType() == SkillTargetType::SINGLE_ENEMY ||
+			arg_character->getTargetType() == SkillTargetType::ALL_ENEMY) {
+
+			for (auto& e : enemies)
 				if (e->getAlive()) TargetList.push_back(e);
-			}
-			// ターゲット選択モードオン
-			targetInput = TargetInput::TARGETCHOICE;
 		}
-		else {												// スキル時
+		else if (arg_character->getTargetType() == SkillTargetType::SINGLE_ALLY ||
+			arg_character->getTargetType() == SkillTargetType::ALL_ALLY) {
 
-			// ターゲットタイプ分け処理
-			switch (arg_character->getTargetType()) {
-
-			case SkillTargetType::SINGLE_ENEMY:
-
-				// リスト生成
-				for (auto& e : enemies) {
-					if (e->getAlive()) TargetList.push_back(e);
-				}
-				// ターゲット選択モードオン
-				targetInput = TargetInput::TARGETCHOICE;
-
-				break;
-
-			case SkillTargetType::SINGLE_ALLY:
-
-				// リスト生成
-				for (auto& p : Manager::Instance().getParty()) {
-					if (p->getAlive()) TargetList.push_back(p);
-				}
-				// ターゲット選択モードオン
-				targetInput = TargetInput::TARGETCHOICE;
-
-				break;
-
-			case SkillTargetType::SELF:
-
-				// リスト生成
-				TargetList.push_back(arg_character);
-				// 対象者決定
-				selectTarget = arg_character;
-				// 型変換
-				TypeConversion();
-				//　アクションに移行
-				arg_character->takeAction(v);
-				// spの更新
-				updataSP(arg_character);
-				// ターゲット選択モードをオフ
-				targetInput = TargetInput::END;
-
-				break;
-
-			case SkillTargetType::ALL_ENEMY:
-
-				for (auto& e : enemies) {
-					if (e->getAlive()) TargetList.push_back(e);
-				}
-				//　アクションに移行
-				arg_character->takeAction(TargetList);
-				// spの更新
-				updataSP(arg_character);
-				// エフェクト再生
-				if (arg_character->getActionChoice() == SKILL) {
-					switch (arg_character->getEfType()) {
-
-					case EffectType::EF_ALL_SKILL1:
-
-
-						for (auto& target : TargetList) {
-							arg_character->PlaySkillEffect(target->getPosX(), target->getPosY(), 80, 80);
-						}
-						// se再生
-						se->PlaySe(CLoad::Instance().getSeHandle(SE_SKILL2));
-						break;
-
-					case EffectType::EF_ALL_SKILL2:
-						arg_character->PlaySkillEffect(1000, WINDOW_H / 2 + 300, 250, 350);
-
-						// se再生
-						se->PlaySe(CLoad::Instance().getSeHandle(SE_SKILL2));
-						break;
-
-					case EffectType::EF_DEBUFF:
-						for (auto& target : TargetList) {
-							arg_character->PlaySkillEffect(target->getPosX(), target->getPosY(), 50, 40);
-						}
-						// se再生
-						se->PlaySe(CLoad::Instance().getSeHandle(SE_BUFF));
-						break;
-					}
-
-				}
-				// ターゲット選択モードをオフ
-				targetInput = TargetInput::END;
-
-
-				break;
-
-			case SkillTargetType::ALL_ALLY:
-
-				for (auto& p : Manager::Instance().getParty()) {
-					if (p->getAlive()) TargetList.push_back(p);
-				}
-				//　アクションに移行
-				arg_character->takeAction(TargetList);
-				// spの更新
-				updataSP(arg_character);
-				// エフェクト再生
-				if (arg_character->getActionChoice() == SKILL) {
-					switch (arg_character->getEfType()) {
-
-					case EffectType::EF_HEAL:
-
-						for (auto i = 0; i < TargetList.size(); i++) {
-							arg_character->PlaySkillEffect(TargetList[i]->getPosX(), TargetList[i]->getPosY(), 30, 40);
-						}
-						
-						// se再生
-						se->PlaySe(CLoad::Instance().getSeHandle(SE_HEAL));
-						break;
-
-					case EffectType::EF_BUFF:
-						for (auto i = 0; i < TargetList.size(); i++) {
-							arg_character->PlaySkillEffect(TargetList[i]->getPosX(), TargetList[i]->getPosY(), 50, 40);
-						}
-						
-						// se再生
-						se->PlaySe(CLoad::Instance().getSeHandle(SE_BUFF));
-						break;
-
-					}
-
-				}
-
-				// ターゲット選択モードをオフ
-				targetInput = TargetInput::END;
-
-				break;
-
-			}
-
+			for (auto& p : Manager::Instance().getParty())
+				if (p->getAlive()) TargetList.push_back(p);
+		}
+		else if (arg_character->getTargetType() == SkillTargetType::SELF) {
+			TargetList.push_back(arg_character);
 		}
 
+		// ターゲット選択モードへ
+		targetInput = TargetInput::TARGETCHOICE;
 	}
 
 	// ターゲットの選択
 	void TargetChoice(std::shared_ptr<Character> arg_character) {
 		
-
-		// 行動キャンセル
-		// 指定の場所をクリックした際（またはescキー）、行動選択に戻る。
+		// 行動キャンセル処理
 		if (CheckBoxClick(boxX, boxY, sizeW, sizeH)) {
 			se->PlaySe(CLoad::Instance().getSeHandle(SE_CANCEL));
 			targetInput = TargetInput::ACTIONCHOICE;
 			skdescDraw = false;
+			return;
 		}
 
-		// 単一ターゲット選択
+		// 各ターゲットに対してクリック判定
 		for (auto& tar : TargetList) {
-			// クリック入力待ち状態
-			// クリックが入力されたら対象を決定
 			Position pos = GetCharacterCenter(tar);
 
 			if (CheckCircleClick(pos.x, pos.y, 40.0f)) {
-				// se再生
+
+				// 決定音
 				se->PlaySe(CLoad::Instance().getSeHandle(SE_CLICK));
+
 				// 対象者決定
 				selectTarget = tar;
-				// 型変換
 				TypeConversion();
-				// スキル使用可能か
-				if (arg_character->getActionChoice() == SKILL && !sp->comfirmSP()) { return; }
-				//　アクションに移行
-				arg_character->takeAction(v);
 
-				if (arg_character->getActionChoice() == SKILL) {
+				// SP確認（スキル時のみ）
+				if (arg_character->getActionChoice() == SKILL && !sp->comfirmSP()) return;
 
-					switch (arg_character->getEfType())
-					{
-					case EffectType::EF_NONE:
-						break;
+				// 実際の対象リスト
+				std::vector<std::shared_ptr<Character>> actTargets;
 
-					case EffectType::EF_SKILL1:
-						arg_character->PlaySkillEffect(selectTarget->getPosX(), selectTarget->getPosY(), 300, 250);
-						// se再生
-						se->PlaySe(CLoad::Instance().getSeHandle(SE_SKILL1));
-						break;
-
-					case EffectType::EF_SKILL2:
-						arg_character->PlaySkillEffect(selectTarget->getPosX(), selectTarget->getPosY(), 350, 250);
-						// se再生
-						se->PlaySe(CLoad::Instance().getSeHandle(SE_SKILL2));
-						break;
-
-					case EffectType::EF_ALL_SKILL1:
-
-						arg_character->PlaySkillEffect(selectTarget->getPosX(), selectTarget->getPosY(), 250, 250);
-						
-						// se再生
-						se->PlaySe(CLoad::Instance().getSeHandle(SE_SKILL2));
-						break;
-
-					case EffectType::EF_ALL_SKILL2:
-						arg_character->PlaySkillEffect(selectTarget->getPosX(), selectTarget->getPosY(), 250, 350);
-						
-						// se再生
-						se->PlaySe(CLoad::Instance().getSeHandle(SE_SKILL2));
-						break;
-
-					case EffectType::EF_HEAL:
-						if (arg_character->getTargetType() == SkillTargetType::SINGLE_ALLY) {
-							arg_character->PlaySkillEffect(selectTarget->getPosX(), selectTarget->getPosY(), 30, 40);
-						}
-						else {
-							for (auto& target : TargetList) {
-								arg_character->PlaySkillEffect(target->getPosX(), target->getPosY(), 30, 40);
-							}
-						}
-						// se再生
-						se->PlaySe(CLoad::Instance().getSeHandle(SE_HEAL));
-						break;
-
-					case EffectType::EF_BUFF:
-						if (arg_character->getTargetType() == SkillTargetType::SINGLE_ALLY) {
-							arg_character->PlaySkillEffect(selectTarget->getPosX(), selectTarget->getPosY(), 50, 40);
-						}
-						else {
-							for (auto& target : TargetList) {
-								arg_character->PlaySkillEffect(target->getPosX(), target->getPosY(), 50, 40);
-							}
-						}
-						// se再生
-						se->PlaySe(CLoad::Instance().getSeHandle(SE_BUFF));
-						break;
-
-					case EffectType::EF_DEBUFF:
-						if (arg_character->getTargetType() == SkillTargetType::SINGLE_ENEMY) {
-							arg_character->PlaySkillEffect(selectTarget->getPosX(), selectTarget->getPosY(), 50, 40);
-						}
-						else {
-							for (auto& target : TargetList) {
-								arg_character->PlaySkillEffect(target->getPosX(), target->getPosY(), 50, 40);
-							}
-						}						// se再生
-						se->PlaySe(CLoad::Instance().getSeHandle(SE_BUFF));
-						break;
-
-					default:
-						break;
-					}
+				if (arg_character->getTargetType() == SkillTargetType::ALL_ENEMY ||
+					arg_character->getTargetType() == SkillTargetType::ALL_ALLY) {
+					actTargets = TargetList;
 				}
 				else {
-					arg_character->PlayAttackEffect(selectTarget->getPosX(), selectTarget->getPosY(), 50, 40);
-					// se再生
-					se->PlaySe(CLoad::Instance().getSeHandle(SE_ATTACK));
+					actTargets.push_back(selectTarget);
 				}
+
+				// アクション実行
+				arg_character->takeAction(actTargets);
+				updataSP(arg_character);
+
+				// エフェクト再生
+				PlayEffectByType(arg_character, actTargets);
+
 				// ターゲット選択モードをオフ
 				targetInput = TargetInput::END;
-
 				break;
 			}
 		}
+	}
 
+	// 再生するエフェクト
+	void PlayEffectByType(std::shared_ptr<Character> actor,
+		const std::vector<std::shared_ptr<Character>>& targets) {
+
+		EffectType efType = actor->getEfType();
+
+		if (actor->getActionChoice() == SKILL) {
+			switch (efType) {
+
+				// 単体・全体スキル1/2
+			case EffectType::EF_SKILL1:
+				for (auto& t : targets)
+					actor->PlaySkillEffect(t->getPosX(), t->getPosY(), 300, 250);
+				se->PlaySe(CLoad::Instance().getSeHandle(SE_SKILL1));
+				break;
+
+			case EffectType::EF_SKILL2:
+				for (auto& t : targets)
+					actor->PlaySkillEffect(t->getPosX(), t->getPosY(), 350, 250);
+				se->PlaySe(CLoad::Instance().getSeHandle(SE_SKILL2));
+				break;
+
+				// 全体スキル
+			case EffectType::EF_ALL_SKILL1:
+				for (auto& t : targets)
+					actor->PlaySkillEffect(t->getPosX(), t->getPosY(), 250, 250);
+				se->PlaySe(CLoad::Instance().getSeHandle(SE_SKILL2));
+				break;
+
+			case EffectType::EF_ALL_SKILL2:
+				for (auto& t : targets)
+					actor->PlaySkillEffect(t->getPosX(), t->getPosY(), 250, 350);
+				se->PlaySe(CLoad::Instance().getSeHandle(SE_SKILL2));
+				break;
+
+				// 回復系
+			case EffectType::EF_HEAL:
+				for (auto& t : targets)
+					actor->PlaySkillEffect(t->getPosX(), t->getPosY(), 30, 40);
+				se->PlaySe(CLoad::Instance().getSeHandle(SE_HEAL));
+				break;
+
+				// バフ・デバフ系
+			case EffectType::EF_BUFF:
+			case EffectType::EF_DEBUFF:
+				for (auto& t : targets)
+					actor->PlaySkillEffect(t->getPosX(), t->getPosY(), 50, 40);
+				se->PlaySe(CLoad::Instance().getSeHandle(SE_BUFF));
+				break;
+
+			default:
+				break;
+			}
+		}
+		else {
+			// 通常攻撃
+			for (auto& t : targets)
+				actor->PlayAttackEffect(t->getPosX(), t->getPosY(), 50, 40);
+			se->PlaySe(CLoad::Instance().getSeHandle(SE_ATTACK));
+
+		}
 	}
 
 	// エネミー

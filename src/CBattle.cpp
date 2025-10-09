@@ -77,12 +77,13 @@ void CBattle::Render()
 		if (!e->getAlive()) { e->DeadAnimDraw(); }
 
 	}
+
 	// プレイヤーの描画
 	for (size_t i = 0; i < Manager::Instance().getParty().size(); i++) {
 		auto& players = Manager::Instance().getParty();
 		// クリック時に使用する変数セット
 		int x = pPosX[i] + (i % 2) * 50;
-		int y = pPosY[i] + i * 80;
+		int y = pPosY[i] + i * 50;
 
 		players[i]->setPosX(x);
 		players[i]->setPosY(y);
@@ -91,12 +92,22 @@ void CBattle::Render()
 		
 	}
 
+	// エフェクトの再生
 	for (size_t p = 0; p < Manager::Instance().getParty().size(); p++) {
+		
+		auto& players = Manager::Instance().getParty();
+		// 複数再生
+		if (turnOrder[currentTurnIndex]->getTargetType() == SkillTargetType::ALL_ALLY || 
+			turnOrder[currentTurnIndex]->getTargetType() == SkillTargetType::ALL_ENEMY) {
 
-		for (size_t i = 0; i < TargetList.size(); i++) {
-			auto& players = Manager::Instance().getParty();
-
-			players[p]->EffectDraw(TargetList[i]->getPosX(), TargetList[i]->getPosY());
+			for (size_t i = 0; i < TargetList.size(); i++) {
+				players[p]->EffectDraw(TargetList[i]->getPosX(), TargetList[i]->getPosY());
+			}
+		}
+		else { // 単体時&&selectTargetがnullptrでないとき
+			if (selectTarget != nullptr) {
+				players[p]->EffectDraw(selectTarget->getPosX(), selectTarget->getPosY());
+			}
 		}
 	}
 	
@@ -129,17 +140,16 @@ void CBattle::Render()
 			// 赤色の枠
 			DrawCircle(pos.x, pos.y, 40, GetColor(255, 0, 0), FALSE); 
 		}
-
 	}
 	
 	// スキル選択時説明の表示
 	if (skdescDraw) {
 		// 
-		//DrawBox()
+		DrawBox(100, 200, 500, 250, GetColor(100, 100, 100), true);
 		// 説明の表示
 		SetFontSize(FONT_MINSIZE);
-		DrawFormatString(100, 200, GetColor(255, 255, 255), turnOrder[currentTurnIndex]->getSkillName().c_str());
-		DrawFormatString(100, 200 + FONT_MINSIZE, GetColor(255, 255, 255), turnOrder[currentTurnIndex]->getDetails().c_str());
+		DrawFormatString(110, 210, GetColor(255, 255, 255), turnOrder[currentTurnIndex]->getSkillName().c_str());
+		DrawFormatString(110, 210 + FONT_MINSIZE, GetColor(255, 255, 255), turnOrder[currentTurnIndex]->getDetails().c_str());
 	}
 
 
@@ -154,9 +164,12 @@ void CBattle::Render()
 	}
 
 	// 行動中のキャラクターのステータス
-	if (currentTurnIndex < turnOrder.size()) {
-		ui->SelectStatus(20, WINDOW_H - 120, 330, 100, turnOrder[currentTurnIndex]->getFaceHandle(), turnOrder[currentTurnIndex]);
+	for (size_t i = 0; i < Manager::Instance().getParty().size(); i++) {
+		auto paty = Manager::Instance().getParty();
+		int x = 20 + (i * 105);
+		ui->SelectStatus(x, WINDOW_H - 125, 100, 120, paty[i]->getFaceHandle(), paty[i]);
 	}
+	
 
 	// メニューバーの表示
 	SetFontSize(FONT_BIGSIZE);

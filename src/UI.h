@@ -237,36 +237,18 @@ public:
 		DrawLineBox(arg_x, arg_y, sizeX, sizeY, GetColor(255, 255, 255), true);
 
 		// アイコン画像
-		int drawX = arg_x + 10;
-		int drawY = arg_y + 10;
+		int drawX = (arg_x + arg_sizeX/ 2) - ICON_SIZE / 2;
+		int drawY = arg_y + 5;
 		DrawExtendGraph(drawX, drawY, drawX + ICON_SIZE, drawY + ICON_SIZE, arg_handle, TRUE);
 
 		// status
 		// NAME
-		SetFontSize(20);
-		int y = drawY + ICON_SIZE + 5;
+		SetFontSize(15);
+		int y = drawY + ICON_SIZE - 5;
 		DrawFormatString(drawX, y, GetColor(255, 255, 255), character->getName().c_str(), true);
-	
-		{
-			const int size = 30;
-			int x1 = drawX + ICON_SIZE + 10;
-			int x2 = drawX + ICON_SIZE + 150;
-			int y = arg_y + size/2;
+		// HP
+		DrawFormatString(drawX - 10, y + 20, GetColor(255, 255, 255), "HP\n%4d/%4d", character->getHp(), character->getMaxHp(), true);
 
-			// Lv
-			DrawFormatString(x1, y, GetColor(255, 255, 255), "Lv.%2d", character->getLv(), true);
-			// HP
-			DrawFormatString(x1, y + size, GetColor(255, 255, 255), "HP\n%4d/%4d", character->getHp(), character->getMaxHp(), true);
-
-			// ATK
-			DrawFormatString(x2, y, GetColor(255, 255, 255), "ATK.%4d", character->getAttack(), true);
-
-			// DEF
-			DrawFormatString(x2, y + size, GetColor(255, 255, 255), "DEF.%4d", character->getDefense(), true);
-
-			// AGR
-			DrawFormatString(x2, y + (size * 2), GetColor(255, 255, 255), "AGR.%4d", character->getSpeed(), true);
-		}
 	}
 
 	//　改行関数
