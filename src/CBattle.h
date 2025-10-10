@@ -4,7 +4,6 @@
 #include "CharacterFactory.h"
 #include "Character.h"
 #include "Calculation.h"
-#include "IconManager.h"
 
 // バトルスクリーンクラス
 class CBattle : public ScreenBase {
