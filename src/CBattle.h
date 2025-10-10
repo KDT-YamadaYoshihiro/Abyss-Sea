@@ -463,7 +463,6 @@ private:
 
 				// アクション実行
 				arg_character->takeAction(actTargets);
-				updataSP(arg_character);
 
 				// エフェクト再生
 				PlayEffectByType(arg_character, actTargets);

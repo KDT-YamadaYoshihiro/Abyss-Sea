@@ -377,10 +377,9 @@ public:
 		}
 
 		// 残りターン０のアイコン削除（手動で）
-		for (int i = 0; i < (int)icons.size(); i++) {
+		for (int i = (int)icons.size() - 1; i >= 0; i--) {
 			if (icons[i].isExpired()) {
 				icons.erase(icons.begin() + i);
-				i--;
 			}
 		}
 		// 再度ターン順に並べ替え（左が多い）
