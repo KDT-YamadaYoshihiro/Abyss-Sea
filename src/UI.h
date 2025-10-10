@@ -232,7 +232,10 @@ public:
 		//@”wŒii•j
 		int sizeX = arg_x + arg_sizeX;
 		int sizeY = arg_y + arg_sizeY;
+
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 100);
 		DrawBox(arg_x, arg_y, sizeX, sizeY, GetColor(0,0,0),true);
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 		// ˜g(”’)
 		DrawLineBox(arg_x, arg_y, sizeX, sizeY, GetColor(255, 255, 255), true);
 
@@ -244,7 +247,7 @@ public:
 		// status
 		// NAME
 		SetFontSize(15);
-		int y = drawY + ICON_SIZE - 5;
+		int y = drawY + ICON_SIZE;
 		DrawFormatString(drawX, y, GetColor(255, 255, 255), character->getName().c_str(), true);
 		// HP
 		DrawFormatString(drawX - 10, y + 20, GetColor(255, 255, 255), "HP\n%4d/%4d", character->getHp(), character->getMaxHp(), true);

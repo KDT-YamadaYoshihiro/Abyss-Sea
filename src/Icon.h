@@ -18,7 +18,7 @@ public:
 
 	void Draw() const {
 		DrawExtendGraph(x, y, x + size, y + size, handle, true);
-		DrawFormatString(x + size / 2, y + size, GetColor(255, 255, 255), "%d", remainingTurn);
+		DrawFormatString(x + size / 2 + 5, y + size - 10, GetColor(255, 255, 255), "%d", remainingTurn);
 	}
 
 	void DecreaseTurn() {

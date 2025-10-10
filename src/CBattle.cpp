@@ -95,6 +95,7 @@ void CBattle::Render()
 	for (size_t p = 0; p < Manager::Instance().getParty().size(); p++) {
 		
 		auto& players = Manager::Instance().getParty();
+
 		// 複数再生
 		if (turnOrder[currentTurnIndex]->getTargetType() == SkillTargetType::ALL_ALLY || 
 			turnOrder[currentTurnIndex]->getTargetType() == SkillTargetType::ALL_ENEMY) {
@@ -141,26 +142,15 @@ void CBattle::Render()
 		}
 	}
 	
-	// スキル選択時説明の表示
-	if (skdescDraw) {
-		// 
-		DrawBox(100, 200, 500, 250, GetColor(100, 100, 100), true);
-		// 説明の表示
-		SetFontSize(FONT_MINSIZE);
-		DrawFormatString(110, 210, GetColor(255, 255, 255), turnOrder[currentTurnIndex]->getSkillName().c_str());
-		DrawFormatString(110, 210 + FONT_MINSIZE, GetColor(255, 255, 255), turnOrder[currentTurnIndex]->getDetails().c_str());
-	}
-
 
 	// UI
 	if (targetInput == TargetInput::ACTIONCHOICE) {
 		// ボタンの表示
-		ui->Button(ButtonX, atButtonY, ButtonX + ButtonSizeX, atButtonY + ButtonSizeY, CLoad::Instance().getAtkButtonGrh());
-		ui->Button(ButtonX, skButtonY, ButtonX + ButtonSizeX, skButtonY + ButtonSizeY, CLoad::Instance().getSklButtonGrh());
-
-		// スキルポイントの表示
-		ui->SkillPoint(100, 300, SP_RADIUS, sp->getSP(), sp->getMaxSP());
+		ui->Button(atButtonX, ButtonY, atButtonX + ButtonSizeX, ButtonY + ButtonSizeY, CLoad::Instance().getAtkButtonGrh());
+		ui->Button(skButtonX, ButtonY, skButtonX + ButtonSizeX, ButtonY + ButtonSizeY, CLoad::Instance().getSklButtonGrh());
 	}
+	// スキルポイントの表示
+	ui->SkillPoint(530, WINDOW_H - 85, SP_RADIUS, sp->getSP(), sp->getMaxSP());
 
 	// 行動中のキャラクターのステータス
 	for (size_t i = 0; i < Manager::Instance().getParty().size(); i++) {
@@ -173,6 +163,24 @@ void CBattle::Render()
 
 	}
 	
+	// スキル選択時説明の表示
+	if (skdescDraw) {
+
+		int x = 20;
+		int y = WINDOW_H - 210;
+		int size_w = 400;
+		int size_h = 50;
+
+		// 
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 100);
+		DrawBox(x, y, x + size_w, y + size_h, GetColor(100, 100, 100), true);
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+		// 説明の表示
+		SetFontSize(FONT_MINSIZE);
+		DrawFormatString(x + 10, y + 10, GetColor(255, 255, 255), turnOrder[currentTurnIndex]->getSkillName().c_str());
+		DrawFormatString(x + 10, y + 10 + FONT_MINSIZE, GetColor(255, 255, 255), turnOrder[currentTurnIndex]->getDetails().c_str());
+	}
+
 
 	// メニューバーの表示
 	SetFontSize(FONT_BIGSIZE);

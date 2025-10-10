@@ -89,9 +89,9 @@ class CBattle : public ScreenBase {
 	int ePosY = -1;
 
 	// ボタン座標
-	int ButtonX = -1;
-	int atButtonY = -1;
-	int skButtonY = -1;
+	int atButtonX = -1;
+	int ButtonY = -1;
+	int skButtonX = -1;
 	int ButtonSizeX = -1;
 	int ButtonSizeY = -1;
 
@@ -133,9 +133,9 @@ public:
 	// 初期化
 	CBattle() :
 		// ボタン座標
-		ButtonX(50),
-		atButtonY(WINDOW_H / 2),
-		skButtonY(atButtonY + 100),
+		atButtonX(450),
+		ButtonY(WINDOW_H - 60),
+		skButtonX(atButtonX + 210),
 		ButtonSizeX(200),
 		ButtonSizeY(50),
 		clickFrame(0),
@@ -143,8 +143,8 @@ public:
 		blendNum(50),
 		blendSpeed(1),
 		// UIボタン座標
-		boxX(WINDOW_W - 220),
-		boxY(180),
+		boxX(WINDOW_W / 2 + 220),
+		boxY(WINDOW_H - 100),
 		sizeW(200),
 		sizeH(80),
 		buttonX(WINDOW_W / 2 - (FONT_BIGSIZE * 1.5)),
@@ -374,12 +374,12 @@ private:
 	void ActionChoice(std::shared_ptr<Character> arg_character) {
 
 		//　通常攻撃orスキル選択（クリック）
-		if (CheckBoxClick(ButtonX, atButtonY, ButtonSizeX,ButtonSizeY)) {
+		if (CheckBoxClick(atButtonX, ButtonY, ButtonSizeX,ButtonSizeY)) {
 			se->PlaySe(CLoad::Instance().getSeHandle(SE_CLICK));
 			arg_character->setActionChoice(ATTACK);
 			targetInput = TargetInput::LISTCREATE;
 		}
-		else if (CheckBoxClick(ButtonX, skButtonY, ButtonSizeX, ButtonSizeY)) {
+		else if (CheckBoxClick(skButtonX, ButtonY, ButtonSizeX, ButtonSizeY)) {
 
 			// spが0より大きいなら（1以上なら）
 			if (sp->getSP() > 0) {
@@ -580,6 +580,10 @@ private:
 		updataSP(arg_character);
 		// インデックスをインクリメントして次のキャラクターの行動へ		
 		currentTurnIndex++;
+		if (currentTurnIndex >= turnOrder.size()) {
+			TurnEnd();
+			return;
+		}
 	}
 
 	void EEnd(std::shared_ptr<Character> arg_characte) {
@@ -593,6 +597,10 @@ private:
 		actionMode = ActionMode::E_NONE;
 		// アクション終了後インデックスをインクリメント
 		currentTurnIndex++;
+		if (currentTurnIndex >= turnOrder.size()) {
+			TurnEnd();
+			return;
+		}
 	}
 
 	// ターン終了時関数
@@ -608,7 +616,7 @@ private:
 		}
 
 		// ターンオーダーの中身をリセット
-		if (!turnOrder.empty())turnOrder.clear();
+		turnOrder.clear();
 		// インデックスをリセット
 		currentTurnIndex = 0;
 
@@ -740,8 +748,10 @@ private:
 
 		}
 		else {
-			// ターン終了関数
-			TurnEnd();
+			if (turnOrder.empty() || currentTurnIndex >= turnOrder.size()) {
+				TurnEnd(); // ターン終了へ
+				return;
+			}
 		}
 
 		// バトル進行関数

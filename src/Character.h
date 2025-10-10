@@ -305,7 +305,7 @@ public:
 	void takeAgrBuff(float buffPower, int turn) {
 		Buff.agrMultiplier = buffPower;
 		Buff.agrturn = turn;
-		addIcon(BUFF_ATK, CLoad::Instance().getIconGrh(BUFF_DEF), turn);
+		addIcon(BUFF_AGR, CLoad::Instance().getIconGrh(BUFF_AGR), turn);
 
 	}
 
@@ -313,7 +313,7 @@ public:
 	void takeDefBuff(float buffPower, int turn) {
 		Buff.defMultiplier = buffPower;
 		Buff.defturn = turn;
-		addIcon(BUFF_ATK, CLoad::Instance().getIconGrh(BUFF_AGR), turn);
+		addIcon(BUFF_DEF, CLoad::Instance().getIconGrh(BUFF_DEF), turn);
 
 	}
 
@@ -347,11 +347,15 @@ public:
 
 	// バフの更新処理
 	void updateBuff() {
+
+		bool needRecheck = false; // 削除があったらtrueにする
+
 		if (Buff.atkturn > 0) {
 			Buff.atkturn--;
 			if (Buff.atkturn == 0) {
 				Buff.atkMultiplier = 1.0f;
 				removeIcon(BUFF_ATK);
+				needRecheck = true;
 			}
 		}
 
@@ -360,6 +364,7 @@ public:
 			if (Buff.agrturn == 0) {
 				Buff.agrMultiplier = 1.0f;
 				removeIcon(BUFF_AGR);
+				needRecheck = true;
 			}
 		}
 
@@ -368,27 +373,31 @@ public:
 			if (Buff.defturn == 0) {
 				Buff.defturn = 1.0f;
 				removeIcon(BUFF_DEF);
+				needRecheck = true;
 			}
 		}
 
 		// 各アイコンのターンも減少
-		for (int i = 0; i < (int)icons.size(); i++) {
-			icons[i].DecreaseTurn();
+		for (auto& icon : icons) {
+			icon.DecreaseTurn();
 		}
 
 		// 残りターン０のアイコン削除（手動で）
-		for (int i = (int)icons.size() - 1; i >= 0; i--) {
-			if (icons[i].isExpired()) {
-				icons.erase(icons.begin() + i);
+		if (!icons.empty()) {
+			for (int i = (int)icons.size() - 1; i >= 0; i--) {
+				if (icons[i].isExpired()) {
+					icons.erase(icons.begin() + i);
+					needRecheck = true;
+				}
 			}
 		}
-		// 再度ターン順に並べ替え（左が多い）
-		for (int i = 0; i < (int)icons.size() - 1; i++) {
-			for (int j = i + 1; j < (int)icons.size(); j++) {
-				if (icons[i].getTurn() < icons[j].getTurn()) {
-					CIcon tmp = icons[i];
-					icons[i] = icons[j];
-					icons[j] = tmp;
+		 //再度ターン順に並べ替え（左が多い）
+		if (needRecheck && icons.size() > 1) {
+			for (int i = 0; i < (int)icons.size() - 1; i++) {
+				for (int j = i + 1; j < (int)icons.size(); j++) {
+					if (icons[i].getTurn() < icons[j].getTurn()) {
+						std::swap(icons[i], icons[j]);
+					}
 				}
 			}
 		}
@@ -399,7 +408,7 @@ public:
 		for (int i = 0; i < (int)icons.size(); i++) {
 			if (icons[i].getType() == type) {
 				icons.erase(icons.begin() + i);
-				break;
+				break; 
 			}
 		}
 	}
@@ -410,7 +419,7 @@ public:
 		for (int i = 0; i < (int)icons.size(); i++) {
 			icons[i].setPos(baseX + offset, baseY);
 			icons[i].Draw();
-			offset += 60;
+			offset += 27;
 		}
 	}
 
@@ -422,6 +431,9 @@ public:
 		Buff.agrMultiplier = 1.0f;
 		Buff.defturn = 0;
 		Buff.defturn = 1.0f;
+		removeIcon(BUFF_ATK);
+		removeIcon(BUFF_AGR);
+		removeIcon(BUFF_DEF);
 	}
 
 
