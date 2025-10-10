@@ -5,6 +5,8 @@
 #include "CBattle_SP.h"
 #include "CharacterData.h"
 #include "Calculation.h"
+#include "Icon.h"
+
 
 // キャラクター基底クラス
 class Character {
@@ -30,6 +32,10 @@ protected:
 	// エフェクト
 	std::shared_ptr<Effect> attackEffect;
 	std::shared_ptr<Effect> skillEffect;
+
+	// アイコン
+	std::vector<CIcon> icons;
+
 
 	// 死亡時エフェクト(エネミーの時)
 	std::shared_ptr<Effect> deadEffect;
@@ -292,20 +298,52 @@ public:
 	void takeAtkBuff(float buffPower, int turn) {
 		Buff.atkMultiplier = buffPower;
 		Buff.atkturn = turn;
+		addIcon(BUFF_ATK, CLoad::Instance().getIconGrh(BUFF_ATK), turn);
 	}
 
 	// 速度バフ
 	void takeAgrBuff(float buffPower, int turn) {
 		Buff.agrMultiplier = buffPower;
 		Buff.agrturn = turn;
+		addIcon(BUFF_ATK, CLoad::Instance().getIconGrh(BUFF_DEF), turn);
+
 	}
 
 	// 防御力バフ
 	void takeDefBuff(float buffPower, int turn) {
 		Buff.defMultiplier = buffPower;
 		Buff.defturn = turn;
+		addIcon(BUFF_ATK, CLoad::Instance().getIconGrh(BUFF_AGR), turn);
+
 	}
 
+	// アイコンの追加
+	void addIcon(BuffType type, int handle, int turn) {
+		bool exists = false;
+
+		for (int i = 0; i < (int)icons.size(); i++) {
+			if (icons[i].getType() == type) {
+				exists = true;
+				break;
+			}
+		}
+
+		if (!exists) {
+			CIcon newIcon(type, 100, 100, 30, handle, turn);
+			icons.push_back(newIcon);
+		}
+
+		// 残りターンの多い順に並べ替え
+		for (int i = 0; i < (int)icons.size() - 1; i++) {
+			for (int j = i + 1; j < (int)icons.size(); j++) {
+				if (icons[i].getTurn() < icons[j].getTurn()) {
+					CIcon tmp = icons[i];
+					icons[i] = icons[j];
+					icons[j] = tmp;
+				}
+			}
+		}
+	}
 
 	// バフの更新処理
 	void updateBuff() {
@@ -313,6 +351,7 @@ public:
 			Buff.atkturn--;
 			if (Buff.atkturn == 0) {
 				Buff.atkMultiplier = 1.0f;
+				removeIcon(BUFF_ATK);
 			}
 		}
 
@@ -320,6 +359,7 @@ public:
 			Buff.agrturn--;
 			if (Buff.agrturn == 0) {
 				Buff.agrMultiplier = 1.0f;
+				removeIcon(BUFF_AGR);
 			}
 		}
 
@@ -327,9 +367,52 @@ public:
 			Buff.defturn--;
 			if (Buff.defturn == 0) {
 				Buff.defturn = 1.0f;
+				removeIcon(BUFF_DEF);
 			}
 		}
 
+		// 各アイコンのターンも減少
+		for (int i = 0; i < (int)icons.size(); i++) {
+			icons[i].DecreaseTurn();
+		}
+
+		// 残りターン０のアイコン削除（手動で）
+		for (int i = 0; i < (int)icons.size(); i++) {
+			if (icons[i].isExpired()) {
+				icons.erase(icons.begin() + i);
+				i--;
+			}
+		}
+		// 再度ターン順に並べ替え（左が多い）
+		for (int i = 0; i < (int)icons.size() - 1; i++) {
+			for (int j = i + 1; j < (int)icons.size(); j++) {
+				if (icons[i].getTurn() < icons[j].getTurn()) {
+					CIcon tmp = icons[i];
+					icons[i] = icons[j];
+					icons[j] = tmp;
+				}
+			}
+		}
+	}
+
+	// アイコン削除
+	void removeIcon(BuffType type) {
+		for (int i = 0; i < (int)icons.size(); i++) {
+			if (icons[i].getType() == type) {
+				icons.erase(icons.begin() + i);
+				break;
+			}
+		}
+	}
+
+	//　バフ・デバフアイコン描画
+	void DrawIcons(int baseX, int baseY) {
+		int offset = 0;
+		for (int i = 0; i < (int)icons.size(); i++) {
+			icons[i].setPos(baseX + offset, baseY);
+			icons[i].Draw();
+			offset += 60;
+		}
 	}
 
 	// バフのリセット

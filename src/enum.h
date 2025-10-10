@@ -99,7 +99,7 @@ enum class PartyUIState {
 	SELECTING   // キャラ選択中（一覧展開）
 };
 
-// ui
+// ボタンUI
 enum BUTTON {
 	CHALLEMGE,
 	BACK,
@@ -113,4 +113,13 @@ enum BUTTON {
 	RETRY,
 
 	BUTTON_MAX
+};
+
+// アイコンUI
+enum BuffType {
+	BUFF_ATK,
+	BUFF_DEF,
+	BUFF_AGR,
+
+	BUFF_MAX
 };

@@ -35,8 +35,12 @@ class CLoad {
 	int EnemyGrh[ENEMY_MAX];
 	int EfaceGrh[ENEMY_MAX];
 
+	// エフェクト
 	const int efMax = static_cast<int>(EffectType::EF_MAX);
 	int effGrh[static_cast<int>(EffectType::EF_MAX)];
+
+	// バフ・デバフアイコン
+	int icon[static_cast<int>(BUFF_MAX)];
 
 	// 音ハンドル
 	// SE
@@ -104,6 +108,13 @@ class CLoad {
 			effGrh[i] = LoadGraph(filepah);
 		}
 
+		// アイコン
+		for (int i = 0; i < BUFF_MAX; i++) {
+			char filepah[64];
+			sprintf_s(filepah, "data/ui/icon_%d.png", i);
+			icon[i] = LoadGraph(filepah);
+		}
+
 		// bgm
 		for (int i = 0; i < BGM_MAX; i++) {
 			char filepath[64];
@@ -145,8 +156,10 @@ class CLoad {
 			DeleteGraph(EfaceGrh[i]);
 		}
 		for (int i = 0; i < efMax; i++) {
-
 			DeleteGraph(effGrh[i]);
+		}
+		for (int i = 0; i < BUFF_MAX; i++) {
+			DeleteGraph(icon[i]);
 		}
 		for (int i = 0; i < BGM_MAX; i++) {
 			DeleteSoundMem(bgmh[i]);
@@ -195,6 +208,8 @@ public:
 	int getEfaceGrh(int arg_index) const { return EfaceGrh[arg_index]; }
 	// エフェクト
 	int getEffectGrh(EffectType arg_index) const { return effGrh[static_cast<int>(arg_index)]; }
+	// アイコン
+	int getIconGrh(BuffType arg_index) const { return icon[static_cast<int>(arg_index)]; }
 	// bgm
 	int getBgmHandle(int arg_index) const { return bgmh[arg_index]; }
 	// se

@@ -172,6 +172,8 @@
     <ClInclude Include="src\CutIn.h" />
     <ClInclude Include="src\enum.h" />
     <ClInclude Include="src\GameMain.h" />
+    <ClInclude Include="src\Icon.h" />
+    <ClInclude Include="src\IconManager.h" />
     <ClInclude Include="src\InPutKey.h" />
     <ClInclude Include="src\InPutPad.h" />
     <ClInclude Include="src\Manager.h" />

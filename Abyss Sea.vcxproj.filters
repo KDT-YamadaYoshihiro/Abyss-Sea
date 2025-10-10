@@ -170,5 +170,11 @@
     <ClInclude Include="src\CutIn.h">
       <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
+    <ClInclude Include="src\Icon.h">
+      <Filter>ヘッダー ファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\IconManager.h">
+      <Filter>ヘッダー ファイル\UI</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

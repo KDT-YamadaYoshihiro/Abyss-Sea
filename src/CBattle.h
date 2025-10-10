@@ -4,6 +4,7 @@
 #include "CharacterFactory.h"
 #include "Character.h"
 #include "Calculation.h"
+#include "IconManager.h"
 
 // バトルスクリーンクラス
 class CBattle : public ScreenBase {
@@ -63,7 +64,8 @@ class CBattle : public ScreenBase {
 
 	std::shared_ptr<Effect> effect;
 
-	std::shared_ptr< Calculation> cal;
+	std::shared_ptr<
+		Calculation> cal;
 
 	// 現在ターンのインデックス
 	int currentTurnIndex = 0;
@@ -237,6 +239,11 @@ private:
 		endFrame = 120;
 	}
 	
+	void Delete() {
+
+		enemies.clear();
+	}
+
 	// バトル終了確認関数
 	bool BattleOver() {
 		// プレイヤーが生きているか
@@ -574,10 +581,8 @@ private:
 		updataSP(arg_character);
 		// インデックスをインクリメントして次のキャラクターの行動へ		
 		currentTurnIndex++;
-			
-		
-
 	}
+
 	void EEnd(std::shared_ptr<Character> arg_characte) {
 		for (auto& p : Manager::Instance().getParty()) {
 			// アニメーションをWAITにする
@@ -589,8 +594,6 @@ private:
 		actionMode = ActionMode::E_NONE;
 		// アクション終了後インデックスをインクリメント
 		currentTurnIndex++;
-
-
 	}
 
 	// ターン終了時関数
@@ -803,7 +806,11 @@ private:
 			if (CheckBoxClick(WINDOW_W / 2 - (FONT_BIGSIZE * 6), WINDOW_H / 2 + (FONT_BIGSIZE * 1.5), sizeW, sizeH)) {
 				// fadeを軌道
 				fade->fadeStart(fade->FADE_CLAUSE);
+
 				// 再挑戦
+				// 敵を削除
+				Delete();
+				// 再初期化
 				BattleInit();
 				// バトル画面に切り替える
 				state = State::BATTLE;

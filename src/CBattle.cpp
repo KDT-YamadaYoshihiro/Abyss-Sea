@@ -89,7 +89,6 @@ void CBattle::Render()
 		players[i]->setPosY(y);
 		//	本体
 		players[i]->Render(x, y, CLoad::Instance().getPlayerGrh(players[i]->getId()));
-		
 	}
 
 	// エフェクトの再生
@@ -168,6 +167,10 @@ void CBattle::Render()
 		auto paty = Manager::Instance().getParty();
 		int x = 20 + (i * 105);
 		ui->SelectStatus(x, WINDOW_H - 125, 100, 120, paty[i]->getFaceHandle(), paty[i]);
+		// バフ・デバフアイコン表示
+		// 描画時
+		paty[i]->DrawIcons(x, WINDOW_H - 160);
+
 	}
 	
 
