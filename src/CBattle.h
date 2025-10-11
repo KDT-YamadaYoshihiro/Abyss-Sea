@@ -345,7 +345,7 @@ private:
 				DrawBox(drawX, y, drawX + ICON_SIZE, y + ICON_SIZE, GetColor(255, 255, 0), FALSE);
 			}
 			else {
-				// 非行動者は半透明に
+				// 非行動者
 				SetDrawBlendMode(DX_BLENDMODE_ALPHA, 100);
 				DrawBox(drawX, y, drawX + ICON_SIZE, y + ICON_SIZE, GetColor(100, 100, 100), TRUE);
 				SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);

@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <memory>
+#include "enum.h"
 #include "DxLib.h"
 #include "Mouse.h"
 
@@ -14,9 +15,6 @@
 #define PINK	GetColor(255, 0, 255)		//	ピンク
 #define SKYBLUE	GetColor(0, 255, 255)		//	水色
 
-// ウィンドウサイズ
-#define WINDOW_W		1298		
-#define WINDOW_H		 808		
 
 // フォントサイズ
 #define FONTSIZE		 100

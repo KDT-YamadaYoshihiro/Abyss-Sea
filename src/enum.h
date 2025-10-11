@@ -1,5 +1,10 @@
 #pragma once
 
+// ウィンドウサイズ
+#define WINDOW_W		1298		
+#define WINDOW_H		 808		
+
+
 // バトル結果
 enum class BattleResult {
 	BATTLE,
@@ -122,4 +127,11 @@ enum BuffType {
 	BUFF_AGR,
 
 	BUFF_MAX
+};
+
+// カットインのフェーズ
+enum class CutinPhase {
+	Entering,   // 勢いよく入ってくる
+	Pausing,    // 中央でゆっくり進む
+	Exiting     // 加速して退出
 };
