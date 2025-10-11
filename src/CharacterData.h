@@ -2,6 +2,7 @@
 #include <string>
 #include <memory>
 #include <vector>
+#include <algorithm>
 #include <iostream>
 
 // エフェクト種別	   なし、通常攻撃、アキラ、エル、　アリア、ピノ

@@ -63,8 +63,7 @@ class CBattle : public ScreenBase {
 
 	std::shared_ptr<Effect> effect;
 
-	std::shared_ptr<
-		Calculation> cal;
+	std::shared_ptr<Calculation> cal;
 
 	// 現在ターンのインデックス
 	int currentTurnIndex = 0;
@@ -279,21 +278,21 @@ private:
 	}
 
 	// ソート処理
-	template<typename T>
-	void sort(T* array, std::size_t size) {
-		for (std::size_t i = 0; i < size - 1; ++i) {
-			bool swapped = false;
-			for (std::size_t j = 0; j < size - 1 - i; ++j) {
-				int j_speed = cal->BuffCal(array[j]->getSpeed(), array[j]->getAgrbuff());
-				int j_next_speed = cal->BuffCal(array[j + 1]->getSpeed(), array[j + 1]->getAgrbuff());
-				if (j_speed < j_next_speed) {
-					std::swap(array[j], array[j + 1]);
-					swapped = true;
-				}
-			}
-			if (!swapped) break;
-		}
-	}
+	//template<typename T>
+	//void sort(T* array, std::size_t size) {
+	//	for (std::size_t i = 0; i < size - 1; ++i) {
+	//		bool swapped = false;
+	//		for (std::size_t j = 0; j < size - 1 - i; ++j) {
+	//			int j_speed = cal->BuffCal(array[j]->getSpeed(), array[j]->getAgrbuff());
+	//			int j_next_speed = cal->BuffCal(array[j + 1]->getSpeed(), array[j + 1]->getAgrbuff());
+	//			if (j_speed < j_next_speed) {
+	//				std::swap(array[j], array[j + 1]);
+	//				swapped = true;
+	//			}
+	//		}
+	//		if (!swapped) break;
+	//	}
+	//}
 
 	// 毎ターン行うソート
 	void TurnOrder() {
@@ -308,12 +307,22 @@ private:
 			if (e->getAlive() == true) turnOrder.push_back(e);
 		}
 
-		// 素早さでソート（降順）
+		//// 素早さでソート（降順）
+		//if (!turnOrder.empty()) {
+		//	// ポインタ配列として扱う
+		//	std::shared_ptr<Character>* array = turnOrder.data();
+		//	std::size_t size = turnOrder.size();
+		//	sort(array, size);
+		//}
+
+		 // 素早さでソート（降順）
 		if (!turnOrder.empty()) {
-			// ポインタ配列として扱う
-			std::shared_ptr<Character>* array = turnOrder.data();
-			std::size_t size = turnOrder.size();
-			sort(array, size);
+			// std::sort を使ってソート
+			std::sort(turnOrder.begin(), turnOrder.end(), [this](const std::shared_ptr<Character>& a, const std::shared_ptr<Character>& b) {
+				int a_speed = cal->BuffCal(a->getSpeed(), a->getAgrbuff());
+				int b_speed = cal->BuffCal(b->getSpeed(), b->getAgrbuff());
+				return a_speed > b_speed; // 降順にソート
+			});
 		}
 	}
 
@@ -334,6 +343,12 @@ private:
 			// 現在のターンキャラに枠を表示
 			if (i == static_cast<size_t>(currentTurnIndex)) {
 				DrawBox(drawX, y, drawX + ICON_SIZE, y + ICON_SIZE, GetColor(255, 255, 0), FALSE);
+			}
+			else {
+				// 非行動者は半透明に
+				SetDrawBlendMode(DX_BLENDMODE_ALPHA, 100);
+				DrawBox(drawX, y, drawX + ICON_SIZE, y + ICON_SIZE, GetColor(100, 100, 100), TRUE);
+				SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 			}
 
 			// 名前または略称を下に表示

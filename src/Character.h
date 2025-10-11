@@ -392,14 +392,20 @@ public:
 			}
 		}
 		 //再度ターン順に並べ替え（左が多い）
+		//if (needRecheck && icons.size() > 1) {
+		//	for (int i = 0; i < (int)icons.size() - 1; i++) {
+		//		for (int j = i + 1; j < (int)icons.size(); j++) {
+		//			if (icons[i].getTurn() < icons[j].getTurn()) {
+		//				std::swap(icons[i], icons[j]);
+		//			}
+		//		}
+		//	}
+		//}
+
 		if (needRecheck && icons.size() > 1) {
-			for (int i = 0; i < (int)icons.size() - 1; i++) {
-				for (int j = i + 1; j < (int)icons.size(); j++) {
-					if (icons[i].getTurn() < icons[j].getTurn()) {
-						std::swap(icons[i], icons[j]);
-					}
-				}
-			}
+			std::sort(icons.begin(), icons.end(), [](const CIcon& a, const CIcon& b) {
+				return a.getTurn() > b.getTurn(); // 大きい順にソート
+				});
 		}
 	}
 
