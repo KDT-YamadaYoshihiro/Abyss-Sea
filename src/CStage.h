@@ -18,7 +18,7 @@ class CStage : public ScreenBase {
 	std::shared_ptr<UI> ui;
 	
 	// 音
-	std::shared_ptr<Sound>bgm;
+	std::shared_ptr<Sound> bgm;
 	std::shared_ptr<Sound> se;
 
 	// フェード

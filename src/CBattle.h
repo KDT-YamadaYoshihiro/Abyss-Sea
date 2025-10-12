@@ -706,9 +706,17 @@ private:
 	void BattleMain() {
 
 		// インデックスが0の時、ソートを行う。
-		if (turnOrder.empty()) TurnOrder();
+		if (turnOrder.empty())
+		{
+			TurnOrder();
+		}
 
-		if (targetInput == TargetInput::P_NONE) targetInput = TargetInput::ACTIONCHOICE;
+		// プレイヤーの行動モードが何も設定されていない場合、行動選択モードへ
+		if (targetInput == TargetInput::P_NONE)
+		{
+			targetInput = TargetInput::ACTIONCHOICE;
+		}
+
 		// 行動選択と実行
 		if (currentTurnIndex < turnOrder.size()) {
 
@@ -735,8 +743,8 @@ private:
 					if (targetInput == TargetInput::TARGETCHOICE) TargetChoice(character);
 					// 終了
 					for (auto& p : Manager::Instance().getParty()) {
-						if (p->getAnimChange()) {
-							if (targetInput == TargetInput::END) PEnd(character);
+						if (p->getAnimChange() && targetInput == TargetInput::END) {
+							PEnd(character);
 						}
 					}
 
@@ -749,8 +757,14 @@ private:
 						actionMode = ActionMode::TARGETRANDOM;
 					}
 
-					if (actionMode == ActionMode::TARGETRANDOM)EnemyAction(character);
-					if (actionMode == ActionMode::END)EEnd(character);
+					if (actionMode == ActionMode::TARGETRANDOM)
+					{
+						EnemyAction(character);
+					}
+					if (actionMode == ActionMode::END)
+					{
+						EEnd(character);
+					}
 
 
 				}

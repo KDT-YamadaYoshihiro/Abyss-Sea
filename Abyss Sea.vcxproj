@@ -139,7 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\CutIn.cpp" />
+    <ClCompile Include="src\Cutin.cpp" />
     <ClCompile Include="src\CBattle.cpp" />
     <ClCompile Include="src\CharacterFactory.cpp" />
     <ClCompile Include="src\CPartySelect.cpp" />
@@ -169,7 +169,7 @@
     <ClInclude Include="src\CResult.h" />
     <ClInclude Include="src\CStage.h" />
     <ClInclude Include="src\CTitle.h" />
-    <ClInclude Include="src\CutIn.h" />
+    <ClInclude Include="src\Cutin.h" />
     <ClInclude Include="src\enum.h" />
     <ClInclude Include="src\GameMain.h" />
     <ClInclude Include="src\Icon.h" />

@@ -74,7 +74,7 @@ bool CharacterFactory::LoadSkillTable(const std::string& filename) {
 		data.type = static_cast<SkillType>(std::stoi(tokens[2]));
 		data.targetType = static_cast<SkillTargetType>(std::stoi(tokens[3]));
 		data.power = std::stof(tokens[4]);
-		data.trun = std::stoi(tokens[5]);
+		data.turn = std::stoi(tokens[5]);
 		data.effectType = static_cast<EffectType>(std::stoi(tokens[6]));
 		data.Details = tokens[7];
 

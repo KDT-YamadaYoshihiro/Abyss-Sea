@@ -52,12 +52,6 @@
     <Filter Include="ソース ファイル\UI">
       <UniqueIdentifier>{ab280ba7-ace5-4b5e-8d98-c6bba3c9fc34}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ヘッダー ファイル\CutIn">
-      <UniqueIdentifier>{688f952f-ac6e-44fd-8476-3d519586acd1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\CutIn">
-      <UniqueIdentifier>{d952512d-5147-46e1-9fa0-9da4c952b065}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameMain.cpp">
@@ -96,8 +90,8 @@
     <ClCompile Include="src\UI.cpp">
       <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
-    <ClCompile Include="src\CutIn.cpp">
-      <Filter>ソース ファイル\CutIn</Filter>
+    <ClCompile Include="src\Cutin.cpp">
+      <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -173,11 +167,11 @@
     <ClInclude Include="src\Calculation.h">
       <Filter>ヘッダー ファイル\Battle</Filter>
     </ClInclude>
-    <ClInclude Include="src\Icon.h">
+    <ClInclude Include="src\Cutin.h">
       <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
-    <ClInclude Include="src\CutIn.h">
-      <Filter>ヘッダー ファイル\CutIn</Filter>
+    <ClInclude Include="src\Icon.h">
+      <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

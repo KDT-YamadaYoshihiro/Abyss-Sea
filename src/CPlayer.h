@@ -175,7 +175,7 @@ public:
 			// スキルクラスのスキル設定と数値を代入
 			// ターゲットに関数呼び出し
 			for (auto& tar : targets) {
-				useSkill(tar, Skill.type, Skill.power, Skill.trun);
+				useSkill(tar, Skill.type, Skill.power, Skill.turn);
 			}
 
 			// 終了

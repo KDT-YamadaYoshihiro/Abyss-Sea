@@ -22,6 +22,11 @@ enum STAGENUM {
 	STAGE_MAX
 };
 
+// スキルタイプ			攻撃,  回復, 攻撃力バフ,　速度バフ, 防御力バフ, 無し
+enum class SkillType { ATTACK, HEAL, ATK_BUFF, AGR_BUFF, DEF_BUFF, NONE };
+// スキルのターゲット方向	単エネミー, 単味方,自分,全エネミー,全味方
+enum class SkillTargetType { SINGLE_ENEMY, SINGLE_ALLY, SELF, ALL_ENEMY, ALL_ALLY };
+
 // プレイヤー
 enum PLAYER {
 	// プレイヤー
@@ -38,6 +43,21 @@ enum PLAYER {
 	PLAYER_MAX			// プレイヤー最大数
 };
 
+// エフェクト種別
+enum class EffectType {
+	EF_NONE,			//　無し
+	EF_ATTACK,			// 通常攻撃
+	EF_SKILL1,			// skill1(アキラ)
+	EF_SKILL2,			// skill2(エル)
+	EF_ALL_SKILL1,		// skill全体1(アルデウス)
+	EF_ALL_SKILL2,		// skill全体2(アルディナ)
+	EF_HEAL,			// 回復（アリア,エリナ)
+	EF_BUFF,			// バフ(ピノット、カゲ、ライゼル,)
+	EF_DEBUFF,			// デバフ()
+
+	EF_MAX
+};
+
 //	エネミー
 enum ENEMY {
 	// エネミー
@@ -47,6 +67,13 @@ enum ENEMY {
 	GHOUL,
 
 	ENEMY_MAX			//　最大数(for文用)
+};
+
+// エネミーの行動
+enum class EnemyAction {
+	TURN_START,
+	ATTACK,
+	TURN_END
 };
 
 
@@ -79,7 +106,7 @@ enum SE {
 	SE_MAX				// 最大数(for文用)
 };
 
-//	バトルの状態
+// プレイヤーのアニメーションタイプ
 enum GRTYPE {
 	WAIT,		// 待機中
 	ATTACK,		// 通常攻撃（突き）
