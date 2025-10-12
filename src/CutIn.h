@@ -3,19 +3,21 @@
 #include <string>
 #include "enum.h"
 
-class Cutuin{
+class Cutin{
 
 	// 名前
-	std::string name;
+	std::string skill_name;
 
 	// 表示フラグ
 	bool drawFlag;
 
 	// 座標
-	int x, y;
+	int x;
+	int y;
 
 	// サイズ
-	int sizeW, sizeH; 
+	int sizeW;
+	int sizeH;
 
 	// 画像ハンドル
 	int handle;
@@ -36,7 +38,7 @@ class Cutuin{
 public:
 
 	// 初期化
-	Cutuin()
+	Cutin()
 		:drawFlag(false), x(0), y(0), sizeW(0), sizeH(0), handle(-1),
 		enterSpeed(0), pauseSpeed(0), exitSpeed(0), frameCounter(0), phase(CutinPhase::Entering)
 	{
@@ -44,11 +46,10 @@ public:
 	};
 
 	// デストラクタ
-	virtual ~Cutuin() {};
+	virtual ~Cutin() {};
 
 	// スタート関数
-	void Start(std::string arga_name, int arg_x, int arg_y, int arg_sizeW, int arg_sizeH, int arg_handle,
-		int arg_enterSpeed, int arg_pauseSpeed, int arg_exitSpeed);
+	void Start(int arg_x, int arg_y, int arg_handle, int arg_enterSpeed, int arg_pauseSpeed, int arg_exitSpeed);
 
 	// リセット関数（再利用を考慮）
 	void Reset();

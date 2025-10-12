@@ -1,16 +1,17 @@
-#include "CutIn.h"
+#include "Cutin.h"
 
 // スタート関数（座標指定、速度指定）
-void Cutuin::Start(std::string arga_name,int arg_x, int arg_y, int arg_sizeW, int arg_sizeH, int arg_handle,
-	int arg_enterSpeed, int arg_pauseSpeed, int arg_exitSpeed)
+void Cutin::Start(int arg_x, int arg_y, int arg_handle, int arg_enterSpeed, int arg_pauseSpeed, int arg_exitSpeed)
 {
-	name = arga_name;
+
+	// 位置
 	x = arg_x;
 	y = arg_y;
-	sizeW = arg_sizeW;
-	sizeH = arg_sizeH;
+
+	// 画像ハンドル
 	handle = arg_handle;
 
+	// 速度
 	enterSpeed = arg_enterSpeed;
 	pauseSpeed = arg_pauseSpeed;
 	exitSpeed = arg_exitSpeed;
@@ -22,7 +23,7 @@ void Cutuin::Start(std::string arga_name,int arg_x, int arg_y, int arg_sizeW, in
 }
 
 // リセット関数（再利用を考慮）
-void Cutuin::Reset()
+void Cutin::Reset()
 {
 	drawFlag = false;
 	x = 0;
@@ -30,7 +31,7 @@ void Cutuin::Reset()
 }
 
 // 更新
-void Cutuin::Update()
+void Cutin::Update()
 {
 
     if (!drawFlag) return;
@@ -69,7 +70,7 @@ void Cutuin::Update()
     
 }
 
-void Cutuin::Draw()
+void Cutin::Draw()
 {
 	if (drawFlag) {
 
@@ -79,9 +80,9 @@ void Cutuin::Draw()
 		// 画像描画
 		DrawExtendGraph(x, y, x + sizeW, y + sizeH, handle, true);
 
-		// 名前表示
+		// スキル名表示
 		SetFontSize(20);
-		DrawFormatString(x + 20, y - 20, GetColor(255, 255, 255), name.c_str());
+		DrawFormatString(x + 20, y - 20, GetColor(255, 255, 255), skill_name.c_str());
 
 	}
 }

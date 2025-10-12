@@ -6,7 +6,7 @@
 #include "CharacterData.h"
 #include "Calculation.h"
 #include "Icon.h"
-
+#include "Cutin.h"
 
 // キャラクター基底クラス
 class Character {
@@ -36,12 +36,15 @@ protected:
 	// アイコン
 	std::vector<CIcon> icons;
 
-
 	// 死亡時エフェクト(エネミーの時)
 	std::shared_ptr<Effect> deadEffect;
 
 	// 計算クラス
 	std::shared_ptr<Calculation> cal;
+
+	// カットインクラス
+	std::shared_ptr<Cutin> cutin;
+	// 
 
 	// アイコン画像ハンドル変数
 	int faceGrh = -1;
@@ -97,6 +100,7 @@ public:
 		skillEffect = std::make_shared<Effect>(CLoad::Instance().getEffectGrh(Skill.effectType));
 		deadEffect = std::make_shared<Effect>(CLoad::Instance().getEffectGrh(EffectType::EF_NONE));
 		cal = std::make_shared<Calculation>();
+		cutin = std::make_shared<Cutin>();
 		actionChoice = -1;
 		posX = -1;
 		posY = -1;
@@ -229,6 +233,11 @@ public:
 		}
 	}
 
+	// カットイン更新
+	void CutinUpdate() 
+	{
+		cutin->Update();
+	}
 
 	// ダメージ表示
 	void damageRenderStart(int arg_x, int arg_y, int arg_fontSize, int damage) {

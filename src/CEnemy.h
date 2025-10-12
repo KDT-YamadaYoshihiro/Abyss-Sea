@@ -9,6 +9,9 @@ class Enemy : public Character
     // UI
     std::shared_ptr<UI> ui;
 
+    // 行動状態
+    EnemyAction action;
+
     // 座標
     int posX;
     int posY;
@@ -24,7 +27,7 @@ public:
     {
 
         ui = std::make_shared<UI>();
-       
+        action = EnemyAction::TURN_START;
         posX = -1;
         posY = -1;
     }
@@ -41,15 +44,24 @@ public:
 
 
     // 座標を取得関数
-    float getPosX() const { return (float)posX; }
-    float getPosY() const { return (float)posY; }
+    float getPosX() const 
+    {
+        return (float)posX;
+    }
+    float getPosY() const 
+    {
+        return (float)posY;
+    }
 
 
     void Update() {};
 
 
-
     void Render(int arg_posX, int arg_posY, int arg_grh) override {
+
+        // カットイン描画
+        cutin->Draw();
+
         // 本体描画
         this->posX = arg_posX;
         this->posY = arg_posY;
@@ -67,17 +79,47 @@ public:
     void takeAction(std::vector<std::shared_ptr<Character>>& targets) override {
 
         // 生存判定
-        if (!Alive) {return;}
-        
-        // ターゲットが決まれば、ターゲットを攻撃
-        for (auto& tar : targets) {
-            int damage =cal->DamageCal(this->ATK , tar->getDefense());
-            if (damage < 1) damage = 1;
-            tar->takeDamage(damage);
-            moveCheck = true;
-            tar->damageRenderStart(tar->getPosX() - 20, tar->getPosY() - 5, 20, damage);
-            
+        if (!Alive) 
+        {
+            return;
         }
+        
+        switch (action) {
+        case EnemyAction::TURN_START:
+            // ターン開始時の処理
+
+            // カットインスタート関数
+            cutin->Start(WINDOW_W + 10, WINDOW_H / 2, faceGrh, 10, 2, 10);
+
+            // 次の行動へ
+			action = EnemyAction::ATTACK;
+
+			break;
+
+        case EnemyAction::ATTACK:
+            // 次の行動へ
+
+            // ターゲットが決まれば、ターゲットを攻撃
+            for (auto& tar : targets) {
+                int damage = cal->DamageCal(this->ATK, tar->getDefense());
+                if (damage < 1) damage = 1;
+                tar->takeDamage(damage);
+                moveCheck = true;
+                tar->damageRenderStart(tar->getPosX() - 20, tar->getPosY() - 5, 20, damage);
+
+            }
+
+			action = EnemyAction::TURN_END;
+
+            break;
+
+        case EnemyAction::TURN_END:
+            // ターン終了時の処理
+			// 次のターンへ
+
+                break;
+        }
+
 
     }
 
