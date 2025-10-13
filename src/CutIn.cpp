@@ -94,9 +94,9 @@ void Cutin::Draw()
 
         DrawExtendGraph(m_pos_x, y, m_pos_x + ICON_SIZE, y + ICON_SIZE, m_handle, true);
 
-        // スキル名表示
-        SetFontSize(20);
-        DrawFormatString(m_pos_x + 20, m_pos_y - 20, GetColor(255, 255, 255), m_skill_name.c_str());
+        //// スキル名表示
+        //SetFontSize(20);
+        //DrawFormatString(m_pos_x + 20, m_pos_y - 20, GetColor(255, 255, 255), m_skill_name.c_str());
     }
 
 }

@@ -12,6 +12,8 @@ void CPartySelect::Update()
 		if (frame < 30) { frame++; }
 		// 戦闘ボタンでスクリーンをバトル画面に切り替え。
 		if (frame == 30 && CheckBoxClick(boxX, boxY, sizeW, sizeH)) {
+			// スタートSE
+			se->PlaySe(CLoad::Instance().getSeHandle(SE_START));
 			// フェードアウトスタート関数
 			fade->fadeStart(fade->FADE_CLAUSE);
 			screen_change = true;

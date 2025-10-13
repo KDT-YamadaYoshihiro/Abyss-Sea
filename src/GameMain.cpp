@@ -52,6 +52,16 @@ void CGame::Run()
 	}
 
 }
+
+// 終了処理
+void CGame::End()
+{
+	InputKeyExit();
+	InputPadExit();
+	DxLib_End();
+}
+
+
 // 更新処理
 void CGame::Update()
 {
@@ -64,13 +74,6 @@ void CGame::Render()
 	Manager::Instance().Render();
 }
 
-// 終了処理
-void CGame::End()
-{
-	InputKeyExit();
-	InputPadExit();
-	DxLib_End();
-}
 // 
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_  HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nShowCmd)
 {

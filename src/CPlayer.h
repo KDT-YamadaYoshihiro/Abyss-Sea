@@ -114,7 +114,7 @@ public:
 	// カットインスタート関数
 	void StartCutin() override {
 		int handle = CLoad::Instance().getPfaceGrh(this->getId());
-		cutin->Start( 100, - 300, handle,Skill.Name,30,2,50);
+		cutin->Start( 100, - 300, handle,Skill.Name,30,2,60);
 	}
 
 	// 経験値取得

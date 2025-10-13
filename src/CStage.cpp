@@ -23,6 +23,8 @@ void CStage::Update()
 		// ステージスクリーン中に決定ボタンが押されたら画面が切り替わる
 		// (CStage -> CPatySelect)
 		if (CheckBoxClick(boxX, boxY, boxSizeX, boxSizeY) == true) {
+			// 決定SE
+			se->PlaySe(CLoad::Instance().getSeHandle(SE_DECISION));
 			// フェードアウトスタート関数
 			fade->fadeStart(fade->FADE_CLAUSE);
 		}
@@ -30,7 +32,6 @@ void CStage::Update()
 
 	// フェードを最後まで行ったとき画面切り替え
 	if (fade->checkClause(WINDOW_W)) {
-		se->PlaySe(CLoad::Instance().getSeHandle(SE_DECISION));
 		Manager::Instance().setStageScreen(stageNum);
 		Manager::Instance().setSuggest(suggest);
 		Manager::Instance().ChangeScreen<CPartySelect>();

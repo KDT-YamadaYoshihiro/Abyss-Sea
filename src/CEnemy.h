@@ -80,7 +80,7 @@ public:
 	// カットイン開始
     void StartCutin() override{
 		int handle = CLoad::Instance().getEfaceGrh(this->ID - 100);
-		cutin->Start(WINDOW_W - 300, -300, handle, Skill.Name,30,2,50);
+		cutin->Start(WINDOW_W - 300, -300, handle, Skill.Name,30,2,60);
     }
 
     // 攻撃内容

@@ -43,14 +43,14 @@
     <Filter Include="ソース ファイル\Stage">
       <UniqueIdentifier>{beb334f3-6d09-43b2-8905-836777631298}</UniqueIdentifier>
     </Filter>
-    <Filter Include="ソース ファイル\Class.cpp">
-      <UniqueIdentifier>{bf76fb56-cd3b-455f-8c1d-e0e7bc5091cf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="ソース ファイル\Character">
       <UniqueIdentifier>{36af180a-8e0b-4121-bc70-b02b90c6e174}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\UI">
       <UniqueIdentifier>{ab280ba7-ace5-4b5e-8d98-c6bba3c9fc34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\MIssion">
+      <UniqueIdentifier>{9cf2110d-de31-4b91-bb1c-b52b9e613efb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +172,12 @@
     </ClInclude>
     <ClInclude Include="src\Icon.h">
       <Filter>ヘッダー ファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Mission.h">
+      <Filter>ヘッダー ファイル\MIssion</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MissionSet.h">
+      <Filter>ヘッダー ファイル\MIssion</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
