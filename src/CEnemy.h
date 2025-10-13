@@ -92,7 +92,10 @@ public:
             cutin->Start(WINDOW_W + 10, WINDOW_H / 2, faceGrh, 10, 2, 10);
 
             // 次の行動へ
-			action = EnemyAction::ATTACK;
+            // カットインが終了した確認ののちモード切り替え。
+            if (cutin->GetEndFlag()) {
+                action = EnemyAction::ATTACK;
+            }
 
 			break;
 

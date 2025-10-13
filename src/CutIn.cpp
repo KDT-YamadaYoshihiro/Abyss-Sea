@@ -3,6 +3,8 @@
 // スタート関数（座標指定、速度指定）
 void Cutin::Start(int arg_x, int arg_y, int arg_handle, int arg_enterSpeed, int arg_pauseSpeed, int arg_exitSpeed)
 {
+	// エンドフラグリセット
+	endFlag = false;
 
 	// 位置
 	x = arg_x;
@@ -64,6 +66,7 @@ void Cutin::Update()
         // 画面外に出たら終了
         if ((exitSpeed > 0 && x > 1280) || (exitSpeed < 0 && x + sizeW < 0)) {
             drawFlag = false;
+			endFlag = true;
         }
         break;
     }

@@ -10,6 +10,8 @@ class Cutin{
 
 	// 表示フラグ
 	bool drawFlag;
+	//　カットイン終了フラグ
+	bool endFlag;
 
 	// 座標
 	int x;
@@ -61,6 +63,8 @@ public:
 	void Draw();
 
 	// 描画フラグのゲット
-	bool getDrawFlag() const { return drawFlag; }
+	bool GetDrawFlag() const { return drawFlag; }
+	// 終了フラグのゲット
+	bool GetEndFlag() const { return endFlag; }
 
 };
