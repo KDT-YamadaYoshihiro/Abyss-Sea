@@ -18,6 +18,7 @@ enum STAGENUM {
 	STAGE1,
 	STAGE2,
 	STAGE3,
+	STAGE4,
 
 	STAGE_MAX
 };

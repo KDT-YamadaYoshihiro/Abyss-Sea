@@ -76,7 +76,7 @@ void CStage::Triangle()
 {
 
 	// ‰~‚ªClick‚³‚ê‚½‚ç
-	for (int i = 0; i < CIRCLEMAX; i++) {
+	for (int i = 0; i < STAGE_MAX; i++) {
 
 		if (CheckBoxClick(posX[i], posY[i], 700, 100)) {
 			// ŽOŠpŒ`‚ÌÀ•W‚ðClick‚µ‚½‰~‚Ìã•”‚É‚·‚é
@@ -108,7 +108,7 @@ void CStage::Triangle()
 				TrX3 = TrX1 - 50;
 				TrY3 = TrY1 - 20;
 
-				suggest = 10;
+				suggest = 5;
 
 				break;
 
@@ -120,9 +120,20 @@ void CStage::Triangle()
 				TrX3 = TrX1 - 50;
 				TrY3 = TrY1 - 20;
 
-				suggest = 25;
+				suggest = 10;
 
 				break;
+
+			case STAGE4:
+				TrX1 = posX[STAGE4] - 50;
+				TrY1 = posY[STAGE4] + 50;
+				TrX2 = TrX1 - 50;
+				TrY2 = TrY1 + 20;
+				TrX3 = TrX1 - 50;
+				TrY3 = TrY1 - 20;
+				suggest = 25;
+				break;
+
 			}
 
 		}

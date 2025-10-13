@@ -202,12 +202,12 @@ public:
 
 		switch (arg_type)
 		{
-		case SkillType::ATTACK:
+		case SkillType::ATTACK:					// 対象者に攻撃力
 
-			// 対象者に攻撃力
 			// ダメージ量を計算
-			// combo数追加を実装予定
+			// スキル補正
 			bace_atk = this->ATK * arg_power;
+			// ダメージ計算
 			damage = cal->DamageCal(bace_atk, Buff.atkMultiplier, getAtkbuff(), arg_targets->getDefense());
 			// ０未満にしない
 			if (damage < minDamage) damage = minDamage;
@@ -220,9 +220,8 @@ public:
 
 			break;
 
-		case SkillType::HEAL:
+		case SkillType::HEAL:					// 対象者に回復	
 
-			// 対象者のHPを上昇
 			// HP回復量を計算
 			heal = cal->Healcal(this->maxHp, arg_power);
 			// ヒール関数
@@ -234,10 +233,9 @@ public:
 
 			break;
 
-		case SkillType::ATK_BUFF:
+		case SkillType::ATK_BUFF:				// 対象者の攻撃力上昇
 
-			// 対象者の攻撃力上昇
-			// バフ量を計算
+			// 
 			arg_buff = static_cast<float>(arg_power);
 			turn = static_cast<int>(arg_trun);
 			// ターゲットにxターンの攻撃増強バフの付与
@@ -248,9 +246,9 @@ public:
 
 			break;
 
-		case SkillType::AGR_BUFF:
+		case SkillType::AGR_BUFF:				// 対象者の速度上昇
 
-			// 対象の速度上昇
+			// 
 			arg_buff = static_cast<float>(arg_power);
 			turn = static_cast<int>(arg_trun);
 			// バフ付与
@@ -260,9 +258,9 @@ public:
 
 			break;
 
-		case SkillType::DEF_BUFF:
+		case SkillType::DEF_BUFF:				// 対象の速度上昇
 
-			// 対象の速度上昇
+			//
 			arg_buff = static_cast<float>(arg_power);
 			turn = static_cast<int>(arg_trun);
 			// バフ付与

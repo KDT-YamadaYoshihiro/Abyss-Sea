@@ -80,17 +80,23 @@ public:
 		{
 		case STAGE1:
 
-			num = 100;
+			num = 103;
 
 			break;
 
 		case STAGE2:
 
-			num = 101;
+			num = 100;
 
 			break;
 
 		case STAGE3:
+
+			num = 101;
+
+			break;
+
+		case STAGE4:
 
 			num = 102;
 

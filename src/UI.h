@@ -160,12 +160,15 @@ public:
 
 	 //ステージ選択枠
 	void DrawStage(int arg_x, int arg_y, int arg_sizeX, int arg_sizeY, int arg_number,std::string arg_stageName, int arg_handle) {
-	
+		
+		// 枠の描画
 		StageFrame(arg_x, arg_y, arg_sizeX, arg_sizeY, arg_handle);
+		
 		//　ステージナンバーの表示
 		SetFontSize(30);
 		DrawFormatString(arg_x + 10, arg_y + 5,GetColor(255,255,255),"stage%02d",arg_number);
 
+		// ベースを描画
 		int sizeX = arg_x + arg_sizeX;
 		int sizeY = arg_y + arg_sizeY;
 		DrawBox(arg_x, arg_y, sizeX, sizeY, GetColor(255, 255, 255), false);
