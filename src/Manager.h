@@ -1,11 +1,13 @@
 #pragma once
+#include <unordered_map>
+#include <array>
 #include "DxLib.h"
 #include "CBase.h"
 #include "CPlayer.h"
 #include "Character.h"
 #include "CharacterFactory.h"
 #include "CLoad.h"
-
+#include "MissionSet.h"
 
 class Manager {
 
@@ -36,6 +38,12 @@ class Manager {
 
 	// 推奨LEVEL
 	int Suggest = -1;
+
+
+	// ミッション
+	std::unordered_map<int, MissionSet> stageMissions;
+	std::unordered_map<int, std::array<bool, 3>> missionClearFlags; // 各ステージの達成フラグ
+	int currentStageId;
 
 
     // シングルトン
@@ -70,6 +78,36 @@ public:
 	// 画面切り替えメソッド
 	template<typename T>
 	void ChangeScreen();
+
+	// ミッションセットの初期化
+	void initMissions() {
+		stageMissions[STAGE1] = MissionSet(AKIRA, 8);
+		stageMissions[STAGE2] = MissionSet(KAGE, 10);
+		stageMissions[STAGE3] = MissionSet(RAIZEL, 12);
+		stageMissions[STAGE4] = MissionSet(ELINA, 15);
+	}
+
+	// ミッション達成フラグの初期化
+	void setCurrentStage(int stageId) { currentStageId = stageId; }
+	MissionSet& getCurrentMissionSet() { return stageMissions.at(currentStageId); }
+
+	// ミッション達成状態の保存
+	void saveMissionClearState() {
+		auto& missions = getCurrentMissionSet().getMissions();
+		for (int i = 0; i < missions.size(); i++) {
+			if (missions[i].getIsCleared()) {
+				missionClearFlags[currentStageId][i] = true;
+			}
+		}
+	}
+
+	// ミッション達成状態の取得
+	const std::array<bool, 3>& getMissionClearFlags(int stageId) const {
+		static std::array<bool, 3> empty = { false, false, false };
+		auto it = missionClearFlags.find(stageId);
+		return (it != missionClearFlags.end()) ? it->second : empty;
+	}
+
 
 	// ステージに応じたエネミーIDを返す
 	int getEnemyID(int  arg_stage) {
