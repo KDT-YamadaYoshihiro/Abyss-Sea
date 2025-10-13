@@ -80,7 +80,7 @@ public:
 	void ChangeScreen();
 
 	// ミッションセットの初期化
-	void initMissions() {
+	void InitMissions() {
 		stageMissions[STAGE1] = MissionSet(AKIRA, 8);
 		stageMissions[STAGE2] = MissionSet(KAGE, 10);
 		stageMissions[STAGE3] = MissionSet(RAIZEL, 12);
@@ -92,7 +92,7 @@ public:
 	MissionSet& getCurrentMissionSet() { return stageMissions.at(currentStageId); }
 
 	// ミッション達成状態の保存
-	void saveMissionClearState() {
+	void SaveMissionClearState() {
 		auto& missions = getCurrentMissionSet().getMissions();
 		for (int i = 0; i < missions.size(); i++) {
 			if (missions[i].getIsCleared()) {

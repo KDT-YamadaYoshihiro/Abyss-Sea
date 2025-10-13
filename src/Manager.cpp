@@ -29,6 +29,9 @@ void Manager::Init()
 
 	bgmVolume = 7;
 	seVolume = 7;
+
+	// ミッションセットアップ
+	InitMissions();
 }
 
 void Manager::Update(){

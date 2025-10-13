@@ -11,6 +11,7 @@ private:
 
 public:
 
+    MissionSet() = default;
 	// 初期化
     MissionSet(int includeCharacterId, int turnLimit) {
         // 1ステージにつき3つ固定
