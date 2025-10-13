@@ -6,43 +6,43 @@
 class Cutin{
 
 	// 名前
-	std::string skill_name;
+	std::string m_skill_name;
 
 	// 表示フラグ
-	bool drawFlag;
+	bool m_drawFlag;
 	//　カットイン終了フラグ
-	bool endFlag;
+	bool m_endFlag;
 
 	// 座標
-	int x;
-	int y;
+	int m_pos_x;
+	int m_pos_y;
 
 	// サイズ
-	int sizeW;
-	int sizeH;
+	int m_size_w;
+	int m_size_h;
 
 	// 画像ハンドル
-	int handle;
+	int m_handle;
 
 	// 速度
 	// フェードイン速度
-	int enterSpeed;
+	int m_enterSpeed;
 	// 画面中央で遅速
-	int pauseSpeed;
+	int m_pauseSpeed;
 	// フェードアウト速度
-	int exitSpeed; 
+	int m_exitSpeed; 
 	// 中央滞在時間
-	int frameCounter;
+	int m_frameCounter;
 
 	// 現在の速度
-	CutinPhase phase;
+	CutinPhase m_phase;
 
 public:
 
 	// 初期化
 	Cutin()
-		:drawFlag(false), x(0), y(0), sizeW(0), sizeH(0), handle(-1),
-		enterSpeed(0), pauseSpeed(0), exitSpeed(0), frameCounter(0), phase(CutinPhase::Entering)
+		:m_skill_name(""), m_drawFlag(false), m_endFlag(false), m_pos_x(0), m_pos_y(0), m_size_w(300), m_size_h(600), m_handle(-1),
+		m_enterSpeed(10), m_pauseSpeed(2), m_exitSpeed(10), m_frameCounter(0), m_phase(CutinPhase::Entering)
 	{
 
 	};
@@ -51,7 +51,7 @@ public:
 	virtual ~Cutin() {};
 
 	// スタート関数
-	void Start(int arg_x, int arg_y, int arg_handle, int arg_enterSpeed, int arg_pauseSpeed, int arg_exitSpeed);
+	void Start(int arg_x, int arg_y, int arg_handle, std::string arg_skillName, int arg_enterSpeed, int arg_pauseSpeed, int arg_exitSpeed);
 
 	// リセット関数（再利用を考慮）
 	void Reset();
@@ -63,8 +63,8 @@ public:
 	void Draw();
 
 	// 描画フラグのゲット
-	bool GetDrawFlag() const { return drawFlag; }
+	bool GetDrawFlag() const { return m_drawFlag; }
 	// 終了フラグのゲット
-	bool GetEndFlag() const { return endFlag; }
+	bool GetEndFlag() const { return m_endFlag; }
 
 };

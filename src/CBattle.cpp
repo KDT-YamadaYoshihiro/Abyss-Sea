@@ -7,9 +7,13 @@ void CBattle::Update()
 
 	// フェードの更新処理
 	fade->fadeUpdate(WINDOW_W);
+	for (auto& e : enemies) {
+		e->CutinUpdate();
+	}
 
 	for (auto& p : Manager::Instance().getParty()) {
 		p->AnimUpdata();
+		p->CutinUpdate();
 	}
 
 
@@ -309,6 +313,15 @@ void CBattle::Render()
 		default:
 			break;
 		}
+	}
+
+
+	// カットインの描画
+	for (auto& e : enemies) {
+		e->CutinDraw();
+	}
+	for (auto& p : Manager::Instance().getParty()) {
+		p->CutinDraw();
 	}
 
 }

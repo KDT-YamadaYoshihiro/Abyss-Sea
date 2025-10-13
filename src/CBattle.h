@@ -79,6 +79,9 @@ class CBattle : public ScreenBase {
 	// エネミーGRH
 	int EnemyGrh = -1;
 
+	// アクションスイッチ
+	PlayerAction player_action = NONE_ACTION;
+
 	// 座標変数
 	int pPosX[PLAYER_MAX];
 	int pPosY[PLAYER_MAX];
@@ -452,8 +455,12 @@ private:
 		for (auto& tar : TargetList) {
 			Position pos = GetCharacterCenter(tar);
 
-			if (CheckCircleClick(pos.x, pos.y, 40.0f)) {
+			// 実際の対象リスト
+			std::vector<std::shared_ptr<Character>> actTargets;
 
+			if (player_action == NONE_ACTION && CheckCircleClick(pos.x, pos.y, 40.0f)) {
+
+				player_action = CHOICE;
 				// 決定音
 				se->PlaySe(CLoad::Instance().getSeHandle(SE_CLICK));
 
@@ -464,8 +471,38 @@ private:
 				// SP確認（スキル時のみ）
 				if (arg_character->getActionChoice() == SKILL && !sp->comfirmSP()) return;
 
-				// 実際の対象リスト
-				std::vector<std::shared_ptr<Character>> actTargets;
+			}
+
+			switch (player_action)
+			{
+			case NONE_ACTION:
+
+				break;
+			case CHOICE:
+				// 次に以降
+				if (arg_character->getActionChoice() == SKILL)
+				{
+					// スキルはカットインあり
+					arg_character->StartCutin();
+					player_action = CUTIN;
+
+				}
+				else {
+
+					// 通常攻撃はカットインなし
+					player_action = ACTHON;
+				}
+
+				break;
+			case CUTIN:
+
+				if (arg_character->getCutinEnd()) {
+					player_action = ACTHON;
+				}
+
+				break;
+
+			case SKILL:
 
 				if (arg_character->getTargetType() == SkillTargetType::ALL_ENEMY ||
 					arg_character->getTargetType() == SkillTargetType::ALL_ALLY) {
@@ -483,8 +520,15 @@ private:
 
 				// ターゲット選択モードをオフ
 				targetInput = TargetInput::END;
+
+				player_action = NONE_ACTION;
+
+				break;
+			default:
 				break;
 			}
+
+
 		}
 	}
 
@@ -551,28 +595,41 @@ private:
 		}
 	}
 
-	// エネミー
+
+	// エネミーカットイン
+	void EnemyActionInit(std::shared_ptr<Character> arg_character) {
+		arg_character->StartCutin();
+
+		actionMode = ActionMode::TARGETRANDOM;
+	}
+
+	// エネミー攻撃
 	void EnemyAction(std::shared_ptr<Character> arg_character) {
-		for (auto& p : Manager::Instance().getParty()) {
-			if (p->getAlive()) TargetList.push_back(p);
+
+		if (arg_character->getCutinEnd()) {
+
+			for (auto& p : Manager::Instance().getParty()) {
+				if (p->getAlive()) TargetList.push_back(p);
+			}
+
+			int index = rand() % TargetList.size();
+			selectTarget = TargetList[index];
+			TypeConversion();
+			//　アクションに移行
+			if (arg_character->getCutinEnd()) {
+				arg_character->takeAction(v);
+			}
+			// プレイヤー攻撃時にアニメーション切り替え
+			auto& p = Manager::Instance().getParty();
+			for (size_t i = 0; i < Manager::Instance().getParty().size(); i++) {
+				if (TargetList[index]->getId() == p[i]->getId())
+					p[i]->setAnimType(DAMAGE);
+			}
+			// se再生
+			se->PlaySe(CLoad::Instance().getSeHandle(SE_ATTACK));
+
+			actionMode = ActionMode::END;
 		}
-
-		int index = rand() % TargetList.size();
-		selectTarget = TargetList[index];
-		TypeConversion();
-		//　アクションに移行
-		arg_character->takeAction(v);
-		// プレイヤー攻撃時にアニメーション切り替え
-		auto& p =  Manager::Instance().getParty();
-		for (size_t i = 0; i < Manager::Instance().getParty().size(); i++) {
-			if (TargetList[index]->getId() == p[i]->getId())
-				p[i]->setAnimType(DAMAGE);
-		}
-		// se再生
-		se->PlaySe(CLoad::Instance().getSeHandle(SE_ATTACK));
-
-		actionMode = ActionMode::END;
-
 	}
 
 	// キャラクターのターン終了
@@ -738,9 +795,15 @@ private:
 						ActionChoice(character);
 					}
 					// ターゲットリスト制作
-					if (targetInput == TargetInput::LISTCREATE)TargetListCreate(character);
+					if (targetInput == TargetInput::LISTCREATE)
+					{
+						TargetListCreate(character);
+					}
 					//　ターゲット選択
-					if (targetInput == TargetInput::TARGETCHOICE) TargetChoice(character);
+					if (targetInput == TargetInput::TARGETCHOICE)
+					{
+						TargetChoice(character);
+					}
 					// 終了
 					for (auto& p : Manager::Instance().getParty()) {
 						if (p->getAnimChange() && targetInput == TargetInput::END) {
@@ -754,7 +817,7 @@ private:
 					// 自動でターゲットを決める
 					if (actionMode == ActionMode::E_NONE) {
 						ListClea();
-						actionMode = ActionMode::TARGETRANDOM;
+						EnemyActionInit(character);
 					}
 
 					if (actionMode == ActionMode::TARGETRANDOM)

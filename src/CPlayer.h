@@ -111,6 +111,12 @@ public:
 
 	}
 
+	// カットインスタート関数
+	void StartCutin() override {
+		int handle = CLoad::Instance().getPfaceGrh(this->getId());
+		cutin->Start( 100, - 300, handle,Skill.Name,30,2,50);
+	}
+
 	// 経験値取得
 	void addExp(int value) {
 		this->Exp += value;
@@ -192,6 +198,7 @@ public:
 		int heal = -1;
 		int turn = -1;
 		float arg_buff = -1.0f;
+		int bace_atk = 0;
 
 		switch (arg_type)
 		{
@@ -200,7 +207,8 @@ public:
 			// 対象者に攻撃力
 			// ダメージ量を計算
 			// combo数追加を実装予定
-			damage = cal->DamageCal(this->ATK , arg_power , getAtkbuff(), arg_targets->getDefense());
+			bace_atk = this->ATK * arg_power;
+			damage = cal->DamageCal(bace_atk, Buff.atkMultiplier, getAtkbuff(), arg_targets->getDefense());
 			// ０未満にしない
 			if (damage < minDamage) damage = minDamage;
 			//　ダメージ関数
@@ -289,7 +297,11 @@ public:
 		ui->HpRender(posX + 5, posY - 10, 40, 10, this->maxHp, this->HP, GetColor(0, 255, 0));
 	}
 
-
+	// カットイン描画
+	void CutinDraw() override {
+		// カットイン描画
+		cutin->Draw();
+	}
 
 	void EffectDraw(int arg_x, int arg_y) {
 		// エフェクト

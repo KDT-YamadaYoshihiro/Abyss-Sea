@@ -166,13 +166,18 @@ public:
 	bool getMoveCheck() const { return moveCheck; }
 	void setMoveCheck(bool arg_moveCheck) { moveCheck = arg_moveCheck; }
 
+	// カットイン終了ゲット関数
+	bool getCutinEnd() const { return cutin->GetEndFlag(); }
+
 	// エフェクト
 	void setAttackEffect(std::shared_ptr<Effect> ef) { attackEffect = ef; }
 	void setSkillEffect(std::shared_ptr<Effect> ef) { skillEffect = ef; }
 
+	// エフェクトのゲット関数
 	std::shared_ptr<Effect> getAttackEffect() const { return  attackEffect; }
 	std::shared_ptr<Effect> getSkillEffect() const { return skillEffect; }
 
+	// エフェクトの再生中かどうか
 	bool hasAttackEffect() const { return  attackEffect->getEfDraw(); }
 	bool hasSkillEffect() const { return skillEffect->getEfDraw(); }
 
@@ -185,6 +190,9 @@ public:
 		skillEffect->effectInit();
 	}
 
+	// カットインスタート関数
+	virtual void StartCutin() = 0;
+	virtual void CutinDraw() = 0;
 	// 描画関数
 	virtual void Render(int arg_posX, int arg_posY, int arg_grh) = 0;
 

@@ -58,6 +58,15 @@ enum class EffectType {
 	EF_MAX
 };
 
+// プレイヤーアクション
+enum PlayerAction {
+	NONE_ACTION,
+	CHOICE,
+	CUTIN,
+	ACTHON,
+};
+
+
 //	エネミー
 enum ENEMY {
 	// エネミー

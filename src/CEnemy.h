@@ -59,9 +59,6 @@ public:
 
     void Render(int arg_posX, int arg_posY, int arg_grh) override {
 
-        // カットイン描画
-        cutin->Draw();
-
         // 本体描画
         this->posX = arg_posX;
         this->posY = arg_posY;
@@ -75,56 +72,38 @@ public:
 
     };
 
-    // 行動内容
+	void CutinDraw() override {
+		// カットイン描画
+		cutin->Draw();
+	}
+
+	// カットイン開始
+    void StartCutin() override{
+		int handle = CLoad::Instance().getEfaceGrh(this->ID - 100);
+		cutin->Start(WINDOW_W - 300, -300, handle, Skill.Name,30,2,50);
+    }
+
+    // 攻撃内容
     void takeAction(std::vector<std::shared_ptr<Character>>& targets) override {
 
         // 生存判定
-        if (!Alive) 
+        if (!Alive)
         {
             return;
         }
-        
-        switch (action) {
-        case EnemyAction::TURN_START:
-            // ターン開始時の処理
 
-            // カットインスタート関数
-            cutin->Start(WINDOW_W + 10, WINDOW_H / 2, faceGrh, 10, 2, 10);
-
-            // 次の行動へ
-            // カットインが終了した確認ののちモード切り替え。
-            if (cutin->GetEndFlag()) {
-                action = EnemyAction::ATTACK;
+        // ターゲットが決まれば、ターゲットを攻撃
+        for (auto& tar : targets) {
+            int damage = cal->DamageCal(this->ATK, tar->getDefense());
+            if (damage < 1)
+            {
+                damage = 1;
             }
+            tar->takeDamage(damage);
+            moveCheck = true;
+            tar->damageRenderStart(tar->getPosX() - 20, tar->getPosY() - 5, 20, damage);
 
-			break;
-
-        case EnemyAction::ATTACK:
-            // 次の行動へ
-
-            // ターゲットが決まれば、ターゲットを攻撃
-            for (auto& tar : targets) {
-                int damage = cal->DamageCal(this->ATK, tar->getDefense());
-                if (damage < 1) damage = 1;
-                tar->takeDamage(damage);
-                moveCheck = true;
-                tar->damageRenderStart(tar->getPosX() - 20, tar->getPosY() - 5, 20, damage);
-
-            }
-
-			action = EnemyAction::TURN_END;
-
-            break;
-
-        case EnemyAction::TURN_END:
-            // ターン終了時の処理
-			// 次のターンへ
-
-                break;
         }
-
-
     }
-
 
 };
