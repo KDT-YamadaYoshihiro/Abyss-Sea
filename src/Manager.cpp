@@ -5,8 +5,11 @@ void Manager::Init()
 {
 	
 	// テーブル読み込み
+	// キャラクターのデータ、スキルデータの読み込み
 	CharacterFactory::Instance().LoadCharacterTable("data/Table/CharaTable.csv");
 	CharacterFactory::Instance().LoadSkillTable("data/Table/SkillTable.csv");
+	// ミッションデータ読み込み
+	missionManager.Init("data/Table/MissionTable.csv");
 
 	 // 全プレイヤー生成
 	for (int i = 0; i < PLAYER_MAX; i++) {
@@ -30,8 +33,6 @@ void Manager::Init()
 	bgmVolume = 7;
 	seVolume = 7;
 
-	// ミッションセットアップ
-	InitMissions();
 }
 
 void Manager::Update(){
@@ -58,4 +59,8 @@ void Manager::Render()
 
 	// フェード
 	fade->fadeCircleDraw(WINDOW_W / 2, WINDOW_H / 2);
+}
+
+void Manager::DrawStageUI(int arg_stageID, int arg_x, int arg_y) {
+	missionManager.DrawMissions(arg_stageID, arg_x, arg_y);
 }
