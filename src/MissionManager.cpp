@@ -26,6 +26,7 @@ void MissionManager::SetCleared(int stageID, MissionType type, bool cleared) {
     }
 }
 
+// ƒ~ƒbƒVƒ‡ƒ“‚Ì•`‰æ
 void MissionManager::DrawMissions(int stageID, int x, int y) const {
     int offsetY = 0;
     for (const auto& m : missions) {
