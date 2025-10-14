@@ -19,7 +19,7 @@ struct RequestPaper {
 	std::string description;	// ê‡ñæ
 
 	RequestPaper(int arg_id, const std::string& arg_title, const std::string& arg_desc,int arg_needLv, int arg_handle)
-		: stageID(arg_id), x(1280), y(100), targetX(900), targetY(100), speed(20.0f), needLv(arg_needLv), enemy_iconHandle(arg_handle), active(false),
+		: stageID(arg_id), x(1280), y(100), targetX(900), targetY(100), speed(50.0f), needLv(arg_needLv), enemy_iconHandle(arg_handle), active(false),
 		title(arg_title), description(arg_desc) {
 	}
 };

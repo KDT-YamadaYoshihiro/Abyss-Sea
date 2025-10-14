@@ -29,7 +29,7 @@ class Manager {
 	int Exp = -1;
 
 	// ウィンドウモード
-	bool window_mode = true;
+	bool window_mode = false;
 
 	// 音量設定
 	int bgmVolume = -1;

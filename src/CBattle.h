@@ -912,6 +912,8 @@ private:
 				Delete();
 				// 再初期化
 				BattleInit();
+				// MENUの選択画面に戻る
+				menuState = MenuState::NONE;
 				// バトル画面に切り替える
 				state = State::BATTLE;
 				// se再生

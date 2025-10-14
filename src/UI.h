@@ -322,6 +322,14 @@ public:
 
 	virtual ~Fade() {};
 
+	//　初期化
+	void Init() {
+		radius = 0;
+		fadeMode = FADE_NONE;
+		fadeCheck = false;
+		changeScreen = false;
+	}
+
 	// フェード用
 	void fadeCircleDraw(int x, int y) {
 		DrawCircle(x, y, radius, GetColor(0, 0, 0), true);
@@ -331,14 +339,18 @@ public:
 		fadeMode = arg_open;
 		fadeCheck = true;
 	}
+
+
 	// アップデート
 	void fadeUpdate(int x) {
+
+		static const int speed = 50;
 
 		switch (fadeMode)
 		{
 		case FADE_NONE:
 
-			fadeCheck = false;
+			Init();
 
 			break;
 
@@ -346,7 +358,7 @@ public:
 
 			if (fadeCheck) {
 
-				radius += 30;
+				radius += speed;
 
 				if (radius >= x) {
 					radius = x;
@@ -360,7 +372,7 @@ public:
 
 			if (fadeCheck) {
 
-				radius -= 30;
+				radius -= speed;
 
 				if (radius <= 0) {
 					radius = 0;

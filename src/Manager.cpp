@@ -30,8 +30,8 @@ void Manager::Init()
 
 	ChangeScreen<CTitle>();
 
-	bgmVolume = 7;
-	seVolume = 7;
+	bgmVolume = 0;
+	seVolume = 0;
 
 }
 
