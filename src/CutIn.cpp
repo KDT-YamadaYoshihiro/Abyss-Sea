@@ -26,6 +26,10 @@ void Cutin::Start(int arg_x, int arg_y, int arg_handle, std::string arg_skillNam
 
 	// 画像フラグをオン
 	m_drawFlag = true;
+
+	// エフェクトのスタート関数
+	cutinEffect->effectStart();
+
 }
 
 // リセット関数（再利用を考慮）
@@ -39,9 +43,12 @@ void Cutin::Reset()
 // 更新
 void Cutin::Update()
 {
+    if (!m_drawFlag)
+    {
+        return;
+    }
 
-    if (!m_drawFlag) return;
-
+	// フェーズごとの動作
     switch (m_phase)
     {
     case CutinPhase::Entering:
@@ -74,19 +81,30 @@ void Cutin::Update()
         }
         break;
     }
+
+	// エフェクト更新
+    cutinEffect->PlayAnim();
     
 }
 
 void Cutin::Draw()
 {
     if (m_drawFlag) {
+
+		// エフェクト描画
+        int x = m_pos_x - 170;
+		cutinEffect->effectDraw(x, 0, 0, 0);
+
         // 背景（三角形二つを使用して台形に）
         {
+			SetDrawBlendMode(DX_BLENDMODE_ALPHA, 128); 
             int x = m_pos_x + m_size_w / 2;
             int y = m_pos_y + m_size_h;
             DrawTriangle(m_pos_x, m_pos_y, m_pos_x + m_size_w, m_pos_y, x, y, GetColor(255, 255, 255), true);
             int y2 = m_pos_y + m_size_h;
             DrawTriangle(m_pos_x, m_pos_y, m_pos_x - m_size_w / 2, y2, m_pos_x + m_size_w / 2, y2, GetColor(255, 255, 255), true);
+			// ブレンドモードを元に戻す
+			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
         }
         // 画像描画
         int const ICON_SIZE = m_size_w;

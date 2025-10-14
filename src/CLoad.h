@@ -39,6 +39,9 @@ class CLoad {
 	const int efMax = static_cast<int>(EffectType::EF_MAX);
 	int effGrh[static_cast<int>(EffectType::EF_MAX)];
 
+	// カットインエフェクト
+	int cutinEf;
+
 	// バフ・デバフアイコン
 	int icon[static_cast<int>(BUFF_MAX)];
 
@@ -108,6 +111,9 @@ class CLoad {
 			effGrh[i] = LoadGraph(filepah);
 		}
 
+		// カットインエフェクト
+		cutinEf = LoadGraph("data/effect/cutin.png");
+
 		// アイコン
 		for (int i = 0; i < BUFF_MAX; i++) {
 			char filepah[64];
@@ -141,6 +147,7 @@ class CLoad {
 		DeleteGraph(atkButton);
 		DeleteGraph(sklButton);
 		DeleteGraph(menuBT);
+		DeleteGraph(cutinEf);
 
 		for (int i = 0; i < AMOUNT_MAX; i++) {
 			DeleteGraph(amount[i]);
@@ -208,6 +215,8 @@ public:
 	int getEfaceGrh(int arg_index) const { return EfaceGrh[arg_index]; }
 	// エフェクト
 	int getEffectGrh(EffectType arg_index) const { return effGrh[static_cast<int>(arg_index)]; }
+	// カットインエフェクト
+	int getCutinEf() const { return cutinEf; }
 	// アイコン
 	int getIconGrh(BuffType arg_index) const { return icon[static_cast<int>(arg_index)]; }
 	// bgm

@@ -58,6 +58,21 @@ public:
 		efDraw = false;
 	};
 
+	// 初期化
+	Effect(int arg_grh, int  arg_scrW, int arg_scrH)
+		:ef_grh(arg_grh), scrSizeW(0), scrSizeH(0)
+	{
+
+		GetGraphSize(ef_grh, &imageSizeW, &imageSizeH);
+		ef_scrX = 0;
+		ef_scrY = 0;
+		scrSizeW = imageSizeW / arg_scrW;
+		scrSizeH = imageSizeH / arg_scrH;
+		animFrame = 0;
+		efDraw = false;
+
+	}
+
 	// ゲット関数
 	bool getEfDraw() const { return efDraw; }
 
@@ -73,7 +88,13 @@ public:
 
 	// スタート関数
 	void effectStart() {
-		if (efDraw == false) { efDraw = true; }
+		// 描画状態にするため
+		if (efDraw == false) 
+		{
+			efDraw = true;
+		}
+
+		// 初期座標
 		ef_scrX = 0;
 		ef_scrY = 0;
 	}
@@ -115,7 +136,11 @@ public:
 
 	// 縦横のアニメーション再生関数
 	void PlayAnim() {
-		if (efDraw) { animFrame++; }
+
+
+		if (efDraw) {
+			animFrame++;
+		}
 
 		if (animFrame % 5 == 0) {
 			// scrXを移動
@@ -131,6 +156,7 @@ public:
 			}
 
 		}
+
 	}
 
 	// 描画

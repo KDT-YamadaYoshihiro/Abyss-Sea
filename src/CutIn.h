@@ -1,7 +1,10 @@
 #pragma once
-#include "DxLib.h"
 #include <string>
+#include <memory>
+#include "DxLib.h"
 #include "enum.h"
+#include "CLoad.h"
+#include "CEffect.h"
 
 class Cutin{
 
@@ -37,14 +40,19 @@ class Cutin{
 	// 現在の速度
 	CutinPhase m_phase;
 
+	// カットイン時のエフェクト
+	std::shared_ptr<Effect> cutinEffect;
+
+
 public:
 
 	// 初期化
 	Cutin()
 		:m_skill_name(""), m_drawFlag(false), m_endFlag(false), m_pos_x(0), m_pos_y(0), m_size_w(300), m_size_h(600), m_handle(-1),
-		m_enterSpeed(10), m_pauseSpeed(2), m_exitSpeed(10), m_frameCounter(0), m_phase(CutinPhase::Entering)
+		m_enterSpeed(10), m_pauseSpeed(2), m_exitSpeed(10), m_frameCounter(0), 
+		m_phase(CutinPhase::Entering), cutinEffect(nullptr)
 	{
-
+		cutinEffect = std::make_shared<Effect>(CLoad::Instance().getCutinEf(),3,3);
 	};
 
 	// デストラクタ
