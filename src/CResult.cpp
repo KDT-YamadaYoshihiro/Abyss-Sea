@@ -69,7 +69,7 @@ void CResult::Update()
 		// (CResult ->	CStage
 		//				CBattle
 		//				CTitle )
-	if (CheckBoxClick(box_x, box_y, sizeW, sizeH)) {
+	if (CheckBoxClick(box_x, box_y, sizeW, sizeH) && ResultFrame <= 0) {
 
 		auto& players = Manager::Instance().getParty();
 
@@ -93,7 +93,7 @@ void CResult::Update()
 	}
 
 	// ‰æ–ÊØ‚è‘Ö‚¦
-	if (fade->checkClause(WINDOW_W) && ResultFrame <= 0) {
+	if (fade->checkClause(WINDOW_W) ) {
 		switch (choiceNum)
 		{
 		case STAGE:

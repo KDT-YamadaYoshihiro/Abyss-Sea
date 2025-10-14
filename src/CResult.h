@@ -115,7 +115,7 @@ public:
 		grhSizeY = 418;
 		spacingX = grhSizeX + 40;
 
-		ResultFrame = 120;
+		ResultFrame = 60;
 
 		//@‰Šú‰»
 		this->Init();
