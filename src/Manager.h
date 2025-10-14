@@ -77,7 +77,7 @@ public:
 
 	// ミッションの描画
 	void DrawStageUI(int arg_stageID, int arg_x, int arg_y);
-
+	MissionManager getMissionManager() { return missionManager; }
 
 	// ステージに応じたエネミーIDを返す
 	int getEnemyID(int  arg_stage) {

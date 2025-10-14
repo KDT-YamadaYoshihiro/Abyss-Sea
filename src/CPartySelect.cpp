@@ -140,10 +140,6 @@ void CPartySelect::Render()
 			DrawString(posX, textPosY + 40, levelStr, GetColor(255, 255, 255));
 		}
 
-		// 推奨LEVEL表示
-		SetFontSize(FONT_SIZE);
-		DrawFormatString(textPosX, textPosY, GetColor(255, 255, 255), "推奨レベル:%2d", Suggest);
-
 		// バトル開始ボタン
 		SetFontSize(FONT_BIGSIZE);
 		ui->Button(boxX, boxY, boxX + sizeW, boxY + sizeH, CLoad::Instance().getButtonGrh(START));
@@ -169,7 +165,7 @@ void CPartySelect::Render()
 		// 選択しているキャラクターのステータスを表示（右半分に表示）
 			//表示するステータス（名前、レベル、攻撃力、防御力、素早さ、スキル名、スキル詳細（具体的に何をするスキルなのかその説明） 
 		if (selectedIndex != -1) {
-			SetFontSize(30);
+			SetFontSize(FONT_SIZE);
 			auto& c = allChara[selectedIndex];
 			int infoX = 800;
 			int infoY = 200;
@@ -184,18 +180,24 @@ void CPartySelect::Render()
 			DrawString(infoX, infoY + 120, ("説明: " + detail).c_str(), GetColor(255, 255, 255));
 		}
 
-		// 推奨LEVEL表示
-		SetFontSize(30);
-		DrawFormatString(textPosX, textPosY, GetColor(255, 255, 255), "推奨レベル:%2d", Suggest);
-
 		// 変更決定ボタン
 		SetFontSize(FONT_BIGSIZE);
 		ui->Button(boxX, boxY, boxX + sizeW, boxY + sizeH, CLoad::Instance().getButtonGrh(DECISION));
 
 	}
 
+	// ベースを表示
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 150);
+	DrawBox(textPosX - 30, textPosY- 20, textPosX + 280, textPosY + 100, GetColor(255, 255, 255), TRUE);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+	// ミッション表示
+	SetFontSize(FONT_MINSIZE);
+	Manager::Instance().DrawStageUI(Manager::Instance().getStageScreen(), textPosX, textPosY);
+	// 推奨LEVEL表示
+	DrawFormatString(textPosX, textPosY+FONT_MINSIZE*5, GetColor(255, 255, 255), "推奨レベル:%2d", Suggest);
+
 	// ステージ選択画面に戻るボタン
-	SetFontSize(50);
+	SetFontSize(FONT_BIGSIZE);
 	ui->Button(20, 20, 20 + sizeW, 20 + sizeH, CLoad::Instance().getButtonGrh(BACK));
 
 

@@ -102,7 +102,7 @@ public:
 		spacingX = grhSizeX + 40;
 
 		Suggest = Manager::Instance().getSuggest();
-		textPosX = WINDOW_W - 250;
+		textPosX = WINDOW_W - 300;
 		textPosY = 50;
 
 		screen_change = true;

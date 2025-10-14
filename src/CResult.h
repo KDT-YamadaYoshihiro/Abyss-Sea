@@ -70,7 +70,8 @@ class CResult : public ScreenBase {
 	int ResultFrame = -1;
 
 	// 決定ボタン座標
-	int box = -1;
+	int box_x = -1;
+	int box_y = -1;
 	int sizeW = -1;
 	int sizeH = -1;
 
@@ -101,7 +102,7 @@ public:
 
 		// テキストの座標
 		for (int i = 0; i < MAX; i++) {
-			choiceText_X[i] = 200;
+			choiceText_X[i] = 600;
 			choiceText_Y[i] = 650 + i * 50;
 		}
 
@@ -119,7 +120,8 @@ public:
 		//　初期化
 		this->Init();
 
-		box = 700;
+		box_x = 900;
+		box_y = 700;
 		sizeW = 200;
 		sizeH = 80;
 	}

@@ -69,7 +69,7 @@ void CResult::Update()
 		// (CResult ->	CStage
 		//				CBattle
 		//				CTitle )
-	if (CheckBoxClick(box, box, sizeW, sizeH)) {
+	if (CheckBoxClick(box_x, box_y, sizeW, sizeH)) {
 
 		auto& players = Manager::Instance().getParty();
 
@@ -182,9 +182,21 @@ void CResult::Render()
 	DrawFormatString(choiceText_X[BATTLE], choiceText_Y[BATTLE], GetColor(255, 255, 255), "再挑戦");
 	DrawFormatString(choiceText_X[TITLE], choiceText_Y[TITLE], GetColor(255, 255, 255), "タイトルへ");
 
+	{
+		int x = 100;
+		int y = 650;
+		// ベースを表示
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 150);
+		DrawBox(x, y, x + 300, y + 100, GetColor(0, 0, 0), TRUE);
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+		// ミッション表示
+		SetFontSize(FONT_MINSIZE);
+		Manager::Instance().DrawStageUI(Manager::Instance().getStageScreen(), x + 30, y + 25);
+	}
+
+
 	// 決定ボタン
-	DrawFormatString(700, 700, GetColor(255, 255, 255), "決定");
-	ui->Button(box, box, box + sizeW, box + sizeH, CLoad::Instance().getButtonGrh(DECISION));
+	ui->Button(box_x, box_y, box_x + sizeW, box_y + sizeH, CLoad::Instance().getButtonGrh(DECISION));
 
 }
 
@@ -197,21 +209,21 @@ void CResult::ChoiceNectScreen()
 
 	case STAGE:
 
-		choicePosX = 150;
+		choicePosX = 550;
 		choicePosY = 600;
 
 		break;
 
 	case BATTLE:
 
-		choicePosX = 150;
-		choicePosY = 650;
+		choicePosX = 550;
+		choicePosY = 645;
 
 		break;
 
 	case TITLE:
 
-		choicePosX = 150;
+		choicePosX = 550;
 		choicePosY = 700;
 
 		break;

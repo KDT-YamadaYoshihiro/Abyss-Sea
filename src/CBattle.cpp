@@ -131,6 +131,17 @@ void CBattle::Render()
 	// プレイヤーとエネミーの1ターン分の行動順を表示
 	DrawTurnOrderIcons(30, 50);
 
+	{
+		int x = 30;
+		int y = 150;
+		// ベースを表示
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 150);
+		DrawBox(x, y , x + 300, y + 100, GetColor(0,0,0), TRUE);
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+		// ミッション表示
+		SetFontSize(FONT_MINSIZE);
+		Manager::Instance().DrawStageUI(Manager::Instance().getStageScreen(), x + 30, y + 25);
+	}
 
 	// 選択できるキャラクターを円を描画
 	if (targetInput == TargetInput::TARGETCHOICE) {
