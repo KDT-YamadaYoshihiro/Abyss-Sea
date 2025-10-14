@@ -173,9 +173,3 @@ enum class CutinPhase {
 	Exiting     // 加速して退出
 };
 
-// ミッションタイプ
-enum class MissionType {
-	CLEAR_QUEST,       // クエストクリア
-	INCLUDE_CHARACTER, // 特定キャラクターを編成
-	TURN_LIMIT         // 指定ターン以内にクリア
-};
