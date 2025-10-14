@@ -1,0 +1,13 @@
+stageID,type,targetID,turnLimit,description
+0,CLEAR_STAGE,0,0,ステージをクリアせよ
+0,HAVE_CHARACTER,0,0,アキラを編成してクリアせよ
+0,TURN_LIMIT,0,8,８ターン以内にクリアせよ
+1,CLEAR_STAGE,0,0,ステージをクリアせよ
+1,HAVE_CHARACTER,4,0,カゲを編成してクリアせよ
+1,TURN_LIMIT,0,10,８ターン以内にクリアせよ
+2,CLEAR_STAGE,0,0,ステージをクリアせよ
+2,HAVE_CHARACTER,5,0,ライゼルを編成してクリアせよ
+2,TURN_LIMIT,0,12,１２ターン以内にクリアせよ
+3,CLEAR_STAGE,0,0,ステージをクリアせよ
+3,HAVE_CHARACTER,6,0,エリナを編成してクリアせよ
+3,TURN_LIMIT,0,15,１５ターン以内にクリアせよ
