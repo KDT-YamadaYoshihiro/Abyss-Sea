@@ -52,6 +52,9 @@
     <Filter Include="ヘッダー ファイル\MIssion">
       <UniqueIdentifier>{9cf2110d-de31-4b91-bb1c-b52b9e613efb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Mission">
+      <UniqueIdentifier>{eac5c277-e130-431f-a9f6-7727dd039bf4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\GameMain.cpp">
@@ -92,6 +95,12 @@
     </ClCompile>
     <ClCompile Include="src\Cutin.cpp">
       <Filter>ソース ファイル\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MissionFactory.cpp">
+      <Filter>ソース ファイル\Mission</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MissionManager.cpp">
+      <Filter>ソース ファイル\Mission</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -176,7 +185,10 @@
     <ClInclude Include="src\Mission.h">
       <Filter>ヘッダー ファイル\MIssion</Filter>
     </ClInclude>
-    <ClInclude Include="src\MissionSet.h">
+    <ClInclude Include="src\MissionFactory.h">
+      <Filter>ヘッダー ファイル\MIssion</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MissionManager.h">
       <Filter>ヘッダー ファイル\MIssion</Filter>
     </ClInclude>
   </ItemGroup>

@@ -102,13 +102,13 @@ public:
 			posY[i] = 200 + i * 150;
 		}
 
-		doc_name[STAGE1] = "y•Y‚¤‹›‰ez";
-		doc_name[STAGE2] = "y[ŠC‚ÌZlz";
+		doc_name[STAGE1] = "yŠC’ê‚ÌZlz";
+		doc_name[STAGE2] = "y[ŠC‚Ì•Y‚¤‰ez";
 		doc_name[STAGE3] = "y“Ş—‚Ì’ê‚Ìƒ‚ƒmz";
 		doc_name[STAGE4] = "y[•£‚Ì‹°•|z";
 
-		board.addRequest({ 1,"•Y‚¤‹›‰e", "ŠC’ê‚Éö‚Ş‰e‚ğ“¢”°‚¹‚æ" , 1, CLoad::Instance().getEfaceGrh(GHOUL)});
-		board.addRequest({ 2,"[ŠC‚ÌZl", "[ŠC‚Ì‹›l‚ğ“¢”°‚¹‚æ" , 5, CLoad::Instance().getEfaceGrh(ZPTHOMMOG) });
+		board.addRequest({ 1,"ŠC’ê‚ÌZl", "ŠC’ê‚Éö‚Ş‰e‚ğ“¢”°‚¹‚æ" , 1, CLoad::Instance().getEfaceGrh(GHOUL)});
+		board.addRequest({ 2,"[ŠC‚Ì•Y‚¤‰e", "[ŠC‚Ì‰…—ì‚ğ“¢”°‚¹‚æ" , 5, CLoad::Instance().getEfaceGrh(ZPTHOMMOG) });
 		board.addRequest({ 3,"“Ş—‚Ì’ê‚Ìƒ‚ƒm", "[ŠC‚É‘ƒ‚­‚¤‹ºˆĞ‚ğæ‚è•¥‚¦", 15, CLoad::Instance().getEfaceGrh(YTHOGTHA) });
 		board.addRequest({ 4,"[•£‚Ì‹°•|", "[•£‚ÉZ‚Ü‚¤‰¤‚ğ“¢”°‚¹‚æ", 22, CLoad::Instance().getEfaceGrh(CTHULHU) });
 
@@ -118,6 +118,8 @@ public:
 	// ƒfƒXƒgƒ‰ƒNƒ^
 	virtual ~CStage() {};
 
+
+	// ‘I‘ğ’†‚ÌƒXƒe[ƒW”Ô†‚ğ•Ô‚·
 	int getStageNum() const { return stageNum; }
 
 private:
