@@ -62,15 +62,15 @@ void CBattle::Update()
 	default:
 		break;
 	}
-
 	// ミッションのクリア判定
 	MissionManager::Instance().TurnLimit(stage, turn);
 
+
 	// fadeが起動後CResultに切り替え
 	if (fade->checkClause(WINDOW_W) && BattleOver()) {
-
 		// リザルト画面へ
 		ScreenManager::Instance().ChangeScreen<CResult>();
+
 	}
 
 }

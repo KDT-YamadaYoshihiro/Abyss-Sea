@@ -257,6 +257,8 @@ private:
 			else {
 				// 敗北
 				ScreenManager::Instance().setBattleResult(BATTLE_RESULT::DEFEAT);
+				// ミッションリセット
+				MissionManager::Instance().ResetMissions(stage);
 			}
 		}
 

@@ -41,4 +41,7 @@ public:
 	void ClearQuest(int arg_stageID);
 	void IncludeCharacter(int arg_stageID, int arg_characterID);
 	void TurnLimit(int arg_stageID, int arg_turn);
+
+	// クエスト失敗時のリセット
+	void ResetMissions(int stageID);
 };

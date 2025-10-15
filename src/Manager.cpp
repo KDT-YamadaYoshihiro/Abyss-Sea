@@ -30,8 +30,8 @@ void ScreenManager::Init()
 
 	ChangeScreen<CTitle>();
 
-	bgmVolume = 0;
-	seVolume = 0;
+	bgmVolume = 3;
+	seVolume = 3;
 
 }
 

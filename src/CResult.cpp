@@ -146,7 +146,7 @@ void CResult::Render()
 		SetFontSize(30);
 		// キャラクターの画像表示
 		DrawRectGraph(posX, posY, scr_x, scr_y, grh_size_x, grh_size_y,
-			CLoad::Instance().getPbodyGrh(i),false);
+			CLoad::Instance().getPbodyGrh(p->getId()),false);
 		// 枠の表示
 		DrawExtendGraph(posX, posY, posX + grh_size_x, posY + grh_size_y, CLoad::Instance().getAmountGrh(BODY), true);
 		// 名前表示

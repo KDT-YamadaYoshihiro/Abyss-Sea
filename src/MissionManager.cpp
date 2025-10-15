@@ -34,6 +34,7 @@ void MissionManager::ClearQuest(int arg_stageID)
 void MissionManager::IncludeCharacter(int arg_stageID, int arg_characterID)
 {
     for (auto& m : missions) {
+
         if (m.stageID == arg_stageID && m.type == MissionType::INCLUDE_CHARACTER) {
 
             // ステージに紐づく指定キャラID（仮: m.targetCharacterID）
@@ -57,6 +58,16 @@ void MissionManager::TurnLimit(int arg_stageID, int arg_turn)
 			break;
 		}
 	}
+}
+
+void MissionManager::ResetMissions(int stageID)
+{
+    for (auto& m : missions) {
+        if (m.stageID == stageID) {
+            m.isCleared = false;
+        }
+    }
+
 }
 
 // ミッションの描画

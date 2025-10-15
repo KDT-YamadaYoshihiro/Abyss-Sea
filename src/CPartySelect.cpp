@@ -3,6 +3,13 @@
 // 更新処理
 void CPartySelect::Update()
 {
+
+	// パーティーミッションのクリア状態を確認
+	for (auto& member : ScreenManager::Instance().getParty()) {
+		MissionManager::Instance().IncludeCharacter(
+			ScreenManager::Instance().getStageScreen(), member->getId());
+	}
+
 	// フェードアップデート
 	fade->fadeUpdate(WINDOW_W);
 
@@ -37,10 +44,6 @@ void CPartySelect::Update()
 			}
 		}
 
-		// パーティーミッションのクリア状態を確認
-		for (auto& member : ScreenManager::Instance().getParty()) {
-			MissionManager::Instance().IncludeCharacter(ScreenManager::Instance().getStageScreen(), member->getId());
-		}
 
 	}
 	else if (uiState == UI_PARTYSTATE::SELECTING) {
