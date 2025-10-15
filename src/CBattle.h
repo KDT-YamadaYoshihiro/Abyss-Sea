@@ -556,7 +556,7 @@ private:
 			case EFFECT_TYPE::EF_ALL_SKILL1:
 				for (auto& t : targets)
 					actor->PlaySkillEffect(t->getPosX(), t->getPosY(), 100, 100);
-				se->PlaySe(CLoad::Instance().getSeHandle(SE_SKILL2));
+				se->PlaySe(CLoad::Instance().getSeHandle(SE_SKILL1));
 				break;
 
 			case EFFECT_TYPE::EF_ALL_SKILL2:

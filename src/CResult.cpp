@@ -36,28 +36,28 @@ void CResult::Update()
 
 		for (size_t i = 0; i < party.size(); ++i) {
 
-			auto& p = party[i];
-			int beforeLevel = p->getLv();
+			auto& partyMember = party[i];
+			int beforeLevel = partyMember->getLv();
 
 			// 経験値加算
-			p->addExp(perMemberExp);
+			partyMember->addExp(perMemberExp);
 
 			// ID照合して対応キャラを検索
-			for (auto& p : players) {
+			for (auto& player : players) {
 
 				// ID一致なら処理
-				if (p->getId() == p->getId()) {
+				if (partyMember->getId() == player->getId()) {
 
 					// 経験値が上限を超えている場合、レベルアップ
-					while (p->getLv() < LV_MAX && p->getExp() >= p->getMaxExp()) {
-						p->levelUp();
+					while (player->getLv() < LV_MAX && player->getExp() >= player->getMaxExp()) {
+						player->levelUp();
 					}
 
 					break; // 該当キャラ見つけたらループ終了
 				}
 			}
 
-			int afterLevel = p->getLv();
+			int afterLevel = partyMember->getLv();
 
 			// 上がったレベル差を記録
 			level_up_diff[i] = afterLevel - beforeLevel;
@@ -65,7 +65,6 @@ void CResult::Update()
 
 		// 二重配布防止
 		is_distributed = true;
-	
 	}
 
 
