@@ -251,7 +251,7 @@ public:
 		// NAME
 		SetFontSize(15);
 		int y = drawY + ICON_SIZE;
-		DrawFormatString(drawX, y, GetColor(255, 255, 255), character->getName().c_str(), true);
+		DrawFormatString(drawX - 10, y, GetColor(255, 255, 255), character->getName().c_str(), true);
 		// HP
 		DrawFormatString(drawX - 10, y + 20, GetColor(255, 255, 255), "HP\n%4d/%4d", character->getHp(), character->getMaxHp(), true);
 
