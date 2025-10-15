@@ -7,20 +7,30 @@ void CBattle::Update()
 
 	// フェードの更新処理
 	fade->fadeUpdate(WINDOW_W);
+
+	// エネミーのカットイン更新
 	for (auto& e : enemies) {
 		e->CutinUpdate();
 	}
 
 	for (auto& p : ScreenManager::Instance().getParty()) {
+		// プレイヤーのアニメーション更新
 		p->AnimUpdata();
+		// プレイヤーのカットイン更新
 		p->CutinUpdate();
 	}
 
-
+	// 深海っぽくするために、青のボックス描画
 	blend_num += blend_speed;
+	// 範囲制限
 	if (blend_num <= 0) { blend_speed *= -1; }
 	if (blend_num >= 50) { blend_speed *= -1; }
 
+	// ミッション内容の取得
+	MissionManager::Instance().GetByStage(ScreenManager::Instance().getStageScreen());
+	
+	// ミッションのクリア判定
+	MissionManager::Instance().SetCleared(ScreenManager::Instance().getStageScreen(), MissionType::TURN_LIMIT, (turn <= 15));
 
 	switch (state)
 	{
@@ -53,9 +63,13 @@ void CBattle::Update()
 		break;
 	}
 
+	// ミッションのクリア判定
+	MissionManager::Instance().TurnLimit(stage, turn);
 
 	// fadeが起動後CResultに切り替え
 	if (fade->checkClause(WINDOW_W) && BattleOver()) {
+
+		// リザルト画面へ
 		ScreenManager::Instance().ChangeScreen<CResult>();
 	}
 

@@ -270,8 +270,11 @@ private:
 			else {
 				// 勝利
 				ScreenManager::Instance().setBattleResult(BATTLE_RESULT::VICTORY);
+				// 経験値セット
 				ScreenManager::Instance().setExp(e->getExp());
-				// 音源の停止
+				// ミッション確認
+				MissionManager::Instance().ClearQuest(stage);
+
 			}
 		}
 

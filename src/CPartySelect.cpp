@@ -36,6 +36,12 @@ void CPartySelect::Update()
 				selectedIndex = -1;
 			}
 		}
+
+		// パーティーミッションのクリア状態を確認
+		for (auto& member : ScreenManager::Instance().getParty()) {
+			MissionManager::Instance().IncludeCharacter(ScreenManager::Instance().getStageScreen(), member->getId());
+		}
+
 	}
 	else if (uiState == UI_PARTYSTATE::SELECTING) {
 

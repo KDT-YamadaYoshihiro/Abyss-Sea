@@ -31,8 +31,14 @@ public:
 
 	// 全ミッション取得（デバッグ用）
     const std::vector<Mission>& GetAll() const { return missions; }
+
 	// ステージIDでミッションを取得
     std::vector<Mission> GetByStage(int stageID) const;
 	// ミッション状態更新
     void SetCleared(int stageID, MissionType type, bool cleared);
+
+	// ミッションのクリア状態を設定
+	void ClearQuest(int arg_stageID);
+	void IncludeCharacter(int arg_stageID, int arg_characterID);
+	void TurnLimit(int arg_stageID, int arg_turn);
 };

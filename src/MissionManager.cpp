@@ -26,6 +26,39 @@ void MissionManager::SetCleared(int stageID, MissionType type, bool cleared) {
     }
 }
 
+void MissionManager::ClearQuest(int arg_stageID)
+{
+    SetCleared(arg_stageID, MissionType::CLEAR_QUEST, true);
+}
+
+void MissionManager::IncludeCharacter(int arg_stageID, int arg_characterID)
+{
+    for (auto& m : missions) {
+        if (m.stageID == arg_stageID && m.type == MissionType::INCLUDE_CHARACTER) {
+
+            // ステージに紐づく指定キャラID（仮: m.targetCharacterID）
+            if (m.targetID == arg_characterID) {
+                m.isCleared = true;
+            }
+            // 一致しなければ現状維持
+            break;
+        }
+    }
+}
+
+void MissionManager::TurnLimit(int arg_stageID, int arg_turn)
+{
+	for (auto& m : missions) {
+		if (m.stageID == arg_stageID && m.type == MissionType::TURN_LIMIT) {
+			if (arg_turn <= m.turnLimit) {
+				m.isCleared = true;
+			}
+			// 一致しなければ現状維持
+			break;
+		}
+	}
+}
+
 // ミッションの描画
 void MissionManager::DrawMissions(int stageID, int x, int y) const {
     int offsetY = 0;
