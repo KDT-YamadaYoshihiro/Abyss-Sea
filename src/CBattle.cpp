@@ -4,6 +4,13 @@
 
 void CBattle::Update()
 {
+	std::vector<std::shared_ptr<Character>> select_party;
+	for (auto& p : ScreenManager::Instance().getParty()) {
+		select_party.push_back(p);
+	}
+	// パーティーミッションのクリア状態を確認
+	MissionManager::Instance().IncludeCharacter(
+		ScreenManager::Instance().getStageScreen(), select_party);
 
 	// フェードの更新処理
 	fade->fadeUpdate(WINDOW_W);
@@ -18,6 +25,11 @@ void CBattle::Update()
 		p->AnimUpdata();
 		// プレイヤーのカットイン更新
 		p->CutinUpdate();
+
+		if (!p->getAlive()) {
+			p->setAnimType(GRTYPE::DEAD);
+		}
+
 	}
 
 	// 深海っぽくするために、青のボックス描画
@@ -25,12 +37,6 @@ void CBattle::Update()
 	// 範囲制限
 	if (blend_num <= 0) { blend_speed *= -1; }
 	if (blend_num >= 50) { blend_speed *= -1; }
-
-	// ミッション内容の取得
-	MissionManager::Instance().GetByStage(ScreenManager::Instance().getStageScreen());
-	
-	// ミッションのクリア判定
-	MissionManager::Instance().SetCleared(ScreenManager::Instance().getStageScreen(), MissionType::TURN_LIMIT, (turn <= 15));
 
 	switch (state)
 	{

@@ -285,23 +285,6 @@ private:
 		return allPlayersDefeated || EnemiesDefeated;
 	}
 
-	// ソート処理
-	//template<typename T>
-	//void sort(T* array, std::size_t size) {
-	//	for (std::size_t i = 0; i < size - 1; ++i) {
-	//		bool swapped = false;
-	//		for (std::size_t j = 0; j < size - 1 - i; ++j) {
-	//			int j_speed = cal->BuffCal(array[j]->getSpeed(), array[j]->getAgrbuff());
-	//			int j_next_speed = cal->BuffCal(array[j + 1]->getSpeed(), array[j + 1]->getAgrbuff());
-	//			if (j_speed < j_next_speed) {
-	//				std::swap(array[j], array[j + 1]);
-	//				swapped = true;
-	//			}
-	//		}
-	//		if (!swapped) break;
-	//	}
-	//}
-
 	// 毎ターン行うソート
 	void TurnOrder() {
 
@@ -314,14 +297,6 @@ private:
 		for (const auto& e : enemies) {
 			if (e->getAlive() == true) turn_order.push_back(e);
 		}
-
-		//// 素早さでソート（降順）
-		//if (!turnOrder.empty()) {
-		//	// ポインタ配列として扱う
-		//	std::shared_ptr<Character>* array = turnOrder.data();
-		//	std::size_t size = turnOrder.size();
-		//	sort(array, size);
-		//}
 
 		 // 素早さでソート（降順）
 		if (!turn_order.empty()) {
@@ -580,13 +555,13 @@ private:
 				// 全体スキル
 			case EFFECT_TYPE::EF_ALL_SKILL1:
 				for (auto& t : targets)
-					actor->PlaySkillEffect(t->getPosX(), t->getPosY(), 250, 250);
+					actor->PlaySkillEffect(t->getPosX(), t->getPosY(), 100, 100);
 				se->PlaySe(CLoad::Instance().getSeHandle(SE_SKILL2));
 				break;
 
 			case EFFECT_TYPE::EF_ALL_SKILL2:
 				for (auto& t : targets)
-					actor->PlaySkillEffect(t->getPosX(), t->getPosY(), 250, 350);
+					actor->PlaySkillEffect(t->getPosX(), t->getPosY(), 250, 250);
 				se->PlaySe(CLoad::Instance().getSeHandle(SE_SKILL2));
 				break;
 
@@ -709,6 +684,7 @@ private:
 			e->updateBuff();
 		}
 
+		TurnOrder();
 		// インデックスをリセット
 		current_turn_index = 0;
 

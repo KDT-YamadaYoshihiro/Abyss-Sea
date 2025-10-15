@@ -7,6 +7,7 @@ const UI::AnimInfo UI::animTable[ANIM_MAX] = {
 	{3,3,3},	// MAGIC
 	{3,1,3},	// SKILL
 	{0,4,3},	// DAMAGE
+	{6,2,3},	// DEAD
 	{6,1,3},	// WIN
 	{6,5,3},	// LOSE
 };

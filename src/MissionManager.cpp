@@ -1,5 +1,6 @@
 #include "MissionManager.h"
 #include "MissionFactory.h"
+#include "Character.h"
 #include "DxLib.h"
 
 void MissionManager::LoadMissionTable(const std::string& csvFile) {
@@ -31,17 +32,24 @@ void MissionManager::ClearQuest(int arg_stageID)
     SetCleared(arg_stageID, MissionType::CLEAR_QUEST, true);
 }
 
-void MissionManager::IncludeCharacter(int arg_stageID, int arg_characterID)
+void MissionManager::IncludeCharacter(int arg_stageID, std::vector<std::shared_ptr<Character>> arg_chara)
 {
     for (auto& m : missions) {
 
         if (m.stageID == arg_stageID && m.type == MissionType::INCLUDE_CHARACTER) {
 
-            // ステージに紐づく指定キャラID（仮: m.targetCharacterID）
-            if (m.targetID == arg_characterID) {
-                m.isCleared = true;
+			// キャラクターが編成にいるか確認
+            bool found = false;
+
+			// 編成キャラを一人ずつ確認
+            for (auto& c : arg_chara) {
+                if (c->getId() == m.targetID) {
+                    found = true;
+                    break;
+                }
             }
-            // 一致しなければ現状維持
+
+            m.isCleared = found;  // 最後に結果をまとめて反映
             break;
         }
     }
@@ -51,9 +59,15 @@ void MissionManager::TurnLimit(int arg_stageID, int arg_turn)
 {
 	for (auto& m : missions) {
 		if (m.stageID == arg_stageID && m.type == MissionType::TURN_LIMIT) {
-			if (arg_turn <= m.turnLimit) {
+			
+            // 指定ターン以内にクリアしていればクリア
+            if (arg_turn <= m.turnLimit) {
 				m.isCleared = true;
-			}
+            }
+            else {
+				// クリアしていなければ現状維持
+                m.isCleared = false;
+            }
 			// 一致しなければ現状維持
 			break;
 		}
@@ -63,6 +77,12 @@ void MissionManager::TurnLimit(int arg_stageID, int arg_turn)
 void MissionManager::ResetMissions(int stageID)
 {
     for (auto& m : missions) {
+
+		// ステージクリアミッションがクリア済みならリセットしない
+        if (m.stageID == stageID && m.type == MissionType::CLEAR_QUEST && m.isCleared == true) {
+            return;
+        }
+
         if (m.stageID == stageID) {
             m.isCleared = false;
         }

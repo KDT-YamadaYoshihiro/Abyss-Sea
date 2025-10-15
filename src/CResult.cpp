@@ -21,46 +21,51 @@ void CResult::Update()
 	// レベルアップ
 	if (ScreenManager::Instance().getbattleResult() == BATTLE_RESULT::VICTORY && !is_distributed) {
 
+		// パーティーメンバーの取得
 		auto& party = ScreenManager::Instance().getParty();
 		auto& players = ScreenManager::Instance().getPlayers();
 
-		int totalExp = 0;
+		// 総取得経験値
+		int totalExp = ScreenManager::Instance().getExp();
 
-		// エネミーの経験値を取得
-		totalExp = ScreenManager::Instance().getExp();
+		// パーティーメンバー分で割る
+		int perMemberExp = (party.empty() ? 0 : totalExp / static_cast<int>(party.size()));
 
+		// レベル差の記録を初期化
+		level_up_diff.assign(party.size(), 0);
 
-		// 取得したエネミーの経験値をパーティメンバー分の割る。
-				// 割った経験値を各キャラクターにキャスト
-		int preMamber = (party.empty() ? 0 : totalExp / static_cast<int>(party.size()));
+		for (size_t i = 0; i < party.size(); ++i) {
 
-		// 初期化
-		level_up_diff.assign(party.size(), 0); 
-
-		// 経験値MaxExp以上で1LvUp
-		for (size_t i = 0; i < party.size(); i++) {
 			auto& p = party[i];
-			p->addExp(preMamber);
-
-			// レベルが上がる前のレベルを記録
 			int beforeLevel = p->getLv();
-			// レベル30以上ならレベルアップは終了する
-			while (p->getLv() < LV_MAX && players[i]->getExp() >= players[i]->getMaxExp()) {
-				if (players[i]->getId() == p->getId()) {
-					players[i]->levelUp();
+
+			// 経験値加算
+			p->addExp(perMemberExp);
+
+			// ID照合して対応キャラを検索
+			for (auto& p : players) {
+
+				// ID一致なら処理
+				if (p->getId() == p->getId()) {
+
+					// 経験値が上限を超えている場合、レベルアップ
+					while (p->getLv() < LV_MAX && p->getExp() >= p->getMaxExp()) {
+						p->levelUp();
+					}
+
+					break; // 該当キャラ見つけたらループ終了
 				}
 			}
-			
-			
-			// レベルアップ後のレベルを記録
+
 			int afterLevel = p->getLv();
 
-			// 上がったレベルを記録
+			// 上がったレベル差を記録
 			level_up_diff[i] = afterLevel - beforeLevel;
 		}
 
-		// 経験値の再分配防止
+		// 二重配布防止
 		is_distributed = true;
+	
 	}
 
 

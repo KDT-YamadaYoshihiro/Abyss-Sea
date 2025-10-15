@@ -132,8 +132,9 @@ enum GRTYPE {
 	MAGIC,		// 魔法スキル(凡用スキル)
 	SKILL,		// 攻撃スキル(振り)
 	DAMAGE,		// 攻撃を受けたとき
+	DEAD,		// 戦闘不能
 	WIN,		// バトル勝利
-	LOSE,		// 戦闘不能
+	LOSE,		// バトル敗北
 	ANIM_MAX
 };
 

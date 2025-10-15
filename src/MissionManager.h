@@ -1,6 +1,9 @@
 #pragma once
 #include <vector>
+#include <memory>
 #include "Mission.h"
+
+class Character;
 
 class MissionManager {
 private:
@@ -39,7 +42,7 @@ public:
 
 	// ミッションのクリア状態を設定
 	void ClearQuest(int arg_stageID);
-	void IncludeCharacter(int arg_stageID, int arg_characterID);
+	void IncludeCharacter(int arg_stageID, std::vector<std::shared_ptr<Character>> arg_chara);
 	void TurnLimit(int arg_stageID, int arg_turn);
 
 	// クエスト失敗時のリセット
