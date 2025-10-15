@@ -30,15 +30,15 @@ public:
 	// CSVからミッションデータを読み込み
     void LoadMissionTable(const std::string& csvFile);
 	// ステージIDに応じたミッションリストを取得
-    void DrawMissions(int stageID, int x, int y) const;
+    void DrawMissions(int arg_stageID, int x, int y) const;
 
 	// 全ミッション取得（デバッグ用）
     const std::vector<Mission>& GetAll() const { return missions; }
 
 	// ステージIDでミッションを取得
-    std::vector<Mission> GetByStage(int stageID) const;
+    std::vector<Mission> GetByStage(int arg_stageID) const;
 	// ミッション状態更新
-    void SetCleared(int stageID, MissionType type, bool cleared);
+    void SetCleared(int arg_stageID, MissionType type, bool cleared);
 
 	// ミッションのクリア状態を設定
 	void ClearQuest(int arg_stageID);
@@ -46,5 +46,5 @@ public:
 	void TurnLimit(int arg_stageID, int arg_turn);
 
 	// クエスト失敗時のリセット
-	void ResetMissions(int stageID);
+	void ResetMissions(int arg_stageID);
 };

@@ -35,6 +35,13 @@ void MissionManager::ClearQuest(int arg_stageID)
 void MissionManager::IncludeCharacter(int arg_stageID, std::vector<std::shared_ptr<Character>> arg_chara)
 {
     for (auto& m : missions) {
+        // ステージクリアミッションがクリア済みならリセットしない
+        if (m.stageID == arg_stageID && m.type == MissionType::CLEAR_QUEST && m.isCleared == true) {
+            if (m.stageID == arg_stageID && m.type == MissionType::INCLUDE_CHARACTER && m.isCleared == true)
+            {
+                return;
+            }
+        }
 
         if (m.stageID == arg_stageID && m.type == MissionType::INCLUDE_CHARACTER) {
 
@@ -57,7 +64,18 @@ void MissionManager::IncludeCharacter(int arg_stageID, std::vector<std::shared_p
 
 void MissionManager::TurnLimit(int arg_stageID, int arg_turn)
 {
+
+
 	for (auto& m : missions) {
+
+        // ステージクリアミッションがクリア済みならリセットしない
+        if (m.stageID == arg_stageID && m.type == MissionType::CLEAR_QUEST && m.isCleared == true){
+            if (m.stageID == arg_stageID && m.type == MissionType::TURN_LIMIT && m.isCleared == true) {
+
+                return;
+            }
+        }
+
 		if (m.stageID == arg_stageID && m.type == MissionType::TURN_LIMIT) {
 			
             // 指定ターン以内にクリアしていればクリア
@@ -74,16 +92,16 @@ void MissionManager::TurnLimit(int arg_stageID, int arg_turn)
 	}
 }
 
-void MissionManager::ResetMissions(int stageID)
+void MissionManager::ResetMissions(int arg_stageID)
 {
     for (auto& m : missions) {
 
 		// ステージクリアミッションがクリア済みならリセットしない
-        if (m.stageID == stageID && m.type == MissionType::CLEAR_QUEST && m.isCleared == true) {
+        if (m.stageID == arg_stageID && m.type == MissionType::CLEAR_QUEST && m.isCleared == true) {
             return;
         }
 
-        if (m.stageID == stageID) {
+        if (m.stageID == arg_stageID) {
             m.isCleared = false;
         }
     }
