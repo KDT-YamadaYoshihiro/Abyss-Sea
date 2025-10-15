@@ -120,7 +120,8 @@ enum SE {
 	SE_SKILL2,
 	SE_BUFF,
 	SE_HEAL,
-
+	SE_CUTIN1,
+	SE_CUTIN2,
 
 	SE_MAX				// ç≈ëÂêî(forï∂óp)
 };

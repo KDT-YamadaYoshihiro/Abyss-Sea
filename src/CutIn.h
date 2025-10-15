@@ -26,6 +26,8 @@ class Cutin{
 
 	// 画像ハンドル
 	int handle;
+	// SEハンドル
+	int se_handle;
 
 	// 速度
 	// フェードイン速度
@@ -37,29 +39,27 @@ class Cutin{
 	// 中央滞在時間
 	int frame_counter;
 
+
 	// 現在の速度
 	CUTIN_PHASE phase;
 
 	// カットイン時のエフェクト
 	std::shared_ptr<Effect> cutin_effect;
 
+	// カットインSE
+	std::shared_ptr<Sound> se;
+
 
 public:
 
 	// 初期化
-	Cutin()
-		:skill_name(""), draw_flag(false), end_flag(false), pos_x(0), pos_y(0), size_w(300), size_h(600), handle(-1),
-		enter_speed(10), pause_speed(2), exit_speed(10), frame_counter(0), 
-		phase(CUTIN_PHASE::ENTERING), cutin_effect(nullptr)
-	{
-		cutin_effect = std::make_shared<Effect>(CLoad::Instance().getCutinEf(),3,3);
-	};
+	Cutin();
 
 	// デストラクタ
 	virtual ~Cutin() {};
 
 	// スタート関数
-	void Start(int arg_x, int arg_y, int arg_handle, std::string arg_skillName, int arg_enterSpeed, int arg_pauseSpeed, int arg_exitSpeed);
+	void Start(int arg_x, int arg_y, int arg_handle, int arg_seHandle, std::string arg_skillName, int arg_enterSpeed, int arg_pauseSpeed, int arg_exitSpeed);
 
 	// リセット関数（再利用を考慮）
 	void Reset();

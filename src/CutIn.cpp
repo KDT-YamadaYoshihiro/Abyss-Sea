@@ -1,7 +1,16 @@
 #include "Cutin.h"
+#include "Manager.h"
+
+Cutin::Cutin() :skill_name(""), draw_flag(false), end_flag(false), pos_x(0), pos_y(0), size_w(300), size_h(600), handle(-1),
+se_handle(-1), enter_speed(10), pause_speed(2), exit_speed(10), frame_counter(0),
+phase(CUTIN_PHASE::ENTERING), cutin_effect(nullptr)
+{
+    cutin_effect = std::make_shared<Effect>(CLoad::Instance().getCutinEf(), 3, 3);
+    se = ScreenManager::Instance().getSe();
+};
 
 // スタート関数（座標指定、速度指定）
-void Cutin::Start(int arg_x, int arg_y, int arg_handle, std::string arg_skillName, int arg_enterSpeed, int arg_pauseSpeed, int arg_exitSpeed)
+void Cutin::Start(int arg_x, int arg_y, int arg_handle, int arg_seHandle,std::string arg_skillName, int arg_enterSpeed, int arg_pauseSpeed, int arg_exitSpeed)
 {
     // エンドフラグリセット
     end_flag = false;
@@ -12,6 +21,8 @@ void Cutin::Start(int arg_x, int arg_y, int arg_handle, std::string arg_skillNam
 
     // 画像ハンドル
     handle = arg_handle;
+    // SEハンドル
+    se_handle = arg_seHandle;
 
     // 名前
     skill_name = arg_skillName;
@@ -47,6 +58,8 @@ void Cutin::Update()
     {
         return;
     }
+
+    se->PlaySe(se_handle);
 
 	// フェーズごとの動作
     switch (phase)
