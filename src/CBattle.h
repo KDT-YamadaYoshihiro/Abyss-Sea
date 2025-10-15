@@ -43,17 +43,17 @@ class CBattle : public ScreenBase {
 	// エネミー
 	std::vector<std::shared_ptr<Character>> enemies;
 	// 行動順リスト
-	std::vector<std::shared_ptr<Character>> turnOrder;
+	std::vector<std::shared_ptr<Character>> turn_order;
 
 	// ターゲットリスト
-	std::vector<std::shared_ptr<Character>> TargetList;
+	std::vector<std::shared_ptr<Character>> target_list;
 	// 対象者
-	std::shared_ptr<Character> selectTarget;
+	std::shared_ptr<Character> select_target;
 	// 決定したターゲットリスト
-	std::vector<std::shared_ptr<Character>> v;
+	std::vector<std::shared_ptr<Character>> targets;
 
 	// 音
-	std::shared_ptr<Sound>bgm;
+	std::shared_ptr<Sound> bgm;
 	std::shared_ptr<Sound> se;
 
 	// フェード
@@ -66,7 +66,7 @@ class CBattle : public ScreenBase {
 	std::shared_ptr<Calculation> cal;
 
 	// 現在ターンのインデックス
-	int currentTurnIndex = 0;
+	int current_turn_index = 0;
 	// ターン数
 	int turn = -1;
 	// 生成するステージ
@@ -75,100 +75,100 @@ class CBattle : public ScreenBase {
 	int e_id;
 
 	// プレイヤーGRH
-	int PlayerGrh = - 1;
+	int player_grh = - 1;
 	// エネミーGRH
-	int EnemyGrh = -1;
+	int enemy_grh = -1;
 
 	// アクションスイッチ
-	PlayerAction player_action = NONE_ACTION;
+	PLAYER_ACTION player_action = NONE_ACTION;
 
 	// 座標変数
-	int pPosX[PLAYER_MAX];
-	int pPosY[PLAYER_MAX];
+	int p_pos_x[PLAYER_MAX];
+	int p_pos_y[PLAYER_MAX];
 
-	int ePosX = -1;
-	int ePosY = -1;
+	int e_pos_x = -1;
+	int e_pos_y = -1;
 
 	// ボタン座標
-	int atButtonX = -1;
-	int ButtonY = -1;
-	int skButtonX = -1;
-	int ButtonSizeX = -1;
-	int ButtonSizeY = -1;
+	int at_button_x = -1;
+	int button_y = -1;
+	int sk_button_x = -1;
+	int button_size_x = -1;
+	int button_size_y = -1;
 
 	int speed = -1;
 
 
 	// 三角形の座標
-	int trPosX[BUTTAN_MAX];
-	int trPosY[BUTTAN_MAX];
+	int tr_pos_x[BUTTAN_MAX];
+	int tr_pos_y[BUTTAN_MAX];
 
 	// 音量設定時に使用　クリックフレーム
-	int clickFrame = -1;
+	int click_frame = -1;
 
 	// アイコン下名前表示文字数制限
-	int nameMax = -1;
+	int name_max = -1;
 
 	// ブレンドモードの変数
-	int blendNum = -1;
-	int blendSpeed = -1;
+	int blend_num = -1;
+	int blend_speed = -1;
 
 	// 終了フレームカウント
-	int endFrame;
+	int end_frame;
 
 	// 戻るボタンの座標、サイズ変数
-	int boxX = -1;
-	int boxY = -1;
-	int sizeW = -1;
-	int sizeH = -1;
+	int box_x = -1;
+	int box_y = -1;
+	int size_w = -1;
+	int size_h = -1;
 
 	// 他ボタンの座標
-	int buttonX = -1;
-	int buttonY = -1;
+	int ui_buttonX = -1;
+	int ui_buttonY = -1;
 
 	// スキル説明の表示有無
-	bool skdescDraw = false;
+	bool sk_desc_draw = false;
 
 public:
 
 	// 初期化
 	CBattle() :
 		// ボタン座標
-		atButtonX(450),
-		ButtonY(WINDOW_H - 60),
-		skButtonX(atButtonX + 210),
-		ButtonSizeX(200),
-		ButtonSizeY(50),
-		clickFrame(0),
-		nameMax(6),
-		blendNum(50),
-		blendSpeed(1),
+		at_button_x(450),
+		button_y(WINDOW_H - 60),
+		sk_button_x(at_button_x + 210),
+		button_size_x(200),
+		button_size_y(50),
+		click_frame(0),
+		name_max(6),
+		blend_num(50),
+		blend_speed(1),
 		// UIボタン座標
-		boxX(WINDOW_W / 2 + 220),
-		boxY(WINDOW_H - 100),
-		sizeW(200),
-		sizeH(80),
-		buttonX(WINDOW_W / 2 - (FONT_BIGSIZE * 1.5)),
-		buttonY(250),
-		skdescDraw(false)
+		box_x(WINDOW_W / 2 + 220),
+		box_y(WINDOW_H - 100),
+		size_w(200),
+		size_h(80),
+		ui_buttonX(WINDOW_W / 2 - (FONT_BIGSIZE * 1.5)),
+		ui_buttonY(250),
+		sk_desc_draw(false)
 	{
 		
 		// 座標変数
-		for (int i = 0; i < PLAYER_MAX; i++) { pPosX[i] = 300 + (i % 2) * 50; pPosY[i] = WINDOW_H / 2 + 60; }
-		for (int i = 0; i < ENEMY_MAX; i++) { ePosX = WINDOW_W / 2 + 300; ePosY = WINDOW_H / 2 + 150; }
+		for (int i = 0; i < PLAYER_MAX; i++) { p_pos_x[i] = 300 + (i % 2) * 50; p_pos_y[i] = WINDOW_H / 2 + 60; }
+		for (int i = 0; i < ENEMY_MAX; i++) { e_pos_x = WINDOW_W / 2 + 300; e_pos_y = WINDOW_H / 2 + 150; }
 		
 
 		// 初期化関数
 		BattleInit();
 
-		trPosX[BGM_UP] = WINDOW_W / 2 - 280;
-		trPosY[BGM_UP] = WINDOW_H / 2 - 120;
-		trPosX[BGM_DOWN] = WINDOW_W / 2 - 280;
-		trPosY[BGM_DOWN] = WINDOW_H / 2 + 70;
-		trPosX[SE_UP] = WINDOW_W / 2 + 260;
-		trPosY[SE_UP] = WINDOW_H / 2 - 120;
-		trPosX[SE_DOWN] = WINDOW_W / 2 + 260;
-		trPosY[SE_DOWN] = WINDOW_H / 2 + 70;
+		tr_pos_x[BGM_UP] = WINDOW_W / 2 - 280;
+		tr_pos_y[BGM_UP] = WINDOW_H / 2 - 120;
+		tr_pos_x[BGM_DOWN] = WINDOW_W / 2 - 280;
+		tr_pos_y[BGM_DOWN] = WINDOW_H / 2 + 70;
+		tr_pos_x[SE_UP] = WINDOW_W / 2 + 260;
+		tr_pos_y[SE_UP] = WINDOW_H / 2 - 120;
+		tr_pos_x[SE_DOWN] = WINDOW_W / 2 + 260;
+		tr_pos_y[SE_DOWN] = WINDOW_H / 2 + 70;
 	};
 
 	// 更新処理
@@ -188,17 +188,17 @@ private:
 		sp = std::make_shared<BattleSP>();
 
 		// ステージ
-		stage = Manager::Instance().getStageScreen();
+		stage = ScreenManager::Instance().getStageScreen();
 
 		// 音源
-		bgm = Manager::Instance().getbgm();
-		se = Manager::Instance().getSe();
+		bgm = ScreenManager::Instance().getbgm();
+		se = ScreenManager::Instance().getSe();
 
 		// フェード
-		fade = Manager::Instance().getFade();
+		fade = ScreenManager::Instance().getFade();
 
 		// ID
-		e_id = Manager::Instance().getEnemyID(stage);
+		e_id = ScreenManager::Instance().getEnemyID(stage);
 
 		// エネミー生成
 		auto enemy = CharacterFactory::Instance().CreateCharacter(e_id);
@@ -207,7 +207,7 @@ private:
 		cal = std::make_shared<Calculation>();
 
 		// キャラクターリセット
-		for (auto& p : Manager::Instance().getParty()) {
+		for (auto& p : ScreenManager::Instance().getParty()) {
 			p->hpReset();
 			p->BuffReset();
 			p->setAnimType(WAIT);
@@ -220,7 +220,7 @@ private:
 		}
 
 		// キャラクターをインデックス。
-		currentTurnIndex = 0;
+		current_turn_index = 0;
 
 		// ソートを行う。
 		TurnOrder();
@@ -232,12 +232,12 @@ private:
 		sp->ResetSP();
 
 		// 勝敗判定のリセット
-		Manager::Instance().setBattleResult(BattleResult::BATTLE);
+		ScreenManager::Instance().setBattleResult(BATTLE_RESULT::BATTLE);
 
 		// bgmの再生
 		bgm->PlayBgm(CLoad::Instance().getBgmHandle(1 + stage));
 
-		endFrame = 120;
+		end_frame = 120;
 	}
 	
 	void Delete() {
@@ -249,14 +249,14 @@ private:
 	bool BattleOver() {
 		// プレイヤーが生きているか
 		bool allPlayersDefeated = true;
-		for (auto& p : Manager::Instance().getParty()) {
+		for (auto& p : ScreenManager::Instance().getParty()) {
 			if (p->getAlive()) {
 				allPlayersDefeated = false;
 				break;
 			}
 			else {
 				// 敗北
-				Manager::Instance().setBattleResult(BattleResult::DEFEAT);
+				ScreenManager::Instance().setBattleResult(BATTLE_RESULT::DEFEAT);
 			}
 		}
 
@@ -269,8 +269,8 @@ private:
 			}
 			else {
 				// 勝利
-				Manager::Instance().setBattleResult(BattleResult::VICTORY);
-				Manager::Instance().setExp(e->getExp());
+				ScreenManager::Instance().setBattleResult(BATTLE_RESULT::VICTORY);
+				ScreenManager::Instance().setExp(e->getExp());
 				// 音源の停止
 			}
 		}
@@ -301,13 +301,13 @@ private:
 	void TurnOrder() {
 
 		// 過去のソート情報を削除
-		turnOrder.clear();
+		turn_order.clear();
 		// 生きているキャラをソート対象に
-		for (const auto& p : Manager::Instance().getParty()) {
-			if (p->getAlive() == true) turnOrder.push_back(p);
+		for (const auto& p : ScreenManager::Instance().getParty()) {
+			if (p->getAlive() == true) turn_order.push_back(p);
 		}
 		for (const auto& e : enemies) {
-			if (e->getAlive() == true) turnOrder.push_back(e);
+			if (e->getAlive() == true) turn_order.push_back(e);
 		}
 
 		//// 素早さでソート（降順）
@@ -319,9 +319,9 @@ private:
 		//}
 
 		 // 素早さでソート（降順）
-		if (!turnOrder.empty()) {
+		if (!turn_order.empty()) {
 			// std::sort を使ってソート
-			std::sort(turnOrder.begin(), turnOrder.end(), [this](const std::shared_ptr<Character>& a, const std::shared_ptr<Character>& b) {
+			std::sort(turn_order.begin(), turn_order.end(), [this](const std::shared_ptr<Character>& a, const std::shared_ptr<Character>& b) {
 				int a_speed = cal->BuffCal(a->getSpeed(), a->getAgrbuff());
 				int b_speed = cal->BuffCal(b->getSpeed(), b->getAgrbuff());
 				return a_speed > b_speed; // 降順にソート
@@ -336,15 +336,15 @@ private:
 		const int PADDING = 10;		// アイコンの間隔
 		int drawX = x;				//　スタート地点
 
-		for (size_t i = 0; i < turnOrder.size(); ++i) {
-			const auto& ch = turnOrder[i];
+		for (size_t i = 0; i < turn_order.size(); ++i) {
+			const auto& ch = turn_order[i];
 			int handle = ch->getFaceHandle();
 
 			// アイコンを描画
 			DrawExtendGraph(drawX, y, drawX + ICON_SIZE, y + ICON_SIZE, handle, TRUE);
 
 			// 現在のターンキャラに枠を表示
-			if (i == static_cast<size_t>(currentTurnIndex)) {
+			if (i == static_cast<size_t>(current_turn_index)) {
 				DrawBox(drawX, y, drawX + ICON_SIZE, y + ICON_SIZE, GetColor(255, 255, 0), FALSE);
 			}
 			else {
@@ -357,8 +357,8 @@ private:
 			// 名前または略称を下に表示
 			SetFontSize(FONT_MINSIZE);
 			std::string name = ch->getName();
-			if (name.size() > nameMax) {
-				name = name.substr(0, nameMax);
+			if (name.size() > name_max) {
+				name = name.substr(0, name_max);
 			}
 			DrawFormatString(drawX, y + ICON_SIZE + 4, GetColor(255, 255, 255), "%s",name.c_str()); 
 			// 次のキャラの描画位置を横にずらす
@@ -368,8 +368,8 @@ private:
 
 	// リストを空にする
 	void ListClea() {
-		TargetList.clear();
-		v.clear();
+		target_list.clear();
+		targets.clear();
 	}
 
 	// spの増減
@@ -391,18 +391,22 @@ private:
 	void ActionChoice(std::shared_ptr<Character> arg_character) {
 
 		//　通常攻撃orスキル選択（クリック）
-		if (CheckBoxClick(atButtonX, ButtonY, ButtonSizeX,ButtonSizeY)) {
+		if (CheckBoxClick(at_button_x, button_y, button_size_x,button_size_y)) {
 			se->PlaySe(CLoad::Instance().getSeHandle(SE_CLICK));
 			arg_character->setActionChoice(ATTACK);
 			targetInput = TargetInput::LISTCREATE;
 		}
-		else if (CheckBoxClick(skButtonX, ButtonY, ButtonSizeX, ButtonSizeY)) {
+		else if (CheckBoxClick(sk_button_x, button_y, button_size_x, button_size_y)) {
 
 			// spが0より大きいなら（1以上なら）
 			if (sp->getSP() > 0) {
+				// クリック音の再生
 				se->PlaySe(CLoad::Instance().getSeHandle(SE_CLICK));
+				// 
 				arg_character->setActionChoice(SKILL);
-				skdescDraw = true;
+				// スキル説明表示
+				sk_desc_draw = true;
+				// ターゲットリスト作成へ
 				targetInput = TargetInput::LISTCREATE;
 			}
 			else {
@@ -416,24 +420,35 @@ private:
 	//　ターゲットリスト作成
 	void TargetListCreate(std::shared_ptr<Character> arg_character) {
 
-		TargetList.clear();
+		target_list.clear();
 
 		// 攻撃 or スキルで敵/味方をリストアップ
 		if (arg_character->getActionChoice() == ATTACK ||
-			arg_character->getTargetType() == SkillTargetType::SINGLE_ENEMY ||
-			arg_character->getTargetType() == SkillTargetType::ALL_ENEMY) {
+			arg_character->getTargetType() == SKILL_TARGET_TYPE::SINGLE_ENEMY ||
+			arg_character->getTargetType() == SKILL_TARGET_TYPE::ALL_ENEMY) {
 
-			for (auto& e : enemies)
-				if (e->getAlive()) TargetList.push_back(e);
+			for (auto& e : enemies) {
+				if (e->getAlive())
+				{
+					target_list.push_back(e);
+				}
+			}
 		}
-		else if (arg_character->getTargetType() == SkillTargetType::SINGLE_ALLY ||
-			arg_character->getTargetType() == SkillTargetType::ALL_ALLY) {
+		else if (arg_character->getTargetType() == SKILL_TARGET_TYPE::SINGLE_ALLY ||
+			arg_character->getTargetType() == SKILL_TARGET_TYPE::ALL_ALLY) {
 
-			for (auto& p : Manager::Instance().getParty())
-				if (p->getAlive()) TargetList.push_back(p);
+				for (auto& p : ScreenManager::Instance().getParty()) {
+					if (p->getAlive())
+					{
+						// 
+						target_list.push_back(p);
+					}
+				}
+		
 		}
-		else if (arg_character->getTargetType() == SkillTargetType::SELF) {
-			TargetList.push_back(arg_character);
+		else if (arg_character->getTargetType() == SKILL_TARGET_TYPE::SELF) {
+			// 自分のみ
+			target_list.push_back(arg_character);
 		}
 
 		// ターゲット選択モードへ
@@ -444,15 +459,18 @@ private:
 	void TargetChoice(std::shared_ptr<Character> arg_character) {
 		
 		// 行動キャンセル処理
-		if (CheckBoxClick(boxX, boxY, sizeW, sizeH)) {
+		if (CheckBoxClick(box_x, box_y, size_w, size_h)) {
+			// キャンセル音
 			se->PlaySe(CLoad::Instance().getSeHandle(SE_CANCEL));
+			// ターゲットリストを空に
 			targetInput = TargetInput::ACTIONCHOICE;
-			skdescDraw = false;
+			// 
+			sk_desc_draw = false;
 			return;
 		}
 
 		// 各ターゲットに対してクリック判定
-		for (auto& tar : TargetList) {
+		for (auto& tar : target_list) {
 			Position pos = GetCharacterCenter(tar);
 
 			// 実際の対象リスト
@@ -465,7 +483,7 @@ private:
 				se->PlaySe(CLoad::Instance().getSeHandle(SE_CLICK));
 
 				// 対象者決定
-				selectTarget = tar;
+				select_target = tar;
 				TypeConversion();
 
 				// SP確認（スキル時のみ）
@@ -504,12 +522,12 @@ private:
 
 			case SKILL:
 
-				if (arg_character->getTargetType() == SkillTargetType::ALL_ENEMY ||
-					arg_character->getTargetType() == SkillTargetType::ALL_ALLY) {
-					actTargets = TargetList;
+				if (arg_character->getTargetType() == SKILL_TARGET_TYPE::ALL_ENEMY ||
+					arg_character->getTargetType() == SKILL_TARGET_TYPE::ALL_ALLY) {
+					actTargets = target_list;
 				}
 				else {
-					actTargets.push_back(selectTarget);
+					actTargets.push_back(select_target);
 				}
 
 				// アクション実行
@@ -536,47 +554,47 @@ private:
 	void PlayEffectByType(std::shared_ptr<Character> actor,
 		const std::vector<std::shared_ptr<Character>>& targets) {
 
-		EffectType efType = actor->getEfType();
+		EFFECT_TYPE efType = actor->getEfType();
 
 		if (actor->getActionChoice() == SKILL) {
 			switch (efType) {
 
 				// 単体・全体スキル1/2
-			case EffectType::EF_SKILL1:
+			case EFFECT_TYPE::EF_SKILL1:
 				for (auto& t : targets)
 					actor->PlaySkillEffect(t->getPosX(), t->getPosY(), 300, 250);
 				se->PlaySe(CLoad::Instance().getSeHandle(SE_SKILL1));
 				break;
 
-			case EffectType::EF_SKILL2:
+			case EFFECT_TYPE::EF_SKILL2:
 				for (auto& t : targets)
 					actor->PlaySkillEffect(t->getPosX(), t->getPosY(), 350, 250);
 				se->PlaySe(CLoad::Instance().getSeHandle(SE_SKILL2));
 				break;
 
 				// 全体スキル
-			case EffectType::EF_ALL_SKILL1:
+			case EFFECT_TYPE::EF_ALL_SKILL1:
 				for (auto& t : targets)
 					actor->PlaySkillEffect(t->getPosX(), t->getPosY(), 250, 250);
 				se->PlaySe(CLoad::Instance().getSeHandle(SE_SKILL2));
 				break;
 
-			case EffectType::EF_ALL_SKILL2:
+			case EFFECT_TYPE::EF_ALL_SKILL2:
 				for (auto& t : targets)
 					actor->PlaySkillEffect(t->getPosX(), t->getPosY(), 250, 350);
 				se->PlaySe(CLoad::Instance().getSeHandle(SE_SKILL2));
 				break;
 
 				// 回復系
-			case EffectType::EF_HEAL:
+			case EFFECT_TYPE::EF_HEAL:
 				for (auto& t : targets)
 					actor->PlaySkillEffect(t->getPosX(), t->getPosY(), 30, 40);
 				se->PlaySe(CLoad::Instance().getSeHandle(SE_HEAL));
 				break;
 
 				// バフ・デバフ系
-			case EffectType::EF_BUFF:
-			case EffectType::EF_DEBUFF:
+			case EFFECT_TYPE::EF_BUFF:
+			case EFFECT_TYPE::EF_DEBUFF:
 				for (auto& t : targets)
 					actor->PlaySkillEffect(t->getPosX(), t->getPosY(), 50, 40);
 				se->PlaySe(CLoad::Instance().getSeHandle(SE_BUFF));
@@ -608,21 +626,21 @@ private:
 
 		if (arg_character->getCutinEnd()) {
 
-			for (auto& p : Manager::Instance().getParty()) {
-				if (p->getAlive()) TargetList.push_back(p);
+			for (auto& p : ScreenManager::Instance().getParty()) {
+				if (p->getAlive()) target_list.push_back(p);
 			}
 
-			int index = rand() % TargetList.size();
-			selectTarget = TargetList[index];
+			int index = rand() % target_list.size();
+			select_target = target_list[index];
 			TypeConversion();
 			//　アクションに移行
 			if (arg_character->getCutinEnd()) {
-				arg_character->takeAction(v);
+				arg_character->takeAction(targets);
 			}
 			// プレイヤー攻撃時にアニメーション切り替え
-			auto& p = Manager::Instance().getParty();
-			for (size_t i = 0; i < Manager::Instance().getParty().size(); i++) {
-				if (TargetList[index]->getId() == p[i]->getId())
+			auto& p = ScreenManager::Instance().getParty();
+			for (size_t i = 0; i < ScreenManager::Instance().getParty().size(); i++) {
+				if (target_list[index]->getId() == p[i]->getId())
 					p[i]->setAnimType(DAMAGE);
 			}
 			// se再生
@@ -635,7 +653,7 @@ private:
 	// キャラクターのターン終了
 	void PEnd(std::shared_ptr<Character> arg_character) {
 		
-		for (auto& p : Manager::Instance().getParty()) {
+		for (auto& p : ScreenManager::Instance().getParty()) {
 			// アニメーションをWAITにする
 			p->setAnimType(WAIT);
 			// チェンジモードをfalseに
@@ -643,22 +661,22 @@ private:
 		}
 
 		// 説明の非表示
-		skdescDraw = false;
+		sk_desc_draw = false;
 
 		// ターゲット選択モードをオフ
 		targetInput = TargetInput::P_NONE;
 		// spの更新
 		updataSP(arg_character);
 		// インデックスをインクリメントして次のキャラクターの行動へ		
-		currentTurnIndex++;
-		if (currentTurnIndex >= turnOrder.size()) {
+		current_turn_index++;
+		if (current_turn_index >= turn_order.size()) {
 			TurnEnd();
 			return;
 		}
 	}
 
 	void EEnd(std::shared_ptr<Character> arg_characte) {
-		for (auto& p : Manager::Instance().getParty()) {
+		for (auto& p : ScreenManager::Instance().getParty()) {
 			// アニメーションをWAITにする
 			p->setAnimType(WAIT);
 			// チェンジモードをfalseに
@@ -667,8 +685,8 @@ private:
 
 		actionMode = ActionMode::E_NONE;
 		// アクション終了後インデックスをインクリメント
-		currentTurnIndex++;
-		if (currentTurnIndex >= turnOrder.size()) {
+		current_turn_index++;
+		if (current_turn_index >= turn_order.size()) {
 			TurnEnd();
 			return;
 		}
@@ -678,7 +696,7 @@ private:
 	void TurnEnd() {
 	
 		// バフデバフの更新
-		for (auto& p : Manager::Instance().getParty()) {
+		for (auto& p : ScreenManager::Instance().getParty()) {
 			p->updateBuff();
 		}
 		// エネミー
@@ -686,10 +704,8 @@ private:
 			e->updateBuff();
 		}
 
-		// ターンオーダーの中身をリセット
-		turnOrder.clear();
 		// インデックスをリセット
-		currentTurnIndex = 0;
+		current_turn_index = 0;
 
 		// ターンの増加
 		this->turn++;
@@ -698,7 +714,7 @@ private:
 
 	// smartpointerをベクター型に変換
 	void TypeConversion() {
-		v = { selectTarget };
+		targets = { select_target };
 	}
 
 	// プレイヤーの画像中央座標を取得する関数
@@ -720,20 +736,20 @@ private:
 	// 移動用関数
 	void playerMove() {
 		// プレイヤー、エネミーの座標移動
-		for (size_t i = 0; i < Manager::Instance().getParty().size(); i++) {
+		for (size_t i = 0; i < ScreenManager::Instance().getParty().size(); i++) {
 
-			auto& p = Manager::Instance().getParty();
+			auto& p = ScreenManager::Instance().getParty();
 
-			if (turnOrder[currentTurnIndex]->getId() == p[i]->getId()) {
-				pPosX[i] += 10;
-				if (pPosX[i] >= WINDOW_W / 2 - 150) {
-					pPosX[i] = WINDOW_W / 2 - 150;
+			if (turn_order[current_turn_index]->getId() == p[i]->getId()) {
+				p_pos_x[i] += 10;
+				if (p_pos_x[i] >= WINDOW_W / 2 - 150) {
+					p_pos_x[i] = WINDOW_W / 2 - 150;
 				}
 			}
 			else {
-				pPosX[i] -= 10;
-				if (pPosX[i] <= 300 + (i % 2) * 50) {
-					pPosX[i] = 300 + (i % 2) * 50;
+				p_pos_x[i] -= 10;
+				if (p_pos_x[i] <= 300 + (i % 2) * 50) {
+					p_pos_x[i] = 300 + (i % 2) * 50;
 				}
 			}
 		}
@@ -744,13 +760,13 @@ private:
 		for (auto& enemy : enemies) {
 			// 移動
 			if (enemy->getMoveCheck()) {
-				ePosX -= speed;
+				e_pos_x -= speed;
 			}
 			// 移動上限
-			if (speed >= 0 && ePosX <= WINDOW_W / 2 + 280) {
+			if (speed >= 0 && e_pos_x <= WINDOW_W / 2 + 280) {
 				speed *= -1;
 			}
-			if (speed <= 0 && ePosX >= WINDOW_W / 2 + 300) {
+			if (speed <= 0 && e_pos_x >= WINDOW_W / 2 + 300) {
 				speed *= -1;
 				enemy->setMoveCheck(false);
 			}
@@ -762,7 +778,7 @@ private:
 	void BattleMain() {
 
 		// インデックスが0の時、ソートを行う。
-		if (turnOrder.empty())
+		if (turn_order.empty())
 		{
 			TurnOrder();
 		}
@@ -774,9 +790,9 @@ private:
 		}
 
 		// 行動選択と実行
-		if (currentTurnIndex < turnOrder.size()) {
+		if (current_turn_index < turn_order.size()) {
 
-			auto character = turnOrder[currentTurnIndex];
+			auto character = turn_order[current_turn_index];
 
 			// 移動する
 			playerMove();
@@ -804,7 +820,7 @@ private:
 						TargetChoice(character);
 					}
 					// 終了
-					for (auto& p : Manager::Instance().getParty()) {
+					for (auto& p : ScreenManager::Instance().getParty()) {
 						if (p->getAnimChange() && targetInput == TargetInput::END) {
 							PEnd(character);
 						}
@@ -819,15 +835,16 @@ private:
 						EnemyActionInit(character);
 					}
 
+					// ランダムでターゲットを決定し、アクションを実行
 					if (actionMode == ActionMode::TARGETRANDOM)
 					{
 						EnemyAction(character);
 					}
 					if (actionMode == ActionMode::END)
 					{
+						// エネミーのターン終了
 						EEnd(character);
 					}
-
 
 				}
 			}
@@ -836,23 +853,19 @@ private:
 				PEnd(character);
 			}
 
+		}else if (turn_order.empty() || current_turn_index >= turn_order.size()) {
+
+			TurnEnd(); // ターン終了へ
+
+			return;
 		}
-		else {
-			if (turnOrder.empty() || currentTurnIndex >= turnOrder.size()) {
-				TurnEnd(); // ターン終了へ
-				return;
-			}
-		}
-	
 
 		// バトル進行関数
 		// バトルの終了をチェック。
 		if (BattleOver()) {
-
+			// 勝敗結果に応じてモードを変更
 			state = State::DEAD_EFFECT;
-
 		}
-
 
 		// メニューバーが押されたとき、モードの切り替え
 		if (CheckBoxClick(WINDOW_W - 250, 10, 250, 150)) {
@@ -870,27 +883,27 @@ private:
 
 			// 選択画面の表示
 			// バトル再開
-			if (CheckBoxClick(buttonX, buttonY, sizeW, sizeH)) {
+			if (CheckBoxClick(ui_buttonX, ui_buttonY, size_w, size_h)) {
 				state = State::BATTLE;
 				// se再生
 				se->PlaySe(CLoad::Instance().getSeHandle(SE_CLICK));
 			}
 			// 再挑戦
-			if (CheckBoxClick(buttonX, buttonY + 100, sizeW, sizeH)) {
+			if (CheckBoxClick(ui_buttonX, ui_buttonY + 100, size_w, size_h)) {
 				// モード変更
 				menuState = MenuState::RETRY;
 				// se再生
 				se->PlaySe(CLoad::Instance().getSeHandle(SE_CLICK));
 			}
 			// リタイア
-			if (CheckBoxClick(buttonX, buttonY + 200, sizeW, sizeH)) {
+			if (CheckBoxClick(ui_buttonX, ui_buttonY + 200, size_w, size_h)) {
 				// モード変更
 				menuState = MenuState::RETIRE;
 				// se再生
 				se->PlaySe(CLoad::Instance().getSeHandle(SE_CLICK));
 			}
 			// （設定）
-			if (CheckBoxClick(buttonX, buttonY + 300, sizeW, sizeH)) {
+			if (CheckBoxClick(ui_buttonX, ui_buttonY + 300, size_w, size_h)) {
 				menuState = MenuState::SETTING;
 				// se再生
 				se->PlaySe(CLoad::Instance().getSeHandle(SE_CLICK));
@@ -903,7 +916,7 @@ private:
 
 			// 再確認
 			// はい
-			if (CheckBoxClick(WINDOW_W / 2 - (FONT_BIGSIZE * 6), WINDOW_H / 2 + (FONT_BIGSIZE * 1.5), sizeW, sizeH)) {
+			if (CheckBoxClick(WINDOW_W / 2 - (FONT_BIGSIZE * 6), WINDOW_H / 2 + (FONT_BIGSIZE * 1.5), size_w, size_h)) {
 				// fadeを軌道
 				fade->fadeStart(fade->FADE_CLAUSE);
 
@@ -921,7 +934,7 @@ private:
 
 			}
 			// いいえ
-			if (CheckBoxClick(WINDOW_W / 2 + (FONT_BIGSIZE * 2.5), WINDOW_H / 2 + (FONT_BIGSIZE * 1.5), sizeW, sizeH)) {
+			if (CheckBoxClick(WINDOW_W / 2 + (FONT_BIGSIZE * 2.5), WINDOW_H / 2 + (FONT_BIGSIZE * 1.5), size_w, size_h)) {
 				// MENUの選択画面に戻る
 				menuState = MenuState::NONE;
 				// se再生
@@ -934,10 +947,10 @@ private:
 
 			// 再確認
 			// はい
-			if (CheckBoxClick(WINDOW_W / 2 - (FONT_BIGSIZE * 6), WINDOW_H / 2 + (FONT_BIGSIZE * 1.5), sizeW, sizeH)) {
+			if (CheckBoxClick(WINDOW_W / 2 - (FONT_BIGSIZE * 6), WINDOW_H / 2 + (FONT_BIGSIZE * 1.5), size_w, size_h)) {
 
 				// Party全員を死亡判定に
-				for (auto& p : Manager::Instance().getParty()) {
+				for (auto& p : ScreenManager::Instance().getParty()) {
 					p->setAlive(false);
 				}
 				// fadeを軌道
@@ -945,10 +958,10 @@ private:
 				// se再生
 				se->PlaySe(CLoad::Instance().getSeHandle(SE_DECISION));
 				// bgmの停止
-				bgm->stopBgm(CLoad::Instance().getBgmHandle(1 + Manager::Instance().getStageScreen()));
+				bgm->stopBgm(CLoad::Instance().getBgmHandle(1 + ScreenManager::Instance().getStageScreen()));
 			}
 			// いいえ
-			if (CheckBoxClick(WINDOW_W / 2 + (FONT_BIGSIZE * 2.5), WINDOW_H / 2 + (FONT_BIGSIZE * 1.5), sizeW, sizeH)) {
+			if (CheckBoxClick(WINDOW_W / 2 + (FONT_BIGSIZE * 2.5), WINDOW_H / 2 + (FONT_BIGSIZE * 1.5), size_w, size_h)) {
 				// MENUの選択画面に戻る
 				menuState = MenuState::NONE;
 				// se再生
@@ -960,8 +973,8 @@ private:
 
 		case CBattle::MenuState::SETTING:
 
-			if (clickFrame > 0) {
-				clickFrame--;
+			if (click_frame > 0) {
+				click_frame--;
 			}
 
 			// 音量変更
@@ -971,34 +984,34 @@ private:
 				if (i % 2 == 0) { size = MAX_VOL / 10; }
 				else { size = -MAX_VOL / 10; }
 
-				if (clickFrame == 0 && CheckCircleClick(trPosX[i], trPosY[i] + size, 50)) {
+				if (click_frame == 0 && CheckCircleClick(tr_pos_x[i], tr_pos_y[i] + size, 50)) {
 
-					int bgmVol = Manager::Instance().getBgmVolume();
-					int seVol = Manager::Instance().getSeVolume();
+					int bgmVol = ScreenManager::Instance().getBgmVolume();
+					int seVol = ScreenManager::Instance().getSeVolume();
 
-					clickFrame = 10;
+					click_frame = 10;
 					se->PlaySe(CLoad::Instance().getSeHandle(SE_CLICK));
 
 					switch (i)
 					{
 					case BGM_UP:
 
-						Manager::Instance().setBgmVolume(bgmVol + 1);
+						ScreenManager::Instance().setBgmVolume(bgmVol + 1);
 
 						break;
 
 					case BGM_DOWN:
-						Manager::Instance().setBgmVolume(bgmVol - 1);
+						ScreenManager::Instance().setBgmVolume(bgmVol - 1);
 
 						break;
 
 					case SE_UP:
-						Manager::Instance().setSeVolume(seVol + 1);
+						ScreenManager::Instance().setSeVolume(seVol + 1);
 
 						break;
 
 					case SE_DOWN:
-						Manager::Instance().setSeVolume(seVol - 1);
+						ScreenManager::Instance().setSeVolume(seVol - 1);
 
 						break;
 
@@ -1011,7 +1024,7 @@ private:
 			}
 
 			// 決定ボタンを押した際
-			if (CheckBoxClick(WINDOW_W / 2 - (FONT_BIGSIZE * 2), WINDOW_H - 100, sizeW, sizeH)) {
+			if (CheckBoxClick(WINDOW_W / 2 - (FONT_BIGSIZE * 2), WINDOW_H - 100, size_w, size_h)) {
 				// MENUの選択画面に戻る
 				menuState = MenuState::NONE;
 				se->PlaySe(CLoad::Instance().getSeHandle(SE_CLICK));
@@ -1027,20 +1040,20 @@ private:
 	// 死亡時エフェクト
 	void PlayEndEffect() {
 
-		endFrame--;
+		end_frame--;
 
 		for (auto& e : enemies) {
 
 			if (!e->getAlive()) {
 
-				for (auto& p : Manager::Instance().getParty()) {
+				for (auto& p : ScreenManager::Instance().getParty()) {
 					p->setAnimType(GRTYPE::WIN);
 				}
 
 			}
 			else {
 
-				for (auto& p : Manager::Instance().getParty()) {
+				for (auto& p : ScreenManager::Instance().getParty()) {
 					p->setAnimType(GRTYPE::LOSE);
 				}
 
@@ -1048,7 +1061,7 @@ private:
 
 		}
 
-		if (endFrame <= 0) {
+		if (end_frame <= 0) {
 			state = State::END;
 		}
 	}

@@ -6,7 +6,7 @@ void CPartySelect::Update()
 	// フェードアップデート
 	fade->fadeUpdate(WINDOW_W);
 
-	if (uiState == PartyUIState::NORMAL && fade->checkOpen()) {
+	if (uiState == UI_PARTYSTATE::NORMAL && fade->checkOpen()) {
 		
 		// フレームの増加
 		if (frame < 30) { frame++; }
@@ -32,12 +32,12 @@ void CPartySelect::Update()
 			if (CheckBoxClick(baseX + spacingX * i, baseY, grhSizeX, grhSizeY)) {
 				se->PlaySe(CLoad::Instance().getSeHandle(SE_DECISION));
 				selectedSlot = i;
-				uiState = PartyUIState::SELECTING;
+				uiState = UI_PARTYSTATE::SELECTING;
 				selectedIndex = -1;
 			}
 		}
 	}
-	else if (uiState == PartyUIState::SELECTING) {
+	else if (uiState == UI_PARTYSTATE::SELECTING) {
 
 		// 全キャラクター一覧展開モード
 		for (int i = 0; i < (int)allChara.size(); i++) {
@@ -76,7 +76,7 @@ void CPartySelect::Update()
 
 			se->PlaySe(CLoad::Instance().getSeHandle(SE_CHARACHANGE));
 			// 一覧を閉じる
-			uiState = PartyUIState::NORMAL;
+			uiState = UI_PARTYSTATE::NORMAL;
 			selectedIndex = -1;
 			// フレームをリセット
 			frame = 0;
@@ -85,20 +85,20 @@ void CPartySelect::Update()
 		// 一覧を閉じてパーティー確認画面に戻る。
 		if (CheckBoxClick(20, 20, 200, 100)) {
 			se->PlaySe(CLoad::Instance().getSeHandle(SE_CANCEL));
-			uiState = PartyUIState::NORMAL;
+			uiState = UI_PARTYSTATE::NORMAL;
 			frame = 0;
 		}
 
 	}
 
 	if (fade->checkClause(WINDOW_W)) {
-		Manager::Instance().setParty(party);
+		ScreenManager::Instance().setParty(party);
 		bgm->stopBgm(CLoad::Instance().getBgmHandle(BGM_START));
 		if (screen_change) {
-			Manager::Instance().ChangeScreen<CBattle>();
+			ScreenManager::Instance().ChangeScreen<CBattle>();
 		}
 		else {
-			Manager::Instance().ChangeScreen<CStage>();
+			ScreenManager::Instance().ChangeScreen<CStage>();
 		}
 	}
 
@@ -109,7 +109,7 @@ void CPartySelect::Render()
 {
 	DrawString(100, 110, "パーティー編成", GetColor(255, 255, 255), true);
 
-	if (uiState == PartyUIState::NORMAL) {
+	if (uiState == UI_PARTYSTATE::NORMAL) {
 		// パーティー表示中
 		for (int i = 0; i < (int)party.size(); i++) {
 
@@ -145,7 +145,7 @@ void CPartySelect::Render()
 		ui->Button(boxX, boxY, boxX + sizeW, boxY + sizeH, CLoad::Instance().getButtonGrh(START));
 
 	}
-	else if (uiState == PartyUIState::SELECTING) {
+	else if (uiState == UI_PARTYSTATE::SELECTING) {
 
 		// 全キャラ一覧表示展開モード
 		for (int i = 0; i < (int)allChara.size(); i++) {
@@ -192,7 +192,7 @@ void CPartySelect::Render()
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	// ミッション表示
 	SetFontSize(FONT_MINSIZE);
-	Manager::Instance().DrawStageUI(Manager::Instance().getStageScreen(), textPosX, textPosY);
+	ScreenManager::Instance().DrawStageUI(ScreenManager::Instance().getStageScreen(), textPosX, textPosY);
 	// 推奨LEVEL表示
 	DrawFormatString(textPosX, textPosY+FONT_MINSIZE*5, GetColor(255, 255, 255), "推奨レベル:%2d", Suggest);
 

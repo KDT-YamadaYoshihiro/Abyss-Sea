@@ -73,9 +73,9 @@ public:
 	// ‰Šú‰»
 	CStage()
 		:ui(std::make_shared<UI>()),
-		bgm(Manager::Instance().getbgm()),
-		se(Manager::Instance().getSe()),
-		fade(Manager::Instance().getFade()),
+		bgm(ScreenManager::Instance().getbgm()),
+		se(ScreenManager::Instance().getSe()),
+		fade(ScreenManager::Instance().getFade()),
 		// Œˆ’èƒ{ƒ^ƒ“À•W
 		boxX(1000.0f),		
 		boxY(700.0f),

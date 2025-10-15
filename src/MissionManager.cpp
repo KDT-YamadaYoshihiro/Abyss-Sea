@@ -2,7 +2,7 @@
 #include "MissionFactory.h"
 #include "DxLib.h"
 
-void MissionManager::Init(const std::string& csvFile) {
+void MissionManager::LoadMissionTable(const std::string& csvFile) {
     missions = MissionFactory::LoadFromCSV(csvFile);
 }
 

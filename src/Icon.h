@@ -9,10 +9,10 @@ private:
 	int size;           // サイズ
 	int handle;         // 画像ハンドル
 	int remainingTurn;  // 残りターン数
-	BuffType type;      // バフの種類
+	BUFF_TYPE type;      // バフの種類
 
 public:
-	CIcon(BuffType t, int posX, int posY, int iconSize, int imgHandle, int turn)
+	CIcon(BUFF_TYPE t, int posX, int posY, int iconSize, int imgHandle, int turn)
 		: type(t), x(posX), y(posY), size(iconSize), handle(imgHandle), remainingTurn(turn) {
 	}
 
@@ -30,7 +30,7 @@ public:
 	}
 
 	int getTurn() const { return remainingTurn; }
-	BuffType getType() const { return type; }
+	BUFF_TYPE getType() const { return type; }
 
 	void setPos(int posX, int posY) { x = posX; y = posY; }
 };

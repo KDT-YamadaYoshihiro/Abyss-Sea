@@ -1,7 +1,7 @@
 #include "Manager.h"
 #include "CTitle.h"
 
-void Manager::Init()
+void ScreenManager::Init()
 {
 	
 	// テーブル読み込み
@@ -9,7 +9,7 @@ void Manager::Init()
 	CharacterFactory::Instance().LoadCharacterTable("data/Table/CharaTable.csv");
 	CharacterFactory::Instance().LoadSkillTable("data/Table/SkillTable.csv");
 	// ミッションデータ読み込み
-	missionManager.Init("data/Table/MissionTable.csv");
+	MissionManager::Instance().LoadMissionTable("data/Table/MissionTable.csv");
 
 	 // 全プレイヤー生成
 	for (int i = 0; i < PLAYER_MAX; i++) {
@@ -35,7 +35,7 @@ void Manager::Init()
 
 }
 
-void Manager::Update(){
+void ScreenManager::Update(){
 	// スクリーンポインター更新処理
 	scrPtr->Update();
 
@@ -52,7 +52,7 @@ void Manager::Update(){
 	}
 }
 
-void Manager::Render()
+void ScreenManager::Render()
 {
 	// スクリーンポインター描画処理
 	scrPtr->Render();
@@ -61,6 +61,6 @@ void Manager::Render()
 	fade->fadeCircleDraw(WINDOW_W / 2, WINDOW_H / 2);
 }
 
-void Manager::DrawStageUI(int arg_stageID, int arg_x, int arg_y) {
-	missionManager.DrawMissions(arg_stageID, arg_x, arg_y);
+void ScreenManager::DrawStageUI(int arg_stageID, int arg_x, int arg_y) {
+	MissionManager::Instance().DrawMissions(arg_stageID, arg_x, arg_y);
 }

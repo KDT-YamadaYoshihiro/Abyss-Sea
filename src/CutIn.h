@@ -9,50 +9,50 @@
 class Cutin{
 
 	// 名前
-	std::string m_skill_name;
+	std::string skill_name;
 
 	// 表示フラグ
-	bool m_drawFlag;
+	bool draw_flag;
 	//　カットイン終了フラグ
-	bool m_endFlag;
+	bool end_flag;
 
 	// 座標
-	int m_pos_x;
-	int m_pos_y;
+	int pos_x;
+	int pos_y;
 
 	// サイズ
-	int m_size_w;
-	int m_size_h;
+	int size_w;
+	int size_h;
 
 	// 画像ハンドル
-	int m_handle;
+	int handle;
 
 	// 速度
 	// フェードイン速度
-	int m_enterSpeed;
+	int enter_speed;
 	// 画面中央で遅速
-	int m_pauseSpeed;
+	int pause_speed;
 	// フェードアウト速度
-	int m_exitSpeed; 
+	int exit_speed; 
 	// 中央滞在時間
-	int m_frameCounter;
+	int frame_counter;
 
 	// 現在の速度
-	CutinPhase m_phase;
+	CUTIN_PHASE phase;
 
 	// カットイン時のエフェクト
-	std::shared_ptr<Effect> cutinEffect;
+	std::shared_ptr<Effect> cutin_effect;
 
 
 public:
 
 	// 初期化
 	Cutin()
-		:m_skill_name(""), m_drawFlag(false), m_endFlag(false), m_pos_x(0), m_pos_y(0), m_size_w(300), m_size_h(600), m_handle(-1),
-		m_enterSpeed(10), m_pauseSpeed(2), m_exitSpeed(10), m_frameCounter(0), 
-		m_phase(CutinPhase::Entering), cutinEffect(nullptr)
+		:skill_name(""), draw_flag(false), end_flag(false), pos_x(0), pos_y(0), size_w(300), size_h(600), handle(-1),
+		enter_speed(10), pause_speed(2), exit_speed(10), frame_counter(0), 
+		phase(CUTIN_PHASE::ENTERING), cutin_effect(nullptr)
 	{
-		cutinEffect = std::make_shared<Effect>(CLoad::Instance().getCutinEf(),3,3);
+		cutin_effect = std::make_shared<Effect>(CLoad::Instance().getCutinEf(),3,3);
 	};
 
 	// デストラクタ
@@ -71,8 +71,8 @@ public:
 	void Draw();
 
 	// 描画フラグのゲット
-	bool GetDrawFlag() const { return m_drawFlag; }
+	bool GetDrawFlag() const { return draw_flag; }
 	// 終了フラグのゲット
-	bool GetEndFlag() const { return m_endFlag; }
+	bool GetEndFlag() const { return end_flag; }
 
 };

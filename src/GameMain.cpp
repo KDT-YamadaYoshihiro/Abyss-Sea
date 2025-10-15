@@ -10,10 +10,10 @@ bool CGame::Init()
 	
 
 	SetOutApplicationLogValidFlag(FALSE);
-	ChangeWindowMode(Manager::Instance().getWindowMode());
+	ChangeWindowMode(ScreenManager::Instance().getWindowMode());
 	SetGraphMode(WINDOW_W, WINDOW_H, 32);
 
-	if (Manager::Instance().getWindowMode() == TRUE)
+	if (ScreenManager::Instance().getWindowMode() == TRUE)
 	{
 		SetWindowSize(WINDOW_W, WINDOW_H);
 	}
@@ -23,7 +23,7 @@ bool CGame::Init()
 
 	SetDrawScreen(DX_SCREEN_BACK);
 
-	Manager::Instance().Init();
+	ScreenManager::Instance().Init();
 
 	
 
@@ -65,13 +65,13 @@ void CGame::End()
 // çXêVèàóù
 void CGame::Update()
 {
-	Manager::Instance().Update();
+	ScreenManager::Instance().Update();
 }
 
 // ï`âÊèàóù
 void CGame::Render()
 {
-	Manager::Instance().Render();
+	ScreenManager::Instance().Render();
 }
 
 // 

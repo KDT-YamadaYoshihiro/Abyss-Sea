@@ -10,7 +10,7 @@ class Enemy : public Character
     std::shared_ptr<UI> ui;
 
     // çsìÆèÛë‘
-    EnemyAction action;
+    ENEMY_ACTION action;
 
     // ç¿ïW
     int posX;
@@ -27,7 +27,7 @@ public:
     {
 
         ui = std::make_shared<UI>();
-        action = EnemyAction::TURN_START;
+        action = ENEMY_ACTION::TURN_START;
         posX = -1;
         posY = -1;
     }

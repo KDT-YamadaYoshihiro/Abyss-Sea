@@ -21,7 +21,7 @@ void CTitle::Update()
 	}
 
 	// ”wŒiˆÚ“®
-	for (int i = 0; i < TWO; i++) {
+	for (int i = 0; i < UI_MAX; i++) {
 		ui[i]->BgScroll(bgPosX[i], bgPosY[i], WINDOW_W, WINDOW_H);
 	}
 
@@ -36,7 +36,7 @@ void CTitle::Update()
 
 	// ‰æ–ÊØ‚è‘Ö‚¦
 	if (fade->checkClause(WINDOW_W)) {
-		Manager::Instance().ChangeScreen<CStage>();
+		ScreenManager::Instance().ChangeScreen<CStage>();
 	}
 
 }
@@ -45,7 +45,7 @@ void CTitle::Update()
 void CTitle::Render()
 {
 	// ”wŒi•`‰æ
-	for (int i = 0; i < TWO; i++)
+	for (int i = 0; i < UI_MAX; i++)
 	{
 		ui[i]->BgRender(bgPosX[i], bgPosY[i], WINDOW_W, WINDOW_H, CLoad::Instance().getBgGrh());
 	}

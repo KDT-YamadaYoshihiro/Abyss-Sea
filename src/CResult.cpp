@@ -5,30 +5,29 @@ void CResult::Update()
 	// フェードの更新処理
 	fade->fadeUpdate(WINDOW_W);
 
-	ResultFrame--;
+	result_frame--;
 
 	// 選択中の三角形の座標
 	ChoiceNectScreen();
 
 	// クリックしたテキストに選択変更
-
 	for (int i = 0; i < MAX; i++) {
-		if (CheckBoxClick(choiceText_X[i], choiceText_Y[i], TEXT_SIZE * 7, TEXT_SIZE)) {
+		if (CheckBoxClick(choice_text_x[i], choice_text_y[i], TEXT_SIZE * 7, TEXT_SIZE)) {
 			se->PlaySe(CLoad::Instance().getSeHandle(SE_CLICK));
-			choiceNum = i;
+			choice_num = i;
 		}
 	}
 
 	// レベルアップ
-	if (Manager::Instance().getbattleResult() == BattleResult::VICTORY && !isDistributed) {
+	if (ScreenManager::Instance().getbattleResult() == BATTLE_RESULT::VICTORY && !is_distributed) {
 
-		auto& party = Manager::Instance().getParty();
-		auto& players = Manager::Instance().getPlayers();
+		auto& party = ScreenManager::Instance().getParty();
+		auto& players = ScreenManager::Instance().getPlayers();
 
 		int totalExp = 0;
 
 		// エネミーの経験値を取得
-		totalExp = Manager::Instance().getExp();
+		totalExp = ScreenManager::Instance().getExp();
 
 
 		// 取得したエネミーの経験値をパーティメンバー分の割る。
@@ -36,7 +35,7 @@ void CResult::Update()
 		int preMamber = (party.empty() ? 0 : totalExp / static_cast<int>(party.size()));
 
 		// 初期化
-		levelUpDiff.assign(party.size(), 0); 
+		level_up_diff.assign(party.size(), 0); 
 
 		// 経験値MaxExp以上で1LvUp
 		for (size_t i = 0; i < party.size(); i++) {
@@ -57,11 +56,11 @@ void CResult::Update()
 			int afterLevel = p->getLv();
 
 			// 上がったレベルを記録
-			levelUpDiff[i] = afterLevel - beforeLevel;
+			level_up_diff[i] = afterLevel - beforeLevel;
 		}
 
 		// 経験値の再分配防止
-		isDistributed = true;
+		is_distributed = true;
 	}
 
 
@@ -69,9 +68,9 @@ void CResult::Update()
 		// (CResult ->	CStage
 		//				CBattle
 		//				CTitle )
-	if (CheckBoxClick(box_x, box_y, sizeW, sizeH) && ResultFrame <= 0) {
+	if (CheckBoxClick(box_x, box_y, size_w, size_h) && result_frame <= 0) {
 
-		auto& players = Manager::Instance().getParty();
+		auto& players = ScreenManager::Instance().getParty();
 
 		se->PlaySe(CLoad::Instance().getSeHandle(SE_DECISION));
 
@@ -80,7 +79,7 @@ void CResult::Update()
 			p->hpReset();
 		}
 		// bgmの停止
-		if (Manager::Instance().getbattleResult() == BattleResult::VICTORY) {
+		if (ScreenManager::Instance().getbattleResult() == BATTLE_RESULT::VICTORY) {
 			bgm->stopBgm(CLoad::Instance().getBgmHandle(BGM_CLEAR));
 		}
 		else {
@@ -93,24 +92,24 @@ void CResult::Update()
 	}
 
 	// 画面切り替え
-	if (fade->checkClause(WINDOW_W) ) {
-		switch (choiceNum)
+	if (fade->checkClause(WINDOW_W) && result_frame <= 0) {
+		switch (choice_num)
 		{
 		case STAGE:
 
-			Manager::Instance().ChangeScreen<CStage>();
+			ScreenManager::Instance().ChangeScreen<CStage>();
 
 			break;
 
 		case BATTLE:
 
-			Manager::Instance().ChangeScreen<CBattle>();
+			ScreenManager::Instance().ChangeScreen<CBattle>();
 
 			break;
 
 		case TITLE:
 
-			Manager::Instance().ChangeScreen<CTitle>();
+			ScreenManager::Instance().ChangeScreen<CTitle>();
 
 			break;
 
@@ -127,7 +126,7 @@ void CResult::Render()
 {
 
 	// 勝敗判定表示
-	if (Manager::Instance().getbattleResult() == BattleResult::VICTORY) {
+	if (ScreenManager::Instance().getbattleResult() == BATTLE_RESULT::VICTORY) {
 		SetFontSize(60);
 		DrawString(550, 10, "VICTORY!", GetColor(255, 255, 255));
 	}
@@ -136,33 +135,33 @@ void CResult::Render()
 		DrawString(600, 10, "DEFEAT", GetColor(255, 255, 255));
 	}
 
-	auto& players = Manager::Instance().getParty();
+	auto& players = ScreenManager::Instance().getParty();
 
 	for (size_t i = 0; i < players.size(); i++) {
 		auto& p = players[i];
 
-		int posX = baseX + spacingX * static_cast<int>(i);
-		int posY = baseY;
+		int posX = base_x + spacing_x * static_cast<int>(i);
+		int posY = base_y;
 
 		SetFontSize(30);
 		// キャラクターの画像表示
-		DrawRectGraph(posX, posY, scrX, scrY, grhSizeX, grhSizeY,
+		DrawRectGraph(posX, posY, scr_x, scr_y, grh_size_x, grh_size_y,
 			CLoad::Instance().getPbodyGrh(i),false);
 		// 枠の表示
-		DrawExtendGraph(posX, posY, posX + grhSizeX, posY + grhSizeY, CLoad::Instance().getAmountGrh(BODY), true);
+		DrawExtendGraph(posX, posY, posX + grh_size_x, posY + grh_size_y, CLoad::Instance().getAmountGrh(BODY), true);
 		// 名前表示
-		int textPosY = posY + grhSizeY + 10;
+		int textPosY = posY + grh_size_y + 10;
 		DrawString(posX, textPosY, p->getName().c_str(),GetColor(255,255,255));
 		// レベル表示
 		char levelStr[64];
 		sprintf_s(levelStr, "Lv:%2d", p->getLv());
 		DrawString(posX, textPosY + 40, levelStr, GetColor(255, 255, 255));
 		// アップしたレベル表示
-		if (isDistributed) {
-			if (levelUpDiff.size() > i) {
-				if (levelUpDiff[i] > 0) {
+		if (is_distributed) {
+			if (level_up_diff.size() > i) {
+				if (level_up_diff[i] > 0) {
 					char upStr[16];
-					sprintf_s(upStr, "+%2d", levelUpDiff[i]);
+					sprintf_s(upStr, "+%2d", level_up_diff[i]);
 					DrawString(posX + 90, textPosY + 40, upStr, GetColor(0, 255, 0));
 				}
 			}
@@ -171,16 +170,16 @@ void CResult::Render()
 
 
 	// 選択中を示す三角形
-	int trPosY = choicePosY + 60;
-	DrawTriangle(choicePosX, trPosY,
-		choicePosX - TRIANGEL_X, trPosY - TRIANGLE_Y, choicePosX - TRIANGEL_X, trPosY + TRIANGLE_Y,
+	int trPosY = choice_pos_y + 60;
+	DrawTriangle(choice_pos_x, trPosY,
+		choice_pos_x - TRIANGEL_X, trPosY - TRIANGLE_Y, choice_pos_x - TRIANGEL_X, trPosY + TRIANGLE_Y,
 		GetColor(255,0,0),true);
 
 	// 次のスクリーン選択
 	SetFontSize(TEXT_SIZE);
-	DrawFormatString(choiceText_X[STAGE], choiceText_Y[STAGE], GetColor(255, 255, 255), "ステージを選択");
-	DrawFormatString(choiceText_X[BATTLE], choiceText_Y[BATTLE], GetColor(255, 255, 255), "再挑戦");
-	DrawFormatString(choiceText_X[TITLE], choiceText_Y[TITLE], GetColor(255, 255, 255), "タイトルへ");
+	DrawFormatString(choice_text_x[STAGE], choice_text_y[STAGE], GetColor(255, 255, 255), "ステージを選択");
+	DrawFormatString(choice_text_x[BATTLE], choice_text_y[BATTLE], GetColor(255, 255, 255), "再挑戦");
+	DrawFormatString(choice_text_x[TITLE], choice_text_y[TITLE], GetColor(255, 255, 255), "タイトルへ");
 
 	{
 		int x = 100;
@@ -191,12 +190,11 @@ void CResult::Render()
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 		// ミッション表示
 		SetFontSize(FONT_MINSIZE);
-		Manager::Instance().DrawStageUI(Manager::Instance().getStageScreen(), x + 30, y + 25);
+		ScreenManager::Instance().DrawStageUI(ScreenManager::Instance().getStageScreen(), x + 30, y + 25);
 	}
 
-
 	// 決定ボタン
-	ui->Button(box_x, box_y, box_x + sizeW, box_y + sizeH, CLoad::Instance().getButtonGrh(DECISION));
+	ui->Button(box_x, box_y, box_x + size_w, box_y + size_h, CLoad::Instance().getButtonGrh(DECISION));
 
 }
 
@@ -204,27 +202,27 @@ void CResult::Render()
 void CResult::ChoiceNectScreen()
 {
 
-	switch (choiceNum)
+	switch (choice_num)
 	{
 
 	case STAGE:
 
-		choicePosX = 550;
-		choicePosY = 600;
+		choice_pos_x = 550;
+		choice_pos_y = 600;
 
 		break;
 
 	case BATTLE:
 
-		choicePosX = 550;
-		choicePosY = 645;
+		choice_pos_x = 550;
+		choice_pos_y = 645;
 
 		break;
 
 	case TITLE:
 
-		choicePosX = 550;
-		choicePosY = 700;
+		choice_pos_x = 550;
+		choice_pos_y = 700;
 
 		break;
 

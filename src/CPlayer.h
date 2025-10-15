@@ -79,29 +79,29 @@ public:
 
 		switch (Skill.effectType)
 		{
-		case EffectType::EF_NONE:
+		case EFFECT_TYPE::EF_NONE:
 			break;
-		case EffectType::EF_ATTACK:
+		case EFFECT_TYPE::EF_ATTACK:
 			break;
-		case EffectType::EF_SKILL1:
+		case EFFECT_TYPE::EF_SKILL1:
 			if (hasSkillEffect()) {skillEffect->lengthPlayerAnim();}
 			break;
-		case EffectType::EF_SKILL2:
+		case EFFECT_TYPE::EF_SKILL2:
 			if (hasSkillEffect()) { skillEffect->PlayAnim(); }
 			break;
-		case EffectType::EF_ALL_SKILL1:
+		case EFFECT_TYPE::EF_ALL_SKILL1:
 			if (hasSkillEffect()) { skillEffect->PlayAnim(); }
 			break;
-		case EffectType::EF_ALL_SKILL2:
+		case EFFECT_TYPE::EF_ALL_SKILL2:
 			if (hasSkillEffect()) { skillEffect->PlayAnim(); }
 			break;
-		case EffectType::EF_HEAL:
+		case EFFECT_TYPE::EF_HEAL:
 			if (hasSkillEffect()) { skillEffect->sidePlayAnim(); }
 			break;
-		case EffectType::EF_BUFF:
+		case EFFECT_TYPE::EF_BUFF:
 			if (hasSkillEffect()) { skillEffect->sidePlayAnim(); }
 			break;
-		case EffectType::EF_DEBUFF:
+		case EFFECT_TYPE::EF_DEBUFF:
 			if (hasSkillEffect()) { skillEffect->sidePlayAnim(); }
 			break;
 		default:
@@ -192,7 +192,7 @@ public:
 	}
 
 	// スキル
-	void useSkill(std::shared_ptr<Character>& arg_targets, SkillType arg_type, float arg_power, int arg_trun) {
+	void useSkill(std::shared_ptr<Character>& arg_targets, SKILL_TYPE arg_type, float arg_power, int arg_trun) {
 
 		int damage = -1;
 		int heal = -1;
@@ -202,7 +202,7 @@ public:
 
 		switch (arg_type)
 		{
-		case SkillType::ATTACK:					// 対象者に攻撃力
+		case SKILL_TYPE::ATTACK:					// 対象者に攻撃力
 
 			// ダメージ量を計算
 			// スキル補正
@@ -220,7 +220,7 @@ public:
 
 			break;
 
-		case SkillType::HEAL:					// 対象者に回復	
+		case SKILL_TYPE::HEAL:					// 対象者に回復	
 
 			// HP回復量を計算
 			heal = cal->Healcal(this->maxHp, arg_power);
@@ -233,7 +233,7 @@ public:
 
 			break;
 
-		case SkillType::ATK_BUFF:				// 対象者の攻撃力上昇
+		case SKILL_TYPE::ATK_BUFF:				// 対象者の攻撃力上昇
 
 			// 
 			arg_buff = static_cast<float>(arg_power);
@@ -246,7 +246,7 @@ public:
 
 			break;
 
-		case SkillType::AGR_BUFF:				// 対象者の速度上昇
+		case SKILL_TYPE::AGR_BUFF:				// 対象者の速度上昇
 
 			// 
 			arg_buff = static_cast<float>(arg_power);
@@ -258,7 +258,7 @@ public:
 
 			break;
 
-		case SkillType::DEF_BUFF:				// 対象の速度上昇
+		case SKILL_TYPE::DEF_BUFF:				// 対象の速度上昇
 
 			//
 			arg_buff = static_cast<float>(arg_power);
@@ -270,7 +270,7 @@ public:
 
 			break;
 
-		case SkillType::NONE:
+		case SKILL_TYPE::NONE:
 
 			// 何もしない
 

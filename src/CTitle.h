@@ -6,13 +6,13 @@
 // タイトルスクリーンクラス
 class CTitle : public ScreenBase {
 
-#define TWO	2
-
+	// UIの数
+#define UI_MAX		2
 
 	std::shared_ptr<Sound>bgm;
 	std::shared_ptr<Sound> se;
 
-	std::shared_ptr<UI> ui[TWO];
+	std::shared_ptr<UI> ui[UI_MAX];
 
 	std::shared_ptr<Fade> fade;
 
@@ -20,8 +20,8 @@ class CTitle : public ScreenBase {
 	float posY = -1.0f;
 	float sway = -1.0f;
 
-	int bgPosX[TWO];
-	int bgPosY[TWO];
+	int bgPosX[UI_MAX];
+	int bgPosY[UI_MAX];
 
 public:
 
@@ -30,14 +30,19 @@ public:
 	void Render() override;
 
 	CTitle():
-		bgm(Manager::Instance().getbgm()),
-		se(Manager::Instance().getSe()),
-		fade(Manager::Instance().getFade()),
+		bgm(nullptr),
+		se(nullptr),
+		fade(nullptr),
 		posX(WINDOW_W / 2.0f),
 		posY(600.0f),
 		sway(1.0f)
 	{
-		for (int i = 0; i < TWO; i++) {
+
+		bgm = ScreenManager::Instance().getbgm();
+		se = ScreenManager::Instance().getSe();
+		fade = ScreenManager::Instance().getFade();
+
+		for (int i = 0; i < UI_MAX; i++) {
 			ui[i] = std::make_shared<UI>();
 			
 			bgPosX[0] = 0;

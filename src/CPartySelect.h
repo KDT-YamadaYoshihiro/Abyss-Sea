@@ -15,7 +15,7 @@ class CPartySelect : public ScreenBase {
 	std::vector<std::shared_ptr<Player>> allChara;
 
 	// 現在の表示モード
-	PartyUIState uiState = PartyUIState::NORMAL;
+	UI_PARTYSTATE uiState = UI_PARTYSTATE::NORMAL;
 
 	// 音
 	std::shared_ptr<Sound>bgm;
@@ -66,16 +66,16 @@ public:
 		// UI生成
 		ui(std::make_shared<UI>()),
 		// 音源
-		bgm(Manager::Instance().getbgm()), 
-		se(Manager::Instance().getSe()),
+		bgm(ScreenManager::Instance().getbgm()), 
+		se(ScreenManager::Instance().getSe()),
 		// フェード
-		fade(Manager::Instance().getFade()),
+		fade(ScreenManager::Instance().getFade()),
 		// パーティメンバー
-		party(Manager::Instance().getParty()),
+		party(ScreenManager::Instance().getParty()),
 		// 全キャラクター
-		allChara(Manager::Instance().getPlayers()),
+		allChara(ScreenManager::Instance().getPlayers()),
 		// バトルスタート
-		uiState(PartyUIState::NORMAL),
+		uiState(UI_PARTYSTATE::NORMAL),
 		selectedSlot(-1),
 		selectedIndex(-1),
 		// 座標とサイズ
@@ -101,7 +101,7 @@ public:
 		grhSizeY = 418;
 		spacingX = grhSizeX + 40;
 
-		Suggest = Manager::Instance().getSuggest();
+		Suggest = ScreenManager::Instance().getSuggest();
 		textPosX = WINDOW_W - 300;
 		textPosY = 50;
 

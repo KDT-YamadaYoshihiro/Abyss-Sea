@@ -36,8 +36,8 @@ class CLoad {
 	int EfaceGrh[ENEMY_MAX];
 
 	// エフェクト
-	const int efMax = static_cast<int>(EffectType::EF_MAX);
-	int effGrh[static_cast<int>(EffectType::EF_MAX)];
+	const int efMax = static_cast<int>(EFFECT_TYPE::EF_MAX);
+	int effGrh[static_cast<int>(EFFECT_TYPE::EF_MAX)];
 
 	// カットインエフェクト
 	int cutinEf;
@@ -214,11 +214,11 @@ public:
 	int getEnemyGrh(int arg_index) const { return EnemyGrh[arg_index]; }
 	int getEfaceGrh(int arg_index) const { return EfaceGrh[arg_index]; }
 	// エフェクト
-	int getEffectGrh(EffectType arg_index) const { return effGrh[static_cast<int>(arg_index)]; }
+	int getEffectGrh(EFFECT_TYPE arg_index) const { return effGrh[static_cast<int>(arg_index)]; }
 	// カットインエフェクト
 	int getCutinEf() const { return cutinEf; }
 	// アイコン
-	int getIconGrh(BuffType arg_index) const { return icon[static_cast<int>(arg_index)]; }
+	int getIconGrh(BUFF_TYPE arg_index) const { return icon[static_cast<int>(arg_index)]; }
 	// bgm
 	int getBgmHandle(int arg_index) const { return bgmh[arg_index]; }
 	// se

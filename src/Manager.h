@@ -1,5 +1,4 @@
 #pragma once
-#include <map>
 #include "DxLib.h"
 #include "CBase.h"
 #include "CPlayer.h"
@@ -8,7 +7,7 @@
 #include "CLoad.h"
 #include "MissionManager.h"
 
-class Manager {
+class ScreenManager {
 
 	// 
 	std::vector<std::shared_ptr<Player>> players;
@@ -22,38 +21,35 @@ class Manager {
 	std::shared_ptr<Fade> fade;
 
 	// 
-	int stageScreen = -1;
+	int stage_screen = -1;
 
-	BattleResult result;
+	BATTLE_RESULT result;
 	// 経験値
-	int Exp = -1;
+	int exp = -1;
 
 	// ウィンドウモード
-	bool window_mode = false;
+	bool window_mode = true;
 
 	// 音量設定
 	int bgmVolume = -1;
 	int seVolume = -1;
 
 	// 推奨LEVEL
-	int Suggest = -1;
+	int suggest = -1;
 
-
-	// ミッション
-	MissionManager missionManager;
 
     // シングルトン
     // 初期化
-	Manager() = default;
+	ScreenManager() = default;
 
-    virtual ~Manager() {};
+    virtual ~ScreenManager() {};
 
 public:
 
-	Manager(const Manager&) = delete;
-	Manager& operator = (const Manager&) = delete;
-	static Manager& Instance() {
-		static Manager instance;
+	ScreenManager(const ScreenManager&) = delete;
+	ScreenManager& operator = (const ScreenManager&) = delete;
+	static ScreenManager& Instance() {
+		static ScreenManager instance;
 		return instance;
 	}
 
@@ -77,7 +73,6 @@ public:
 
 	// ミッションの描画
 	void DrawStageUI(int arg_stageID, int arg_x, int arg_y);
-	MissionManager getMissionManager() { return missionManager; }
 
 	// ステージに応じたエネミーIDを返す
 	int getEnemyID(int  arg_stage) {
@@ -119,16 +114,16 @@ public:
 
 	// ステージをセット
 	void setStageScreen(int arg_stage) {
-		stageScreen = arg_stage;
+		stage_screen = arg_stage;
 	}
 	// ステージを番号を取得
-	int getStageScreen() const { return stageScreen; }
+	int getStageScreen() const { return stage_screen; }
 
 	// バトル勝敗のセット、ゲット関数
-	void setBattleResult(BattleResult  arg_result) {
+	void setBattleResult(BATTLE_RESULT  arg_result) {
 		result = arg_result;
 	}
-	BattleResult getbattleResult() const { return result; }
+	BATTLE_RESULT getbattleResult() const { return result; }
 
 	//　全プレイヤーのゲット関数
 	std::vector<std::shared_ptr<Player>>& getPlayers() { return players; }
@@ -154,21 +149,21 @@ public:
 
 
 	void setExp(int arg_exp) {
-		Exp = arg_exp;
+		exp = arg_exp;
 	}
 
-	int getExp() const { return Exp; }
+	int getExp() const { return exp; }
 
 	bool getWindowMode() const { return window_mode; }
 
 	// 推奨LEVEL
-	void setSuggest(int arg_suggest) { Suggest = arg_suggest; }
-	int getSuggest() const { return Suggest; }
+	void setSuggest(int arg_suggest) { suggest = arg_suggest; }
+	int getSuggest() const { return suggest; }
 };
 
 // 
 template<typename T>
-void Manager::ChangeScreen()
+void ScreenManager::ChangeScreen()
 {
 			// 関数名・クラス<型>();
 	scrPtr = std::make_shared<T>();

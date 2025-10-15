@@ -4,9 +4,18 @@
 #define WINDOW_W		1298		
 #define WINDOW_H		 808		
 
+// フォントサイズ
+#define FONTSIZE		 100
+
+// CLICK TO START
+// 文字列の上下揺れの範囲
+#define TOP_RANGE		 615
+#define DWON_RANGE		 585
+
+
 
 // バトル結果
-enum class BattleResult {
+enum class BATTLE_RESULT {
 	BATTLE,
 	VICTORY,
 	DEFEAT
@@ -24,9 +33,9 @@ enum STAGENUM {
 };
 
 // スキルタイプ			攻撃,  回復, 攻撃力バフ,　速度バフ, 防御力バフ, 無し
-enum class SkillType { ATTACK, HEAL, ATK_BUFF, AGR_BUFF, DEF_BUFF, NONE };
+enum class SKILL_TYPE { ATTACK, HEAL, ATK_BUFF, AGR_BUFF, DEF_BUFF, NONE };
 // スキルのターゲット方向	単エネミー, 単味方,自分,全エネミー,全味方
-enum class SkillTargetType { SINGLE_ENEMY, SINGLE_ALLY, SELF, ALL_ENEMY, ALL_ALLY };
+enum class SKILL_TARGET_TYPE { SINGLE_ENEMY, SINGLE_ALLY, SELF, ALL_ENEMY, ALL_ALLY };
 
 // プレイヤー
 enum PLAYER {
@@ -45,7 +54,7 @@ enum PLAYER {
 };
 
 // エフェクト種別
-enum class EffectType {
+enum class EFFECT_TYPE {
 	EF_NONE,			//　無し
 	EF_ATTACK,			// 通常攻撃
 	EF_SKILL1,			// skill1(アキラ)
@@ -60,7 +69,7 @@ enum class EffectType {
 };
 
 // プレイヤーアクション
-enum PlayerAction {
+enum PLAYER_ACTION {
 	NONE_ACTION,
 	CHOICE,
 	CUTIN,
@@ -80,7 +89,7 @@ enum ENEMY {
 };
 
 // エネミーの行動
-enum class EnemyAction {
+enum class ENEMY_ACTION {
 	TURN_START,
 	ATTACK,
 	TURN_END
@@ -136,13 +145,13 @@ enum AMOUNT {
 };
 
 // パーティ選択画面のUI状態
-enum class PartyUIState {
+enum class UI_PARTYSTATE {
 	NORMAL,     // パーティ表示のみ
 	SELECTING   // キャラ選択中（一覧展開）
 };
 
 // ボタンUI
-enum BUTTON {
+enum UI_BUTTON {
 	CHALLEMGE,
 	BACK,
 	YES,
@@ -157,8 +166,19 @@ enum BUTTON {
 	BUTTON_MAX
 };
 
+// 
+enum SOUND_BUTTON {
+	BGM_UP,
+	BGM_DOWN,
+	SE_UP,
+	SE_DOWN,
+
+	BUTTAN_MAX
+};
+
+
 // アイコンUI
-enum BuffType {
+enum BUFF_TYPE {
 	BUFF_ATK,
 	BUFF_DEF,
 	BUFF_AGR,
@@ -167,9 +187,9 @@ enum BuffType {
 };
 
 // カットインのフェーズ
-enum class CutinPhase {
-	Entering,   // 勢いよく入ってくる
-	Pausing,    // 中央でゆっくり進む
-	Exiting     // 加速して退出
+enum class CUTIN_PHASE {
+	ENTERING,   // 勢いよく入ってくる
+	PAUSING,    // 中央でゆっくり進む
+	EXITING     // 加速して退出
 };
 

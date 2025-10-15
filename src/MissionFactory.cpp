@@ -45,3 +45,16 @@ std::vector<Mission> MissionFactory::LoadFromCSV(const std::string& filename) {
 
     return missions;
 }
+
+//const std::vector<Mission>& MissionFactory::GetMissions(int stageID) const
+//{
+//    // TODO: return ステートメントをここに挿入します
+//}
+//
+//void MissionFactory::DrawMissions(int stageID, int x, int y) const
+//{
+//}
+//
+//void MissionFactory::SetCleared(int missionID, bool cleared)
+//{
+//}

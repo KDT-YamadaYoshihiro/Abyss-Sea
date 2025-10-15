@@ -37,10 +37,10 @@ struct BuffEffect {
 struct SkillData {
 	int ID;
 	std::string Name;
-	SkillType type;
-	SkillTargetType targetType;
+	SKILL_TYPE type;
+	SKILL_TARGET_TYPE targetType;
 	float power;					// 効果量
 	int turn;						// 効果ターン
-	EffectType effectType;			// エフェクトの種類
+	EFFECT_TYPE effectType;			// エフェクトの種類
 	std::string Details;			// スキル説明
 };

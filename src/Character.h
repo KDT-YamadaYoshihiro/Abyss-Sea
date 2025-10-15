@@ -96,9 +96,9 @@ public:
 		Alive(true),
 		Skill(skill)
 	{
-		attackEffect = std::make_shared<Effect>(CLoad::Instance().getEffectGrh(EffectType::EF_ATTACK));
+		attackEffect = std::make_shared<Effect>(CLoad::Instance().getEffectGrh(EFFECT_TYPE::EF_ATTACK));
 		skillEffect = std::make_shared<Effect>(CLoad::Instance().getEffectGrh(Skill.effectType));
-		deadEffect = std::make_shared<Effect>(CLoad::Instance().getEffectGrh(EffectType::EF_NONE));
+		deadEffect = std::make_shared<Effect>(CLoad::Instance().getEffectGrh(EFFECT_TYPE::EF_NONE));
 		cal = std::make_shared<Calculation>();
 		cutin = std::make_shared<Cutin>();
 		actionChoice = -1;
@@ -131,10 +131,10 @@ public:
 	bool getAlive() const { return Alive; }
 	int getSkillID() const { return Skill.ID; }
 	std::string getSkillName() const { return Skill.Name; }
-	SkillType getSkillType() const { return Skill.type; }
-	SkillTargetType getTargetType() const { return Skill.targetType; }
+	SKILL_TYPE getSkillType() const { return Skill.type; }
+	SKILL_TARGET_TYPE getTargetType() const { return Skill.targetType; }
 	float getSkillPower() const { return Skill.power; }
-	EffectType getEfType() const { return Skill.effectType; }
+	EFFECT_TYPE getEfType() const { return Skill.effectType; }
 	std::string getDetails() const { return Skill.Details; }
 	//SkillData getSkill() const { return Skill; }
 
@@ -335,7 +335,7 @@ public:
 	}
 
 	// アイコンの追加
-	void addIcon(BuffType type, int handle, int turn) {
+	void addIcon(BUFF_TYPE type, int handle, int turn) {
 		bool exists = false;
 
 		for (int i = 0; i < (int)icons.size(); i++) {
@@ -427,7 +427,7 @@ public:
 	}
 
 	// アイコン削除
-	void removeIcon(BuffType type) {
+	void removeIcon(BUFF_TYPE type) {
 		for (int i = 0; i < (int)icons.size(); i++) {
 			if (icons[i].getType() == type) {
 				icons.erase(icons.begin() + i);

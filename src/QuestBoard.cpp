@@ -133,7 +133,7 @@ void QuestBoard::Draw(int arg_handle, int arg_sizeX, int arg_sizeY)
 		DrawFormatString((int)r.x + 50, (int)r.y + 180, GetColor(255, 255, 255), "推奨レベル:%d", r.needLv);
 
 		// ミッション描画
-		Manager::Instance().DrawStageUI(i, r.x + 20,r.y + 250);
+		ScreenManager::Instance().DrawStageUI(i, r.x + 20,r.y + 250);
 
 	}
 

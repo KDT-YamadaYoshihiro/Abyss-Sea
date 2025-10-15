@@ -11,15 +11,15 @@ void CBattle::Update()
 		e->CutinUpdate();
 	}
 
-	for (auto& p : Manager::Instance().getParty()) {
+	for (auto& p : ScreenManager::Instance().getParty()) {
 		p->AnimUpdata();
 		p->CutinUpdate();
 	}
 
 
-	blendNum += blendSpeed;
-	if (blendNum <= 0) { blendSpeed *= -1; }
-	if (blendNum >= 50) { blendSpeed *= -1; }
+	blend_num += blend_speed;
+	if (blend_num <= 0) { blend_speed *= -1; }
+	if (blend_num >= 50) { blend_speed *= -1; }
 
 
 	switch (state)
@@ -56,7 +56,7 @@ void CBattle::Update()
 
 	// fadeが起動後CResultに切り替え
 	if (fade->checkClause(WINDOW_W) && BattleOver()) {
-		Manager::Instance().ChangeScreen<CResult>();
+		ScreenManager::Instance().ChangeScreen<CResult>();
 	}
 
 }
@@ -71,11 +71,11 @@ void CBattle::Render()
 	// 指定したIDのエネミーを描画
 	for (auto& e : enemies) {
 		// クリック時に使用する変数セット
-		e->setPosX(ePosX);
-		e->setPosY(ePosY);
+		e->setPosX(e_pos_x);
+		e->setPosY(e_pos_y);
 		//	本体
 		int id = e->getId() - 100;
-		e->Render(ePosX, ePosY, CLoad::Instance().getEnemyGrh(id));
+		e->Render(e_pos_x, e_pos_y, CLoad::Instance().getEnemyGrh(id));
 		e->powerRender();
 
 		if (!e->getAlive()) { e->DeadAnimDraw(); }
@@ -83,11 +83,11 @@ void CBattle::Render()
 	}
 
 	// プレイヤーの描画
-	for (size_t i = 0; i < Manager::Instance().getParty().size(); i++) {
-		auto& players = Manager::Instance().getParty();
+	for (size_t i = 0; i < ScreenManager::Instance().getParty().size(); i++) {
+		auto& players = ScreenManager::Instance().getParty();
 		// クリック時に使用する変数セット
-		int x = pPosX[i] + (i % 2) * 50;
-		int y = pPosY[i] + i * 50;
+		int x = p_pos_x[i] + (i % 2) * 50;
+		int y = p_pos_y[i] + i * 50;
 
 		players[i]->setPosX(x);
 		players[i]->setPosY(y);
@@ -96,32 +96,32 @@ void CBattle::Render()
 	}
 
 	// エフェクトの再生
-	for (size_t p = 0; p < Manager::Instance().getParty().size(); p++) {
+	for (size_t p = 0; p < ScreenManager::Instance().getParty().size(); p++) {
 		
-		auto& players = Manager::Instance().getParty();
+		auto& players = ScreenManager::Instance().getParty();
 
 		// 複数再生
-		if (turnOrder[currentTurnIndex]->getTargetType() == SkillTargetType::ALL_ALLY || 
-			turnOrder[currentTurnIndex]->getTargetType() == SkillTargetType::ALL_ENEMY) {
+		if (turn_order[current_turn_index]->getTargetType() == SKILL_TARGET_TYPE::ALL_ALLY || 
+			turn_order[current_turn_index]->getTargetType() == SKILL_TARGET_TYPE::ALL_ENEMY) {
 
-			for (size_t i = 0; i < TargetList.size(); i++) {
-				players[p]->EffectDraw(TargetList[i]->getPosX(), TargetList[i]->getPosY());
+			for (size_t i = 0; i < target_list.size(); i++) {
+				players[p]->EffectDraw(target_list[i]->getPosX(), target_list[i]->getPosY());
 			}
 		}
 		else { // 単体時&&selectTargetがnullptrでないとき
-			if (selectTarget != nullptr) {
-				players[p]->EffectDraw(selectTarget->getPosX(), selectTarget->getPosY());
+			if (select_target != nullptr) {
+				players[p]->EffectDraw(select_target->getPosX(), select_target->getPosY());
 			}
 		}
 	}
 	
 	// プレイヤーのエフェクトアニメーション
-	for (auto& p : Manager::Instance().getParty()) {
+	for (auto& p : ScreenManager::Instance().getParty()) {
 		p->powerRender();
 	}
 
 	// 深海っぽくするために、青のボックス描画
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, blendNum);
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, blend_num);
 	DrawBox(0, 0, WINDOW_W, WINDOW_H, (0, 0, 255), true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND,0);
 
@@ -140,7 +140,7 @@ void CBattle::Render()
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 		// ミッション表示
 		SetFontSize(FONT_MINSIZE);
-		Manager::Instance().DrawStageUI(Manager::Instance().getStageScreen(), x + 30, y + 25);
+		ScreenManager::Instance().DrawStageUI(ScreenManager::Instance().getStageScreen(), x + 30, y + 25);
 	}
 
 	// 選択できるキャラクターを円を描画
@@ -148,9 +148,9 @@ void CBattle::Render()
 
 		// 行動キャンセル用のボタン
 		SetFontSize(FONT_BIGSIZE);
-		ui->Button(boxX, boxY, boxX + sizeW, boxY + sizeH, CLoad::Instance().getButtonGrh(BACK));
+		ui->Button(box_x, box_y, box_x + size_w, box_y + size_h, CLoad::Instance().getButtonGrh(BACK));
 
-		for (auto& t : TargetList) {
+		for (auto& t : target_list) {
 			Position pos = GetCharacterCenter(t);
 			// 赤色の枠
 			DrawCircle(pos.x, pos.y, 40, GetColor(255, 0, 0), FALSE); 
@@ -161,15 +161,15 @@ void CBattle::Render()
 	// UI
 	if (targetInput == TargetInput::ACTIONCHOICE) {
 		// ボタンの表示
-		ui->Button(atButtonX, ButtonY, atButtonX + ButtonSizeX, ButtonY + ButtonSizeY, CLoad::Instance().getAtkButtonGrh());
-		ui->Button(skButtonX, ButtonY, skButtonX + ButtonSizeX, ButtonY + ButtonSizeY, CLoad::Instance().getSklButtonGrh());
+		ui->Button(at_button_x, button_y, at_button_x + button_size_x, button_y + button_size_y, CLoad::Instance().getAtkButtonGrh());
+		ui->Button(sk_button_x, button_y, sk_button_x + button_size_x, button_y + button_size_y, CLoad::Instance().getSklButtonGrh());
 	}
 	// スキルポイントの表示
 	ui->SkillPoint(530, WINDOW_H - 85, SP_RADIUS, sp->getSP(), sp->getMaxSP());
 
 	// 行動中のキャラクターのステータス
-	for (size_t i = 0; i < Manager::Instance().getParty().size(); i++) {
-		auto paty = Manager::Instance().getParty();
+	for (size_t i = 0; i < ScreenManager::Instance().getParty().size(); i++) {
+		auto paty = ScreenManager::Instance().getParty();
 		int x = 20 + (i * 105);
 		ui->SelectStatus(x, WINDOW_H - 125, 100, 120, paty[i]->getFaceHandle(), paty[i]);
 		// バフ・デバフアイコン表示
@@ -179,7 +179,7 @@ void CBattle::Render()
 	}
 	
 	// スキル選択時説明の表示
-	if (skdescDraw) {
+	if (sk_desc_draw) {
 
 		int x = 20;
 		int y = WINDOW_H - 210;
@@ -192,8 +192,8 @@ void CBattle::Render()
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 		// 説明の表示
 		SetFontSize(FONT_MINSIZE);
-		DrawFormatString(x + 10, y + 10, GetColor(255, 255, 255), turnOrder[currentTurnIndex]->getSkillName().c_str());
-		DrawFormatString(x + 10, y + 10 + FONT_MINSIZE, GetColor(255, 255, 255), turnOrder[currentTurnIndex]->getDetails().c_str());
+		DrawFormatString(x + 10, y + 10, GetColor(255, 255, 255), turn_order[current_turn_index]->getSkillName().c_str());
+		DrawFormatString(x + 10, y + 10 + FONT_MINSIZE, GetColor(255, 255, 255), turn_order[current_turn_index]->getDetails().c_str());
 	}
 
 
@@ -220,10 +220,10 @@ void CBattle::Render()
 
 			SetFontSize(FONT_BIGSIZE);
 
-			ui->Button(buttonX, buttonY, buttonX + sizeW, buttonY + sizeH, CLoad::Instance().getButtonGrh(CONTINUE));
-			ui->Button(buttonX, buttonY + 100, buttonX + sizeW, buttonY + 100 + sizeH, CLoad::Instance().getButtonGrh(RETRY));
-			ui->Button(buttonX, buttonY + 200, buttonX + sizeW, buttonY + 200 + sizeH, CLoad::Instance().getButtonGrh(GIVEUP));
-			ui->Button(buttonX, buttonY + 300, buttonX + sizeW, buttonY + 300 + sizeH, CLoad::Instance().getButtonGrh(SETTING));
+			ui->Button(ui_buttonX, ui_buttonY, ui_buttonX + size_w, ui_buttonY + size_h, CLoad::Instance().getButtonGrh(CONTINUE));
+			ui->Button(ui_buttonX, ui_buttonY + 100, ui_buttonX + size_w, ui_buttonY + 100 + size_h, CLoad::Instance().getButtonGrh(RETRY));
+			ui->Button(ui_buttonX, ui_buttonY + 200, ui_buttonX + size_w, ui_buttonY + 200 + size_h, CLoad::Instance().getButtonGrh(GIVEUP));
+			ui->Button(ui_buttonX, ui_buttonY + 300, ui_buttonX + size_w, ui_buttonY + 300 + size_h, CLoad::Instance().getButtonGrh(SETTING));
 			
 
 
@@ -238,8 +238,8 @@ void CBattle::Render()
 				int x1 = WINDOW_W / 2 - (FONT_BIGSIZE * 6);
 				int x2 = WINDOW_W / 2 + (FONT_BIGSIZE * 2.5);
 				int y = WINDOW_H / 2 + (FONT_BIGSIZE * 1.5);
-				ui->Button(x1, y, x1 + sizeW, y + sizeH, CLoad::Instance().getButtonGrh(YES));
-				ui->Button(x2, y, x2 + sizeW, y + sizeH, CLoad::Instance().getButtonGrh(NO));
+				ui->Button(x1, y, x1 + size_w, y + size_h, CLoad::Instance().getButtonGrh(YES));
+				ui->Button(x2, y, x2 + size_w, y + size_h, CLoad::Instance().getButtonGrh(NO));
 			}
 
 			break;
@@ -253,8 +253,8 @@ void CBattle::Render()
 				int x1 = WINDOW_W / 2 - (FONT_BIGSIZE * 6);
 				int x2 = WINDOW_W / 2 + (FONT_BIGSIZE * 2.5);
 				int y = WINDOW_H / 2 + (FONT_BIGSIZE * 1.5);
-				ui->Button(x1, y, x1 + sizeW, y + sizeH, CLoad::Instance().getButtonGrh(YES));
-				ui->Button(x2, y, x2 + sizeW, y + sizeH, CLoad::Instance().getButtonGrh(NO));
+				ui->Button(x1, y, x1 + size_w, y + size_h, CLoad::Instance().getButtonGrh(YES));
+				ui->Button(x2, y, x2 + size_w, y + size_h, CLoad::Instance().getButtonGrh(NO));
 			}
 
 			break;
@@ -263,8 +263,8 @@ void CBattle::Render()
 
 			SetFontSize(FONT_BIGSIZE);
 			DrawFormatString(WINDOW_W / 2 - (FONT_BIGSIZE * 2), WINDOW_H / 2 - (FONT_BIGSIZE * 4.5), GetColor(255, 255, 255), "音量設定");
-			DrawFormatString(WINDOW_W / 2 - (FONT_BIGSIZE * 7), WINDOW_H / 2 - (FONT_BIGSIZE), GetColor(255, 255, 255), "BGM:%d",Manager::Instance().getBgmVolume());
-			DrawFormatString(WINDOW_W / 2 + (FONT_BIGSIZE * 4), WINDOW_H / 2 - (FONT_BIGSIZE), GetColor(255, 255, 255), "SE:%d",Manager::Instance().getSeVolume());
+			DrawFormatString(WINDOW_W / 2 - (FONT_BIGSIZE * 7), WINDOW_H / 2 - (FONT_BIGSIZE), GetColor(255, 255, 255), "BGM:%d",ScreenManager::Instance().getBgmVolume());
+			DrawFormatString(WINDOW_W / 2 + (FONT_BIGSIZE * 4), WINDOW_H / 2 - (FONT_BIGSIZE), GetColor(255, 255, 255), "SE:%d",ScreenManager::Instance().getSeVolume());
 
 			// 音量の調整ボタン
 			for (int i = 0; i < BUTTAN_MAX; i++) {
@@ -278,33 +278,33 @@ void CBattle::Render()
 				{
 				case BGM_UP:
 
-					x1 = trPosX[BGM_UP] - 30;
-					x2 = trPosX[BGM_UP] + 30;
-					y1 = y2 = trPosY[BGM_UP] + 50;
+					x1 = tr_pos_x[BGM_UP] - 30;
+					x2 = tr_pos_x[BGM_UP] + 30;
+					y1 = y2 = tr_pos_y[BGM_UP] + 50;
 
 					break;
 				case BGM_DOWN:
 
 
-					x1 = trPosX[BGM_DOWN] - 30;
-					x2 = trPosX[BGM_DOWN] + 30;
-					y1 = y2 = trPosY[BGM_DOWN] - 50;
+					x1 = tr_pos_x[BGM_DOWN] - 30;
+					x2 = tr_pos_x[BGM_DOWN] + 30;
+					y1 = y2 = tr_pos_y[BGM_DOWN] - 50;
 
 
 					break;
 				case SE_UP:
 
-					x1 = trPosX[SE_UP] - 30;
-					x2 = trPosX[SE_UP] + 30;
-					y1 = y2 = trPosY[SE_UP] + 50;
+					x1 = tr_pos_x[SE_UP] - 30;
+					x2 = tr_pos_x[SE_UP] + 30;
+					y1 = y2 = tr_pos_y[SE_UP] + 50;
 
 
 					break;
 				case SE_DOWN:
 
-					x1 = trPosX[SE_DOWN] - 30;
-					x2 = trPosX[SE_DOWN] + 30;
-					y1 = y2 = trPosY[SE_DOWN] - 50;
+					x1 = tr_pos_x[SE_DOWN] - 30;
+					x2 = tr_pos_x[SE_DOWN] + 30;
+					y1 = y2 = tr_pos_y[SE_DOWN] - 50;
 
 					break;
 
@@ -312,10 +312,10 @@ void CBattle::Render()
 					break;
 				}
 
-				DrawTriangle(trPosX[i], trPosY[i], x1,y1,x2,y2, GetColor(255, 255, 255), true);
+				DrawTriangle(tr_pos_x[i], tr_pos_y[i], x1,y1,x2,y2, GetColor(255, 255, 255), true);
 			}
 
-			ui->Button(WINDOW_W / 2 - (FONT_BIGSIZE * 2), WINDOW_H - 100, WINDOW_W / 2 - (FONT_BIGSIZE * 2) + sizeW, WINDOW_H - 100 + sizeH, CLoad::Instance().getButtonGrh(DECISION));
+			ui->Button(WINDOW_W / 2 - (FONT_BIGSIZE * 2), WINDOW_H - 100, WINDOW_W / 2 - (FONT_BIGSIZE * 2) + size_w, WINDOW_H - 100 + size_h, CLoad::Instance().getButtonGrh(DECISION));
 
 
 			break;
@@ -331,7 +331,7 @@ void CBattle::Render()
 	for (auto& e : enemies) {
 		e->CutinDraw();
 	}
-	for (auto& p : Manager::Instance().getParty()) {
+	for (auto& p : ScreenManager::Instance().getParty()) {
 		p->CutinDraw();
 	}
 

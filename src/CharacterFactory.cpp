@@ -71,11 +71,11 @@ bool CharacterFactory::LoadSkillTable(const std::string& filename) {
 		SkillData data;
 		data.ID = std::stoi(tokens[0]);
 		data.Name = tokens[1];
-		data.type = static_cast<SkillType>(std::stoi(tokens[2]));
-		data.targetType = static_cast<SkillTargetType>(std::stoi(tokens[3]));
+		data.type = static_cast<SKILL_TYPE>(std::stoi(tokens[2]));
+		data.targetType = static_cast<SKILL_TARGET_TYPE>(std::stoi(tokens[3]));
 		data.power = std::stof(tokens[4]);
 		data.turn = std::stoi(tokens[5]);
-		data.effectType = static_cast<EffectType>(std::stoi(tokens[6]));
+		data.effectType = static_cast<EFFECT_TYPE>(std::stoi(tokens[6]));
 		data.Details = tokens[7];
 
 		SkillTable.push_back(data);

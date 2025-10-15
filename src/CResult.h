@@ -18,6 +18,7 @@
 
 class CResult : public ScreenBase {
 
+	// 次のスクリーンの選択肢
 	enum NEXTSCREEN {
 		STAGE,
 		BATTLE,
@@ -27,53 +28,53 @@ class CResult : public ScreenBase {
 	};
 
 	// 各キャラクターのレベルアップ数
-	std::vector<int> levelUpDiff;
+	std::vector<int> level_up_diff;
 
 	//　UI
 	std::shared_ptr<UI> ui;
 
 	// 音
-	std::shared_ptr<Sound>bgm;
+	std::shared_ptr<Sound> bgm;
 	std::shared_ptr<Sound> se;
 
 	// フェード
 	std::shared_ptr<Fade> fade;
 
 	// 経験値の再分配防止
-	bool isDistributed = false;
+	bool is_distributed = false;
 
 	// 選択中の番号
-	int choiceNum = -1;
+	int choice_num = -1;
 
 	// 選択中の三角形の座標変数
-	int choicePosX = -1;
-	int choicePosY = -1;
+	int choice_pos_x = -1;
+	int choice_pos_y = -1;
 
 	// テキストの座標
-	int choiceText_X[MAX];
-	int choiceText_Y[MAX];
+	int choice_text_x[MAX];
+	int choice_text_y[MAX];
 
 	// 画像表示用の変数
 	// 座標
-	int baseX;
-	int baseY;
+	int base_x;
+	int base_y;
 	// 切り取り位置
-	int scrX = -1;
-	int scrY = -1;
+	int scr_x = -1;
+	int scr_y = -1;
 	// 切り取りサイズ
-	int grhSizeX = -1;
-	int grhSizeY = -1;
+	int grh_size_x = -1;
+	int grh_size_y = -1;
 	// プレイヤー画像の描画間隔
-	int spacingX = -1;
+	int spacing_x = -1;
 
 	// 画面切り替え防止用フレームカウント
-	int ResultFrame = -1;
+	int result_frame = -1;
 
 	// 決定ボタン座標
 	int box_x = -1;
 	int box_y = -1;
-	int sizeW = -1;
-	int sizeH = -1;
+	int size_w = -1;
+	int size_h = -1;
 
 public:
 	
@@ -81,49 +82,49 @@ public:
 	CResult(){
 
 		// 音源
-		bgm = Manager::Instance().getbgm();
-		se = Manager::Instance().getSe();
+		bgm = ScreenManager::Instance().getbgm();
+		se = ScreenManager::Instance().getSe();
 
 		// UI
 		ui = std::make_shared<UI>();
 
 		// フェード
-		fade = Manager::Instance().getFade();
+		fade = ScreenManager::Instance().getFade();
 
 		// 経験値の再分配防止
-		isDistributed = false;
+		is_distributed = false;
 
 		// 選択中の番号
-		choiceNum = STAGE;
+		choice_num = STAGE;
 
 		// 選択中の三角形の座標変数
-		choicePosX = -1;
-		choicePosY = -1;
+		choice_pos_x = -1;
+		choice_pos_y = -1;
 
 		// テキストの座標
 		for (int i = 0; i < MAX; i++) {
-			choiceText_X[i] = 600;
-			choiceText_Y[i] = 650 + i * 50;
+			choice_text_x[i] = 600;
+			choice_text_y[i] = 650 + i * 50;
 		}
 
 		// 画像表示用の変数
-		baseX = 100;
-		baseY = 120;
-		scrX = 60;
-		scrY = 0;
-		grhSizeX = 250;
-		grhSizeY = 418;
-		spacingX = grhSizeX + 40;
+		base_x = 100;
+		base_y = 120;
+		scr_x = 60;
+		scr_y = 0;
+		grh_size_x = 250;
+		grh_size_y = 418;
+		spacing_x = grh_size_x + 40;
 
-		ResultFrame = 60;
+		result_frame = 60;
 
 		//　初期化
 		this->Init();
 
 		box_x = 900;
 		box_y = 700;
-		sizeW = 200;
-		sizeH = 80;
+		size_w = 200;
+		size_h = 80;
 	}
 
 private:
@@ -131,7 +132,7 @@ private:
 
 	void Init() {
 		// bgm
-		if (Manager::Instance().getbattleResult() == BattleResult::VICTORY) {
+		if (ScreenManager::Instance().getbattleResult() == BATTLE_RESULT::VICTORY) {
 			bgm->PlayBgm(CLoad::Instance().getBgmHandle(BGM_CLEAR));
 		}
 		else {

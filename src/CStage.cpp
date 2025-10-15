@@ -32,9 +32,9 @@ void CStage::Update()
 
 	// フェードを最後まで行ったとき画面切り替え
 	if (fade->checkClause(WINDOW_W)) {
-		Manager::Instance().setStageScreen(stageNum);
-		Manager::Instance().setSuggest(suggest);
-		Manager::Instance().ChangeScreen<CPartySelect>();
+		ScreenManager::Instance().setStageScreen(stageNum);
+		ScreenManager::Instance().setSuggest(suggest);
+		ScreenManager::Instance().ChangeScreen<CPartySelect>();
 	}
 
 }

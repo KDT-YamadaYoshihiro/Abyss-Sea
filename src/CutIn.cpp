@@ -4,113 +4,113 @@
 void Cutin::Start(int arg_x, int arg_y, int arg_handle, std::string arg_skillName, int arg_enterSpeed, int arg_pauseSpeed, int arg_exitSpeed)
 {
     // エンドフラグリセット
-    m_endFlag = false;
+    end_flag = false;
 
     // 位置
-    m_pos_x = arg_x;
-    m_pos_y = arg_y;
+    pos_x = arg_x;
+    pos_y = arg_y;
 
     // 画像ハンドル
-    m_handle = arg_handle;
+    handle = arg_handle;
 
     // 名前
-    m_skill_name = arg_skillName;
+    skill_name = arg_skillName;
 
     // 速度
-    m_enterSpeed = arg_enterSpeed;
-    m_pauseSpeed = arg_pauseSpeed;
-    m_exitSpeed = arg_exitSpeed;
+    enter_speed = arg_enterSpeed;
+    pause_speed = arg_pauseSpeed;
+    exit_speed = arg_exitSpeed;
 
-	m_phase = CutinPhase::Entering;
-	m_frameCounter = 0;
+	phase = CUTIN_PHASE::ENTERING;
+	frame_counter = 0;
 
 	// 画像フラグをオン
-	m_drawFlag = true;
+	draw_flag = true;
 
 	// エフェクトのスタート関数
-	cutinEffect->effectStart();
+	cutin_effect->effectStart();
 
 }
 
 // リセット関数（再利用を考慮）
 void Cutin::Reset()
 {
-	m_drawFlag = false;
-	m_pos_x = 0;
-	m_pos_y = 0;
+	draw_flag = false;
+	pos_x = 0;
+	pos_y = 0;
 }
 
 // 更新
 void Cutin::Update()
 {
-    if (!m_drawFlag)
+    if (!draw_flag)
     {
         return;
     }
 
 	// フェーズごとの動作
-    switch (m_phase)
+    switch (phase)
     {
-    case CutinPhase::Entering:
-        m_pos_y += m_enterSpeed;
+    case CUTIN_PHASE::ENTERING:
+        pos_y += enter_speed;
 
         // 画面中央に到達したら減速（位置 or フレームで判断）
-        if ((m_exitSpeed > 0 && m_pos_y + m_size_h > WINDOW_H / 2) || (m_exitSpeed < 0 && m_pos_y < WINDOW_H / 2)) {  // 中央の例：1280pxの中央
-            m_phase = CutinPhase::Pausing;
-            m_frameCounter = 0;
+        if ((exit_speed > 0 && pos_y + size_h > WINDOW_H / 2) || (exit_speed < 0 && pos_y < WINDOW_H / 2)) {  // 中央の例：1280pxの中央
+            phase = CUTIN_PHASE::PAUSING;
+            frame_counter = 0;
         }
         break;
 
-    case CutinPhase::Pausing:
-        m_pos_y += m_pauseSpeed;
-        m_frameCounter++;
+    case CUTIN_PHASE::PAUSING:
+        pos_y += pause_speed;
+        frame_counter++;
 
         // しばらくしたら退場フェーズへ（30フレーム例）
-        if (m_frameCounter > 30) {
-            m_phase = CutinPhase::Exiting;
+        if (frame_counter > 30) {
+            phase = CUTIN_PHASE::EXITING;
         }
         break;
 
-    case CutinPhase::Exiting:
-        m_pos_y += m_exitSpeed;
+    case CUTIN_PHASE::EXITING:
+        pos_y += exit_speed;
 
         // 画面外に出たら終了
-        if ((m_exitSpeed > 0 && m_pos_y > WINDOW_H) || (m_exitSpeed < 0 && m_pos_y > WINDOW_H)) {
-            m_drawFlag = false;
-			m_endFlag = true;
+        if ((exit_speed > 0 && pos_y > WINDOW_H) || (exit_speed < 0 && pos_y > WINDOW_H)) {
+            draw_flag = false;
+			end_flag = true;
         }
         break;
     }
 
 	// エフェクト更新
-    cutinEffect->PlayAnim();
+    cutin_effect->PlayAnim();
     
 }
 
 void Cutin::Draw()
 {
-    if (m_drawFlag) {
+    if (draw_flag) {
 
 		// エフェクト描画
-        int x = m_pos_x - 170;
-		cutinEffect->effectDraw(x, 0, 0, 0);
+        int x = pos_x - 170;
+		cutin_effect->effectDraw(x, 0, 0, 0);
 
         // 背景（三角形二つを使用して台形に）
         {
 			SetDrawBlendMode(DX_BLENDMODE_ALPHA, 128); 
-            int x = m_pos_x + m_size_w / 2;
-            int y = m_pos_y + m_size_h;
-            DrawTriangle(m_pos_x, m_pos_y, m_pos_x + m_size_w, m_pos_y, x, y, GetColor(255, 255, 255), true);
-            int y2 = m_pos_y + m_size_h;
-            DrawTriangle(m_pos_x, m_pos_y, m_pos_x - m_size_w / 2, y2, m_pos_x + m_size_w / 2, y2, GetColor(255, 255, 255), true);
+            int x = pos_x + size_w / 2;
+            int y = pos_y + size_h;
+            DrawTriangle(pos_x, pos_y, pos_x + size_w, pos_y, x, y, GetColor(255, 255, 255), true);
+            int y2 = pos_y + size_h;
+            DrawTriangle(pos_x, pos_y, pos_x - size_w / 2, y2, pos_x + size_w / 2, y2, GetColor(255, 255, 255), true);
 			// ブレンドモードを元に戻す
 			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
         }
         // 画像描画
-        int const ICON_SIZE = m_size_w;
-        int y = m_pos_y + (m_size_h / 2 - ICON_SIZE / 2);
+        int const ICON_SIZE = size_w;
+        int y = pos_y + (size_h / 2 - ICON_SIZE / 2);
 
-        DrawExtendGraph(m_pos_x, y, m_pos_x + ICON_SIZE, y + ICON_SIZE, m_handle, true);
+        DrawExtendGraph(pos_x, y, pos_x + ICON_SIZE, y + ICON_SIZE, handle, true);
 
         //// スキル名表示
         //SetFontSize(20);
