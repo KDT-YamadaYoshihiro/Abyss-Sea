@@ -7,7 +7,8 @@ bool CGame::Init()
 	SRand((int)time(NULL));
 	InputKeyInit();
 	InputPadInit();
-	
+	ChangeFont("Œ¹ŠE–¾’©"); 
+
 
 	SetOutApplicationLogValidFlag(FALSE);
 	ChangeWindowMode(ScreenManager::Instance().getWindowMode());
@@ -24,8 +25,6 @@ bool CGame::Init()
 	SetDrawScreen(DX_SCREEN_BACK);
 
 	ScreenManager::Instance().Init();
-
-	
 
 }
 // ƒ‹[ƒvˆ—
