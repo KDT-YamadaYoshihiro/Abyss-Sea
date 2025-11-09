@@ -22,7 +22,7 @@ class CStage : public ScreenBase {
 	std::shared_ptr<Sound> se;
 
 	// フェード
-	std::shared_ptr<Fade> fade;
+	std::shared_ptr<FadeCircle> fade;
 
 	// クエストボード
 	QuestBoard board;

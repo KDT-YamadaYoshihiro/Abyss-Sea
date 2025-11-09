@@ -26,7 +26,7 @@ void ScreenManager::Init()
 	bgm = std::make_shared<Sound>();
 	se = std::make_shared<Sound>();
 
-	fade = std::make_shared<Fade>();
+	fade = std::make_shared<FadeCircle>();
 
 	ChangeScreen<CTitle>();
 

@@ -14,7 +14,7 @@ class CTitle : public ScreenBase {
 
 	std::shared_ptr<UI> ui[UI_MAX];
 
-	std::shared_ptr<Fade> fade;
+	std::shared_ptr<FadeCircle> fade;
 
 	float posX = -1.0f;
 	float posY = -1.0f;

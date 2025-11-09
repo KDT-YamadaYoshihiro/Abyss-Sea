@@ -22,7 +22,7 @@ class CPartySelect : public ScreenBase {
 	std::shared_ptr<Sound> se;
 
 	// フェード
-	std::shared_ptr<Fade> fade;
+	std::shared_ptr<FadeCircle> fade;
 
 	// パーティ枠（４枠）
 	int selectedSlot = -1;
