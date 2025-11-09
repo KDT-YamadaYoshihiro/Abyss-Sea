@@ -5,7 +5,7 @@
 void CTitle::Update()
 {
 	// フェードの更新処理
-	fade->fadeUpdate(WINDOW_W);
+	fade->fadeUpdate();
 
 	// BGMスタート
 	bgm->PlayBgm(CLoad::Instance().getBgmHandle(BGM_START));
@@ -35,7 +35,7 @@ void CTitle::Update()
 	}
 
 	// 画面切り替え
-	if (fade->checkClause(WINDOW_W)) {
+	if (fade->checkClause()) {
 		ScreenManager::Instance().ChangeScreen<CStage>();
 	}
 

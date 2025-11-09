@@ -191,5 +191,8 @@
     <ClInclude Include="src\MissionManager.h">
       <Filter>ヘッダー ファイル\MIssion</Filter>
     </ClInclude>
+    <ClInclude Include="src\Fade.h">
+      <Filter>ヘッダー ファイル\UI</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

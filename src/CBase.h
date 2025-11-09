@@ -4,6 +4,7 @@
 #include "enum.h"
 #include "DxLib.h"
 #include "Mouse.h"
+#include "Fade.h"
 
 // スクリーンベースクラス
 class ScreenBase {

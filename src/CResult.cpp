@@ -3,7 +3,7 @@
 void CResult::Update()
 {
 	// フェードの更新処理
-	fade->fadeUpdate(WINDOW_W);
+	fade->fadeUpdate();
 
 	result_frame--;
 
@@ -96,7 +96,7 @@ void CResult::Update()
 	}
 
 	// 画面切り替え
-	if (fade->checkClause(WINDOW_W) && result_frame <= 0) {
+	if (fade->checkClause() && result_frame <= 0) {
 		switch (choice_num)
 		{
 		case STAGE:

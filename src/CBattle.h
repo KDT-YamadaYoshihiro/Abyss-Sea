@@ -57,7 +57,7 @@ class CBattle : public ScreenBase {
 	std::shared_ptr<Sound> se;
 
 	// フェード
-	std::shared_ptr<FadeCircle> fade;
+	std::shared_ptr<FadeAlpha> fade;
 	// 再挑戦用のフェード
 	//std::shared_ptr<Fade> retryFade;
 

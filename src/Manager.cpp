@@ -26,7 +26,7 @@ void ScreenManager::Init()
 	bgm = std::make_shared<Sound>();
 	se = std::make_shared<Sound>();
 
-	fade = std::make_shared<FadeCircle>();
+	fade = std::make_shared<FadeAlpha>();
 
 	ChangeScreen<CTitle>();
 
@@ -58,7 +58,7 @@ void ScreenManager::Render()
 	scrPtr->Render();
 
 	// フェード
-	fade->fadeCircleDraw(WINDOW_W / 2, WINDOW_H / 2);
+	fade->fadeDraw();
 }
 
 void ScreenManager::DrawStageUI(int arg_stageID, int arg_x, int arg_y) {

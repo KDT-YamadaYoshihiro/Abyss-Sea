@@ -38,7 +38,7 @@ class CResult : public ScreenBase {
 	std::shared_ptr<Sound> se;
 
 	// フェード
-	std::shared_ptr<FadeCircle> fade;
+	std::shared_ptr<FadeAlpha> fade;
 
 	// 経験値の再分配防止
 	bool is_distributed = false;

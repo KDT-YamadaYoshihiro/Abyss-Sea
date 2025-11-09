@@ -13,7 +13,7 @@ void CBattle::Update()
 		ScreenManager::Instance().getStageScreen(), select_party);
 
 	// フェードの更新処理
-	fade->fadeUpdate(WINDOW_W);
+	fade->fadeUpdate();
 
 	// エネミーのカットイン更新
 	for (auto& e : enemies) {
@@ -73,7 +73,7 @@ void CBattle::Update()
 
 
 	// fadeが起動後CResultに切り替え
-	if (fade->checkClause(WINDOW_W) && BattleOver()) {
+	if (fade->checkClause() && BattleOver()) {
 		// リザルト画面へ
 		ScreenManager::Instance().ChangeScreen<CResult>();
 

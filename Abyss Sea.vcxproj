@@ -173,6 +173,7 @@
     <ClInclude Include="src\CTitle.h" />
     <ClInclude Include="src\Cutin.h" />
     <ClInclude Include="src\enum.h" />
+    <ClInclude Include="src\Fade.h" />
     <ClInclude Include="src\GameMain.h" />
     <ClInclude Include="src\Icon.h" />
     <ClInclude Include="src\InPutKey.h" />

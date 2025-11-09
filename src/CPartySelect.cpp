@@ -5,7 +5,7 @@ void CPartySelect::Update()
 {
 
 	// フェードアップデート
-	fade->fadeUpdate(WINDOW_W);
+	fade->fadeUpdate();
 
 	if (uiState == UI_PARTYSTATE::NORMAL && fade->checkOpen()) {
 		
@@ -94,7 +94,7 @@ void CPartySelect::Update()
 
 	}
 
-	if (fade->checkClause(WINDOW_W)) {
+	if (fade->checkClause()) {
 		ScreenManager::Instance().setParty(party);
 		bgm->stopBgm(CLoad::Instance().getBgmHandle(BGM_START));
 		if (screen_change) {
@@ -204,6 +204,6 @@ void CPartySelect::Render()
 	ui->Button(20, 20, 20 + sizeW, 20 + sizeH, CLoad::Instance().getButtonGrh(BACK));
 
 
-	fade->fadeCircleDraw(WINDOW_W / 2, WINDOW_H / 2);
+	fade->fadeDraw();
 
 }

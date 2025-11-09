@@ -18,7 +18,7 @@ class ScreenManager {
 	std::shared_ptr<Sound> se;
 
 	// フェード
-	std::shared_ptr<FadeCircle> fade;
+	std::shared_ptr<FadeAlpha> fade;
 
 	// 
 	int stage_screen = -1;
@@ -138,7 +138,7 @@ public:
 	std::shared_ptr<Sound> getSe() const { return se; }
 
 	// UI
-	std::shared_ptr<FadeCircle> getFade() const { return fade; }
+	std::shared_ptr<FadeAlpha> getFade() const { return fade; }
 
 	// 音量設定
 	void setBgmVolume(int arg_volume) { bgmVolume = arg_volume; }

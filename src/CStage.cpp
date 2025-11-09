@@ -7,7 +7,7 @@ void CStage::Update()
 {
 
 	// フェードアップデート
-	fade->fadeUpdate(WINDOW_W);
+	fade->fadeUpdate();
 
 	if (fade->checkOpen()) {
 		// 三角形の座標更新
@@ -31,7 +31,7 @@ void CStage::Update()
 	}
 
 	// フェードを最後まで行ったとき画面切り替え
-	if (fade->checkClause(WINDOW_W)) {
+	if (fade->checkClause()) {
 		ScreenManager::Instance().setStageScreen(stageNum);
 		ScreenManager::Instance().setSuggest(suggest);
 		ScreenManager::Instance().ChangeScreen<CPartySelect>();
@@ -69,7 +69,7 @@ void CStage::Render()
 	}
 
 	// フェード
-	fade->fadeCircleDraw(WINDOW_W / 2, WINDOW_H / 2);
+	fade->fadeDraw();
 }
 
 // 三角形の座標
