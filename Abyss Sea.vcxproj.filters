@@ -60,139 +60,148 @@
     <ClCompile Include="src\GameMain.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\InPutKey.cpp">
+    <ClCompile Include="src\System\InPut\Key\InPutKey.cpp">
       <Filter>ソース ファイル\System.cpp</Filter>
     </ClCompile>
-    <ClCompile Include="src\InPutPad.cpp">
+    <ClCompile Include="src\System\InPut\Pad\InPutPad.cpp">
       <Filter>ソース ファイル\System.cpp</Filter>
     </ClCompile>
-    <ClCompile Include="src\Manager.cpp">
+    <ClCompile Include="src\Scene\Manager\Manager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="src\CBattle.cpp">
+    <ClCompile Include="src\Scene\Battle\CBattle.cpp">
       <Filter>ソース ファイル\Stage</Filter>
     </ClCompile>
-    <ClCompile Include="src\CStage.cpp">
+    <ClCompile Include="src\Scene\StageSelect\CStage.cpp">
       <Filter>ソース ファイル\Stage</Filter>
     </ClCompile>
-    <ClCompile Include="src\CTitle.cpp">
+    <ClCompile Include="src\Scene\Title\CTitle.cpp">
       <Filter>ソース ファイル\Stage</Filter>
     </ClCompile>
-    <ClCompile Include="src\CResult.cpp">
+    <ClCompile Include="src\Scene\Result\CResult.cpp">
       <Filter>ソース ファイル\Stage</Filter>
     </ClCompile>
-    <ClCompile Include="src\CharacterFactory.cpp">
+    <ClCompile Include="src\Character\Factory\CharacterFactory.cpp">
       <Filter>ソース ファイル\Character</Filter>
     </ClCompile>
-    <ClCompile Include="src\CPartySelect.cpp">
+    <ClCompile Include="src\Scene\PartySelect\CPartySelect.cpp">
       <Filter>ソース ファイル\Stage</Filter>
     </ClCompile>
-    <ClCompile Include="src\QuestBoard.cpp">
+    <ClCompile Include="src\DisplaySystem\QuestBoard\QuestBoard.cpp">
       <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
-    <ClCompile Include="src\UI.cpp">
+    <ClCompile Include="src\DisplaySystem\UI\UI.cpp">
       <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
-    <ClCompile Include="src\Cutin.cpp">
+    <ClCompile Include="src\Direction\CutIn\Cutin.cpp">
       <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
-    <ClCompile Include="src\MissionFactory.cpp">
+    <ClCompile Include="src\Mission\Factory\MissionFactory.cpp">
       <Filter>ソース ファイル\Mission</Filter>
     </ClCompile>
-    <ClCompile Include="src\MissionManager.cpp">
+    <ClCompile Include="src\Mission\Manager\MissionManager.cpp">
       <Filter>ソース ファイル\Mission</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Character\Player\CPlayer.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameMain.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\InPutPad.h">
+    <ClInclude Include="src\System\InPut\Pad\InPutPad.h">
       <Filter>ヘッダー ファイル\System.h</Filter>
     </ClInclude>
-    <ClInclude Include="src\InPutKey.h">
+    <ClInclude Include="src\System\InPut\Key\InPutKey.h">
       <Filter>ヘッダー ファイル\System.h</Filter>
     </ClInclude>
     <ClInclude Include="src\typedef.h">
       <Filter>ヘッダー ファイル\System.h</Filter>
     </ClInclude>
-    <ClInclude Include="src\CTitle.h">
+    <ClInclude Include="src\Scene\Title\CTitle.h">
       <Filter>ヘッダー ファイル\Stage</Filter>
     </ClInclude>
-    <ClInclude Include="src\CStage.h">
+    <ClInclude Include="src\Scene\StageSelect\CStage.h">
       <Filter>ヘッダー ファイル\Stage</Filter>
     </ClInclude>
-    <ClInclude Include="src\CBattle.h">
+    <ClInclude Include="src\Scene\Battle\CBattle.h">
       <Filter>ヘッダー ファイル\Stage</Filter>
     </ClInclude>
-    <ClInclude Include="src\CResult.h">
+    <ClInclude Include="src\Scene\Result\CResult.h">
       <Filter>ヘッダー ファイル\Stage</Filter>
     </ClInclude>
-    <ClInclude Include="src\CBase.h">
+    <ClInclude Include="src\Scene\CBase.h">
       <Filter>ヘッダー ファイル\Stage</Filter>
     </ClInclude>
-    <ClInclude Include="src\CPlayer.h">
+    <ClInclude Include="src\Character\Player\CPlayer.h">
       <Filter>ヘッダー ファイル\Character\Player</Filter>
     </ClInclude>
-    <ClInclude Include="src\CEnemy.h">
+    <ClInclude Include="src\Character\Enemy\CEnemy.h">
       <Filter>ヘッダー ファイル\Character\Enemy</Filter>
     </ClInclude>
-    <ClInclude Include="src\Mouse.h">
+    <ClInclude Include="src\System\InPut\Mouse\Mouse.h">
       <Filter>ヘッダー ファイル\System.h</Filter>
     </ClInclude>
-    <ClInclude Include="src\CLoad.h">
+    <ClInclude Include="src\Load\Load.h">
       <Filter>ヘッダー ファイル\Class.h</Filter>
     </ClInclude>
-    <ClInclude Include="src\Character.h">
+    <ClInclude Include="src\Character\Character.h">
       <Filter>ヘッダー ファイル\Character</Filter>
     </ClInclude>
-    <ClInclude Include="src\CharacterData.h">
+    <ClInclude Include="src\Character\CharacterData.h">
       <Filter>ヘッダー ファイル\Character</Filter>
     </ClInclude>
-    <ClInclude Include="src\CharacterFactory.h">
+    <ClInclude Include="src\Character\Factory\CharacterFactory.h">
       <Filter>ヘッダー ファイル\Character</Filter>
     </ClInclude>
-    <ClInclude Include="src\CEffect.h">
+    <ClInclude Include="src\Direction\Effect\CEffect.h">
       <Filter>ヘッダー ファイル\Class.h</Filter>
     </ClInclude>
-    <ClInclude Include="src\CPartySelect.h">
+    <ClInclude Include="src\Scene\PartySelect\CPartySelect.h">
       <Filter>ヘッダー ファイル\Stage</Filter>
     </ClInclude>
-    <ClInclude Include="src\enum.h">
+    <ClInclude Include="src\Constants\enum.h">
       <Filter>ヘッダー ファイル\Class.h</Filter>
     </ClInclude>
-    <ClInclude Include="src\UI.h">
+    <ClInclude Include="src\DisplaySystem\UI\UI.h">
       <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
-    <ClInclude Include="src\QuestBoard.h">
+    <ClInclude Include="src\DisplaySystem\QuestBoard\QuestBoard.h">
       <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
-    <ClInclude Include="src\Manager.h">
+    <ClInclude Include="src\Scene\Manager\Manager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="src\CBattle_SP.h">
+    <ClInclude Include="src\Scene\Battle\CBattle_SP.h">
       <Filter>ヘッダー ファイル\Battle</Filter>
     </ClInclude>
-    <ClInclude Include="src\Calculation.h">
+    <ClInclude Include="src\Math\Calculation.h">
       <Filter>ヘッダー ファイル\Battle</Filter>
     </ClInclude>
-    <ClInclude Include="src\Cutin.h">
+    <ClInclude Include="src\Direction\CutIn\Cutin.h">
       <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
-    <ClInclude Include="src\Icon.h">
+    <ClInclude Include="src\DisplaySystem\Icon\Icon.h">
       <Filter>ヘッダー ファイル\UI</Filter>
     </ClInclude>
-    <ClInclude Include="src\Mission.h">
+    <ClInclude Include="src\Mission\MissionData.h">
       <Filter>ヘッダー ファイル\MIssion</Filter>
     </ClInclude>
-    <ClInclude Include="src\MissionFactory.h">
+    <ClInclude Include="src\Mission\Factory\MissionFactory.h">
       <Filter>ヘッダー ファイル\MIssion</Filter>
     </ClInclude>
-    <ClInclude Include="src\MissionManager.h">
+    <ClInclude Include="src\Mission\Manager\MissionManager.h">
       <Filter>ヘッダー ファイル\MIssion</Filter>
     </ClInclude>
-    <ClInclude Include="src\Fade.h">
+    <ClInclude Include="src\DisplaySystem\Fade\Fade.h">
       <Filter>ヘッダー ファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Character\HP.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Character\Attack.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

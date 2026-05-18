@@ -8,12 +8,12 @@
 #include <vector>
 
 // system
-#include "InPutKey.h"
-#include "InPutPad.h"
+#include "System/InPut/Key/InPutKey.h"
+#include "System/InPut/Pad/InPutPad.h"
 
-#include "Manager.h"
-#include "CharacterFactory.h"
-#include "Character.h"
+#include "Scene/Manager/Manager.h"
+#include "Character/Factory/CharacterFactory.h"
+#include "Character/Character.h"
 
 #define DegToRad 0.017453293f			//	ŒÊ“x–@‚Ö
 #define RadToDeg  57.29577951f
