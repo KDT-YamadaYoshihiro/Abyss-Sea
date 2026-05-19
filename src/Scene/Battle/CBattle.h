@@ -31,10 +31,6 @@ class CBattle : public ScreenBase {
 	enum class State{BATTLE,MENU,DEAD_EFFECT,END};
 	State state = State::BATTLE;
 
-	// MENUモード		デフォ、再挑戦、リタイア、設定
-	enum class MenuState{NONE,RETRY,RETIRE,SETTING};
-	MenuState menuState = MenuState::NONE;
-
 	// UIクラスの生成
 	std::shared_ptr<UI> ui;
 
@@ -104,8 +100,6 @@ class CBattle : public ScreenBase {
 	int tr_pos_x[BUTTAN_MAX];
 	int tr_pos_y[BUTTAN_MAX];
 
-	// 音量設定時に使用　クリックフレーム
-	int click_frame = -1;
 
 	// アイコン下名前表示文字数制限
 	int name_max = -1;
@@ -140,7 +134,6 @@ public:
 		sk_button_x(at_button_x + 210),
 		button_size_x(200),
 		button_size_y(50),
-		click_frame(0),
 		name_max(6),
 		blend_num(50),
 		blend_speed(1),
@@ -852,169 +845,6 @@ private:
 		// メニューバーが押されたとき、モードの切り替え
 		if (CheckBoxClick(WINDOW_W - 250, 10, 250, 150)) {
 			state = State::MENU;
-		}
-
-	}
-
-	// メニュー
-	void BattleMenu() {
-
-		switch (menuState)
-		{
-		case CBattle::MenuState::NONE:
-
-			// 選択画面の表示
-			// バトル再開
-			if (CheckBoxClick(ui_buttonX, ui_buttonY, size_w, size_h)) {
-				state = State::BATTLE;
-				// se再生
-				se->PlaySe(CLoad::Instance().getSeHandle(SE_CLICK));
-			}
-			// 再挑戦
-			if (CheckBoxClick(ui_buttonX, ui_buttonY + 100, size_w, size_h)) {
-				// モード変更
-				menuState = MenuState::RETRY;
-				// se再生
-				se->PlaySe(CLoad::Instance().getSeHandle(SE_CLICK));
-			}
-			// リタイア
-			if (CheckBoxClick(ui_buttonX, ui_buttonY + 200, size_w, size_h)) {
-				// モード変更
-				menuState = MenuState::RETIRE;
-				// se再生
-				se->PlaySe(CLoad::Instance().getSeHandle(SE_CLICK));
-			}
-			// （設定）
-			if (CheckBoxClick(ui_buttonX, ui_buttonY + 300, size_w, size_h)) {
-				menuState = MenuState::SETTING;
-				// se再生
-				se->PlaySe(CLoad::Instance().getSeHandle(SE_CLICK));
-
-			}
-
-
-			break;
-		case CBattle::MenuState::RETRY:
-
-			// 再確認
-			// はい
-			if (CheckBoxClick(WINDOW_W / 2 - (FONT_BIGSIZE * 6), WINDOW_H / 2 + (FONT_BIGSIZE * 1.5), size_w, size_h)) {
-				// fadeを軌道
-				fade->fadeStart(fade->FADE_CLAUSE);
-
-				// 再挑戦
-				// 敵を削除
-				Delete();
-				// 再初期化
-				BattleInit();
-				// MENUの選択画面に戻る
-				menuState = MenuState::NONE;
-				// バトル画面に切り替える
-				state = State::BATTLE;
-				// se再生
-				se->PlaySe(CLoad::Instance().getSeHandle(SE_DECISION));
-
-			}
-			// いいえ
-			if (CheckBoxClick(WINDOW_W / 2 + (FONT_BIGSIZE * 2.5), WINDOW_H / 2 + (FONT_BIGSIZE * 1.5), size_w, size_h)) {
-				// MENUの選択画面に戻る
-				menuState = MenuState::NONE;
-				// se再生
-				se->PlaySe(CLoad::Instance().getSeHandle(SE_CANCEL));
-			}
-
-
-			break;
-		case CBattle::MenuState::RETIRE:
-
-			// 再確認
-			// はい
-			if (CheckBoxClick(WINDOW_W / 2 - (FONT_BIGSIZE * 6), WINDOW_H / 2 + (FONT_BIGSIZE * 1.5), size_w, size_h)) {
-
-				// Party全員を死亡判定に
-				for (auto& p : ScreenManager::Instance().getParty()) {
-					p->setAlive(false);
-				}
-				// fadeを軌道
-				fade->fadeStart(fade->FADE_CLAUSE);
-				// se再生
-				se->PlaySe(CLoad::Instance().getSeHandle(SE_DECISION));
-				// bgmの停止
-				bgm->stopBgm(CLoad::Instance().getBgmHandle(1 + ScreenManager::Instance().getStageScreen()));
-			}
-			// いいえ
-			if (CheckBoxClick(WINDOW_W / 2 + (FONT_BIGSIZE * 2.5), WINDOW_H / 2 + (FONT_BIGSIZE * 1.5), size_w, size_h)) {
-				// MENUの選択画面に戻る
-				menuState = MenuState::NONE;
-				// se再生
-				se->PlaySe(CLoad::Instance().getSeHandle(SE_CANCEL));
-
-			}
-
-			break;
-
-		case CBattle::MenuState::SETTING:
-
-			if (click_frame > 0) {
-				click_frame--;
-			}
-
-			// 音量変更
-			for (int i = 0; i < BUTTAN_MAX; i++) {
-
-				int size;
-				if (i % 2 == 0) { size = MAX_VOL / 10; }
-				else { size = -MAX_VOL / 10; }
-
-				if (click_frame == 0 && CheckCircleClick(tr_pos_x[i], tr_pos_y[i] + size, 50)) {
-
-					int bgmVol = ScreenManager::Instance().getBgmVolume();
-					int seVol = ScreenManager::Instance().getSeVolume();
-
-					click_frame = 10;
-					se->PlaySe(CLoad::Instance().getSeHandle(SE_CLICK));
-
-					switch (i)
-					{
-					case BGM_UP:
-
-						ScreenManager::Instance().setBgmVolume(bgmVol + 1);
-
-						break;
-
-					case BGM_DOWN:
-						ScreenManager::Instance().setBgmVolume(bgmVol - 1);
-
-						break;
-
-					case SE_UP:
-						ScreenManager::Instance().setSeVolume(seVol + 1);
-
-						break;
-
-					case SE_DOWN:
-						ScreenManager::Instance().setSeVolume(seVol - 1);
-
-						break;
-
-					default:
-						break;
-					}
-
-				}
-
-			}
-
-			// 決定ボタンを押した際
-			if (CheckBoxClick(WINDOW_W / 2 - (FONT_BIGSIZE * 2), WINDOW_H - 100, size_w, size_h)) {
-				// MENUの選択画面に戻る
-				menuState = MenuState::NONE;
-				se->PlaySe(CLoad::Instance().getSeHandle(SE_CLICK));
-			}
-
-			break;
-		default:
-			break;
 		}
 
 	}

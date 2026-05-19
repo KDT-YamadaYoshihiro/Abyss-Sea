@@ -139,6 +139,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Battle\BattleMenu\BattleMenu.cpp" />
+    <ClCompile Include="src\Battle\BattleSystem\BattleSystem.cpp" />
     <ClCompile Include="src\Character\Player\CPlayer.cpp" />
     <ClCompile Include="src\Direction\CutIn\Cutin.cpp" />
     <ClCompile Include="src\Scene\Battle\CBattle.cpp" />
@@ -157,6 +159,8 @@
     <ClCompile Include="src\DisplaySystem\UI\UI.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Battle\BattleMenu\BattleMenu.h" />
+    <ClInclude Include="src\Battle\BattleSystem\BattleSystem.h" />
     <ClInclude Include="src\Math\Calculation.h" />
     <ClInclude Include="src\Character\Attack.h" />
     <ClInclude Include="src\Character\HP.h" />

@@ -50,7 +50,6 @@ void CBattle::Update()
 
 	case CBattle::State::MENU:			// MENU展開時
 
-		BattleMenu();
 
 		break;
 	case CBattle::State::DEAD_EFFECT:
@@ -226,126 +225,6 @@ void CBattle::Render()
 		int size_h = 150;
 		DrawExtendGraph(posX, posY, posX + size_w, posY + size_h, CLoad::Instance().getMenuButton(),true);
 	}
-
-	//　MENUの中身
-	if (state == State::MENU) {
-
-		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 150);
-		DrawBox(0, 0, WINDOW_W, WINDOW_H, GetColor(50,50,50), true);
-		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 255);
-
-		switch (menuState)
-		{
-		case CBattle::MenuState::NONE:
-
-			SetFontSize(FONT_BIGSIZE);
-
-			ui->Button(ui_buttonX, ui_buttonY, ui_buttonX + size_w, ui_buttonY + size_h, CLoad::Instance().getButtonGrh(CONTINUE));
-			ui->Button(ui_buttonX, ui_buttonY + 100, ui_buttonX + size_w, ui_buttonY + 100 + size_h, CLoad::Instance().getButtonGrh(RETRY));
-			ui->Button(ui_buttonX, ui_buttonY + 200, ui_buttonX + size_w, ui_buttonY + 200 + size_h, CLoad::Instance().getButtonGrh(GIVEUP));
-			ui->Button(ui_buttonX, ui_buttonY + 300, ui_buttonX + size_w, ui_buttonY + 300 + size_h, CLoad::Instance().getButtonGrh(SETTING));
-			
-
-
-			break;
-		case CBattle::MenuState::RETRY:
-
-			// 文字
-			SetFontSize(FONT_BIGSIZE);
-			DrawFormatString(WINDOW_W / 2 - (FONT_BIGSIZE * 4),		WINDOW_H / 2 - (FONT_BIGSIZE * 1.5), GetColor(255, 255, 255), "再挑戦しますか？");
-
-			{
-				int x1 = WINDOW_W / 2 - (FONT_BIGSIZE * 6);
-				int x2 = WINDOW_W / 2 + (FONT_BIGSIZE * 2.5);
-				int y = WINDOW_H / 2 + (FONT_BIGSIZE * 1.5);
-				ui->Button(x1, y, x1 + size_w, y + size_h, CLoad::Instance().getButtonGrh(YES));
-				ui->Button(x2, y, x2 + size_w, y + size_h, CLoad::Instance().getButtonGrh(NO));
-			}
-
-			break;
-
-		case CBattle::MenuState::RETIRE:
-
-			// 文字
-			SetFontSize(FONT_BIGSIZE);
-			DrawFormatString(WINDOW_W / 2 - (FONT_BIGSIZE * 4.5), WINDOW_H / 2 - (FONT_BIGSIZE * 1.5), GetColor(255, 255, 255), "リタイアしますか？");
-			{
-				int x1 = WINDOW_W / 2 - (FONT_BIGSIZE * 6);
-				int x2 = WINDOW_W / 2 + (FONT_BIGSIZE * 2.5);
-				int y = WINDOW_H / 2 + (FONT_BIGSIZE * 1.5);
-				ui->Button(x1, y, x1 + size_w, y + size_h, CLoad::Instance().getButtonGrh(YES));
-				ui->Button(x2, y, x2 + size_w, y + size_h, CLoad::Instance().getButtonGrh(NO));
-			}
-
-			break;
-
-		case CBattle::MenuState::SETTING:
-
-			SetFontSize(FONT_BIGSIZE);
-			DrawFormatString(WINDOW_W / 2 - (FONT_BIGSIZE * 2), WINDOW_H / 2 - (FONT_BIGSIZE * 4.5), GetColor(255, 255, 255), "音量設定");
-			DrawFormatString(WINDOW_W / 2 - (FONT_BIGSIZE * 7), WINDOW_H / 2 - (FONT_BIGSIZE), GetColor(255, 255, 255), "BGM:%d",ScreenManager::Instance().getBgmVolume());
-			DrawFormatString(WINDOW_W / 2 + (FONT_BIGSIZE * 4), WINDOW_H / 2 - (FONT_BIGSIZE), GetColor(255, 255, 255), "SE:%d",ScreenManager::Instance().getSeVolume());
-
-			// 音量の調整ボタン
-			for (int i = 0; i < BUTTAN_MAX; i++) {
-
-				int x1;
-				int x2;
-				int y1;
-				int y2;
-
-				switch (i)
-				{
-				case BGM_UP:
-
-					x1 = tr_pos_x[BGM_UP] - 30;
-					x2 = tr_pos_x[BGM_UP] + 30;
-					y1 = y2 = tr_pos_y[BGM_UP] + 50;
-
-					break;
-				case BGM_DOWN:
-
-
-					x1 = tr_pos_x[BGM_DOWN] - 30;
-					x2 = tr_pos_x[BGM_DOWN] + 30;
-					y1 = y2 = tr_pos_y[BGM_DOWN] - 50;
-
-
-					break;
-				case SE_UP:
-
-					x1 = tr_pos_x[SE_UP] - 30;
-					x2 = tr_pos_x[SE_UP] + 30;
-					y1 = y2 = tr_pos_y[SE_UP] + 50;
-
-
-					break;
-				case SE_DOWN:
-
-					x1 = tr_pos_x[SE_DOWN] - 30;
-					x2 = tr_pos_x[SE_DOWN] + 30;
-					y1 = y2 = tr_pos_y[SE_DOWN] - 50;
-
-					break;
-
-				default:
-					break;
-				}
-
-				DrawTriangle(tr_pos_x[i], tr_pos_y[i], x1,y1,x2,y2, GetColor(255, 255, 255), true);
-			}
-
-			ui->Button(WINDOW_W / 2 - (FONT_BIGSIZE * 2), WINDOW_H - 100, WINDOW_W / 2 - (FONT_BIGSIZE * 2) + size_w, WINDOW_H - 100 + size_h, CLoad::Instance().getButtonGrh(DECISION));
-
-
-			break;
-
-
-		default:
-			break;
-		}
-	}
-
 
 	// カットインの描画
 	for (auto& e : enemies) {

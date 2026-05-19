@@ -168,16 +168,6 @@ enum UI_BUTTON {
 	BUTTON_MAX
 };
 
-// 
-enum SOUND_BUTTON {
-	BGM_UP,
-	BGM_DOWN,
-	SE_UP,
-	SE_DOWN,
-
-	BUTTAN_MAX
-};
-
 
 // アイコンUI
 enum BUFF_TYPE {
@@ -195,3 +185,28 @@ enum class CUTIN_PHASE {
 	EXITING     // 加速して退出
 };
 
+// バトル側に返す結果
+enum class BattleMenuResult {
+	KEEP_OPEN,	// メニュー継続
+	CLOSE,		// メニューを閉じてバトルへ
+	RETRY,		// 再挑戦の選択
+	RETIRE,		// リタイアの選択
+};
+
+enum class MenuState
+{
+	MAIN,		// メニューの選択中
+	RETRY,		// 再挑戦の確認画面
+	RETIRE,		// リタイアの確認画面
+	SETTING		// 音量などの設定
+};
+
+// サウンド系
+enum SOUND_BUTTON {
+	BGM_UP,
+	BGM_DOWN,
+	SE_UP,
+	SE_DOWN,
+
+	BUTTAN_MAX
+};
