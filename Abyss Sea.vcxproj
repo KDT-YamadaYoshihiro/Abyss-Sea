@@ -161,6 +161,7 @@
   <ItemGroup>
     <ClInclude Include="src\Battle\BattleMenu\BattleMenu.h" />
     <ClInclude Include="src\Battle\BattleSystem\BattleSystem.h" />
+    <ClInclude Include="src\Constants\define.h" />
     <ClInclude Include="src\Math\Calculation.h" />
     <ClInclude Include="src\Character\Attack.h" />
     <ClInclude Include="src\Character\HP.h" />

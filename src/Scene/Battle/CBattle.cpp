@@ -38,6 +38,8 @@ void CBattle::Update()
 	if (blend_num <= 0) { blend_speed *= -1; }
 	if (blend_num >= 50) { blend_speed *= -1; }
 
+	// MENU展開時の状況結果の受け取り変数
+	BattleMenuResult result; 
 	switch (state)
 	{
 	case CBattle::State::BATTLE:		// バトル
@@ -50,8 +52,31 @@ void CBattle::Update()
 
 	case CBattle::State::MENU:			// MENU展開時
 
+		result = battleMenu->Update();
+
+		if (result == BattleMenuResult::CLOSE) {
+			state = State::BATTLE; // バトル再開
+		}
+		else if (result == BattleMenuResult::RETRY) {
+			// 敵を削除
+			Delete();
+			// 再初期化
+			BattleInit();
+			// バトル画面に切り替える
+			state = State::BATTLE;
+
+		}
+		else if (result == BattleMenuResult::RETIRE) {
+			// Party全員を死亡判定に
+			for (auto& p : ScreenManager::Instance().getParty()) {
+				p->setAlive(false);
+			}
+			// fadeを起動
+			fade->fadeStart(fade->FADE_CLAUSE);
+		}
 
 		break;
+
 	case CBattle::State::DEAD_EFFECT:
 
 		PlayEndEffect();
@@ -167,7 +192,7 @@ void CBattle::Render()
 
 		// 行動キャンセル用のボタン
 		SetFontSize(FONT_BIGSIZE);
-		ui->Button(box_x, box_y, box_x + size_w, box_y + size_h, CLoad::Instance().getButtonGrh(BACK));
+		ui->Button(box_x, box_y, box_x + BUTTAN_WIDTH, box_y + BUTTAN_HEIGHT, CLoad::Instance().getButtonGrh(BACK));
 
 		for (auto& t : target_list) {
 			Position pos = GetCharacterCenter(t);
@@ -232,6 +257,11 @@ void CBattle::Render()
 	}
 	for (auto& p : ScreenManager::Instance().getParty()) {
 		p->CutinDraw();
+	}
+
+	// メニュー展開時の描画
+	if (state == State::MENU) {
+		battleMenu->Draw(); 
 	}
 
 }

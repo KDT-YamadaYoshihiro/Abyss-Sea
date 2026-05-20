@@ -5,15 +5,11 @@
 #include "Character/Character.h"
 #include "Character/Enemy/CEnemy.h"
 #include "Math/Calculation.h"
+#include "Constants/define.h"
+#include "Battle/BattleMenu/BattleMenu.h"
 
 // バトルスクリーンクラス
 class CBattle : public ScreenBase {
-
-#define FONT_BIGSIZE	 50
-#define FONT_SIZE		 30
-#define FONT_MINSIZE	 15
-
-#define MAX_VOL			255
 
 	// キャラクターセット、ゲット関数用
 	struct Position {int x; int y;};
@@ -30,6 +26,9 @@ class CBattle : public ScreenBase {
 	// バトルモード	 バトル、MENU、終了
 	enum class State{BATTLE,MENU,DEAD_EFFECT,END};
 	State state = State::BATTLE;
+
+	// バトルメニュークラスの生成
+	std::unique_ptr<BattleMenu> battleMenu;
 
 	// UIクラスの生成
 	std::shared_ptr<UI> ui;
@@ -97,8 +96,8 @@ class CBattle : public ScreenBase {
 
 
 	// 三角形の座標
-	int tr_pos_x[BUTTAN_MAX];
-	int tr_pos_y[BUTTAN_MAX];
+	int tr_pos_x[SOUND_BUTTON_MAX];
+	int tr_pos_y[SOUND_BUTTON_MAX];
 
 
 	// アイコン下名前表示文字数制限
@@ -114,12 +113,8 @@ class CBattle : public ScreenBase {
 	// 戻るボタンの座標、サイズ変数
 	int box_x = -1;
 	int box_y = -1;
-	int size_w = -1;
-	int size_h = -1;
 
 	// 他ボタンの座標
-	int ui_buttonX = -1;
-	int ui_buttonY = -1;
 
 	// スキル説明の表示有無
 	bool sk_desc_draw = false;
@@ -140,10 +135,6 @@ public:
 		// UIボタン座標
 		box_x(WINDOW_W / 2 + 220),
 		box_y(WINDOW_H - 100),
-		size_w(200),
-		size_h(80),
-		ui_buttonX(WINDOW_W / 2 - (FONT_BIGSIZE * 1.5)),
-		ui_buttonY(250),
 		sk_desc_draw(false)
 	{
 		
@@ -176,6 +167,9 @@ private:
 	// バトル初期化（再挑戦時使用)
 	void BattleInit() {
 
+		// バトルメニュークラス生成
+		battleMenu = std::make_unique<BattleMenu>();
+		
 		// UIクラス生成
 		ui = std::make_shared<UI>();
 		// sp
@@ -433,7 +427,7 @@ private:
 	void TargetChoice(std::shared_ptr<Character> arg_character) {
 		
 		// 行動キャンセル処理
-		if (CheckBoxClick(box_x, box_y, size_w, size_h)) {
+		if (CheckBoxClick(box_x, box_y, BUTTAN_WIDTH, BUTTAN_HEIGHT)) {
 			// キャンセル音
 			se->PlaySe(CLoad::Instance().getSeHandle(SE_CANCEL));
 			// ターゲットリストを空に

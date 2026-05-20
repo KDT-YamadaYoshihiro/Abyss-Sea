@@ -1,6 +1,7 @@
 #pragma once
 #include "DxLib.h"
 #include "Constants/enum.h"
+#include "Constants/define.h"
 
 // フェード基底クラス
 class Fade {

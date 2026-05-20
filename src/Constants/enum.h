@@ -1,19 +1,5 @@
 #pragma once
 
-// ウィンドウサイズ
-#define WINDOW_W		1298		
-#define WINDOW_H		 808		
-
-// フォントサイズ
-#define FONTSIZE		 100
-
-// CLICK TO START
-// 文字列の上下揺れの範囲
-#define TOP_RANGE		 615
-#define DWON_RANGE		 585
-
-
-
 // バトル結果
 enum class BATTLE_RESULT {
 	BATTLE,
@@ -165,7 +151,7 @@ enum UI_BUTTON {
 	DECISION,
 	RETRY,
 
-	BUTTON_MAX
+	UI_BUTTON_MAX
 };
 
 
@@ -208,5 +194,5 @@ enum SOUND_BUTTON {
 	SE_UP,
 	SE_DOWN,
 
-	BUTTAN_MAX
+	SOUND_BUTTON_MAX
 };
