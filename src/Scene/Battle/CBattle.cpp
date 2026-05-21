@@ -44,8 +44,15 @@ void CBattle::Update()
 	{
 	case CBattle::State::BATTLE:		// バトル
 
-		if (fade->checkOpen()) {
-			BattleMain();
+		if (!fade->checkOpen()) {
+			return;
+		}
+
+		BattleMain();
+
+		// メニューバーが押されたとき、モードの切り替え
+		if (CheckBoxClick(WINDOW_W - 250, 10, 250, 150)) {
+			state = State::MENU;
 		}
 
 		break;
@@ -112,57 +119,6 @@ void CBattle::Render()
 	int y = 0;
 	ui->BgRender(x, y, WINDOW_W, WINDOW_H,CLoad::Instance().getBgGrh());
 
-	// 指定したIDのエネミーを描画
-	for (auto& e : enemies) {
-		// クリック時に使用する変数セット
-		e->setPosX(e_pos_x);
-		e->setPosY(e_pos_y);
-		//	本体
-		int id = e->getId() - 100;
-		e->Render(e_pos_x, e_pos_y, CLoad::Instance().getEnemyGrh(id));
-		e->powerRender();
-
-		if (!e->getAlive()) { e->DeadAnimDraw(); }
-
-	}
-
-	// プレイヤーの描画
-	for (size_t i = 0; i < ScreenManager::Instance().getParty().size(); i++) {
-		auto& players = ScreenManager::Instance().getParty();
-		// クリック時に使用する変数セット
-		int x = p_pos_x[i] + (i % 2) * 50;
-		int y = p_pos_y[i] + i * 50;
-
-		players[i]->setPosX(x);
-		players[i]->setPosY(y);
-		//	本体
-		players[i]->Render(x, y, CLoad::Instance().getPlayerGrh(players[i]->getId()));
-	}
-
-	// エフェクトの再生
-	for (size_t p = 0; p < ScreenManager::Instance().getParty().size(); p++) {
-		
-		auto& players = ScreenManager::Instance().getParty();
-
-		// 複数再生
-		if (turn_order[current_turn_index]->getTargetType() == SKILL_TARGET_TYPE::ALL_ALLY || 
-			turn_order[current_turn_index]->getTargetType() == SKILL_TARGET_TYPE::ALL_ENEMY) {
-
-			for (size_t i = 0; i < target_list.size(); i++) {
-				players[p]->EffectDraw(target_list[i]->getPosX(), target_list[i]->getPosY());
-			}
-		}
-		else { // 単体時&&selectTargetがnullptrでないとき
-			if (select_target != nullptr) {
-				players[p]->EffectDraw(select_target->getPosX(), select_target->getPosY());
-			}
-		}
-	}
-	
-	// プレイヤーのエフェクトアニメーション
-	for (auto& p : ScreenManager::Instance().getParty()) {
-		p->powerRender();
-	}
 
 	// 深海っぽくするために、青のボックス描画
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, blend_num);

@@ -169,7 +169,7 @@
     <ClInclude Include="src\Scene\Battle\CBattle.h" />
     <ClInclude Include="src\Scene\Battle\CBattle_SP.h" />
     <ClInclude Include="src\Direction\Effect\CEffect.h" />
-    <ClInclude Include="src\Character\Enemy\CEnemy.h" />
+    <ClInclude Include="src\Character\Enemy\Enemy.h" />
     <ClInclude Include="src\Character\Character.h" />
     <ClInclude Include="src\Character\CharacterData.h" />
     <ClInclude Include="src\Character\Factory\CharacterFactory.h" />

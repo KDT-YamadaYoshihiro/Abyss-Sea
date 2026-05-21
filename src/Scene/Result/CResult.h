@@ -3,7 +3,7 @@
 #include "Scene/Manager/Manager.h"
 #include "Scene/CBase.h"
 #include "Character/Player/CPlayer.h"
-#include "Character/Enemy/CEnemy.h"
+#include "Character/Enemy/Enemy.h"
 
 #include "Scene/Title/CTitle.h"
 #include "Scene/StageSelect/CStage.h"
