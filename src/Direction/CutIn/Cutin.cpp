@@ -1,5 +1,6 @@
 #include "Cutin.h"
 #include "Scene/Manager/Manager.h"
+#include "Direction/Sound/Sound.h"
 
 Cutin::Cutin() :skill_name(""), draw_flag(false), end_flag(false), pos_x(0), pos_y(0), size_w(300), size_h(600), handle(-1),
 se_handle(-1), enter_speed(10), pause_speed(2), exit_speed(10), frame_counter(0),

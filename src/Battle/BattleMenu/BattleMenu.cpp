@@ -3,6 +3,7 @@
 #include "Load/Load.h"
 #include "Scene/Manager/Manager.h"
 #include "Constants/define.h"
+#include "Direction/Sound/Sound.h"
 
 BattleMenu::BattleMenu()
 	:m_menuState(MenuState::MAIN),

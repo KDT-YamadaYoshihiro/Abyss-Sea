@@ -1,6 +1,7 @@
 #pragma once
 #include "Scene/Manager/Manager.h"
 #include "Displaysystem/QuestBoard/QuestBoard.h"
+#include "Direction/Sound/Sound.h"
 
 // ステージ選択スクリーンクラス
 class CStage : public ScreenBase {

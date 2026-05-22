@@ -1,4 +1,6 @@
 #include "CPartySelect.h"
+#include "Direction/Sound/Sound.h"
+
 
 // XVˆ—
 void CPartySelect::Update()
