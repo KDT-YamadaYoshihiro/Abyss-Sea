@@ -19,7 +19,9 @@ void BattleRenderer::RenderBattle(std::shared_ptr<BattleSystem> sys) {
     if (!sys) return;
 
     // 背景
-    m_ui->BgRender((0, 0, WINDOW_W, WINDOW_H, CLoad::Instance().getBgGrh());
+    int x = 0;
+    int y = 0;
+    m_ui->BgRender(x, y, WINDOW_W, WINDOW_H, CLoad::Instance().getBgGrh());
 
     // ブレンドボックス
     SetDrawBlendMode(DX_BLENDMODE_ALPHA, sys->GetBlendNum());
