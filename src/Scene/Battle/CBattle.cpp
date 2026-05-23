@@ -4,8 +4,8 @@
 #include "Mission/Manager/MissionManager.h"
 #include "Scene/Manager/Manager.h"
 #include "Load/Load.h"
+#include "System/Collision/Collision.h"
 
-extern bool CheckBoxClick(int x, int y, int w, int h); // ŠO•”“ü—Í”»’èƒŠƒ“ƒN
 
 CBattle::CBattle() {
     BattleInit();

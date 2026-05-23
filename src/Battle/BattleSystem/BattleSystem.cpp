@@ -6,10 +6,7 @@
 #include "Mission/Manager/MissionManager.h"
 #include "Scene/Battle/CBattle_SP.h"
 #include "Load/Load.h"
-
-// CheckBoxClickなどの外部入力判定関数のダミー宣言（既存環境のものをリンクして使用）
-extern bool CheckBoxClick(int x, int y, int w, int h);
-extern bool CheckCircleClick(int x, int y, float r);
+#include "System/Collision/Collision.h"
 
 BattleSystem::BattleSystem()
     : m_currentPhase(BATTLE_PHASE::INIT),
@@ -194,12 +191,12 @@ void BattleSystem::ProcessTurn()
 }
 
 void BattleSystem::ActionChoice(std::shared_ptr<Character> arg_character) {
-    if (CheckBoxClick(m_atButtonX, m_buttonY, m_buttonSizeX, m_buttonSizeY)) {
+    if (Collision::CheckBoxClick(m_atButtonX, m_buttonY, m_buttonSizeX, m_buttonSizeY)) {
         // m_se->PlaySe(CLoad::Instance().getSeHandle(SE_CLICK));
         arg_character->setActionChoice(ATTACK);
         m_targetInput = TargetInput::LISTCREATE;
     }
-    else if (CheckBoxClick(m_skButtonX, m_buttonY, m_buttonSizeX, m_buttonSizeY)) {
+    else if (Collision::CheckBoxClick(m_skButtonX, m_buttonY, m_buttonSizeX, m_buttonSizeY)) {
         if (m_sp->getSP() > 0) {
             // m_se->PlaySe(CLoad::Instance().getSeHandle(SE_CLICK));
             arg_character->setActionChoice(SKILL);
@@ -250,7 +247,7 @@ void BattleSystem::TargetChoice(std::shared_ptr<Character> arg_character) {
         Position pos = GetCharacterCenter(tar);
         std::vector<std::shared_ptr<Character>> actTargets;
 
-        if (m_playerAction == NONE_ACTION && CheckCircleClick(pos.x, pos.y, 40.0f)) {
+        if (m_playerAction == NONE_ACTION && Collision::CheckCircleClick(pos.x, pos.y, 40.0f)) {
             m_playerAction = CHOICE;
             // m_se->PlaySe(CLoad::Instance().getSeHandle(SE_CLICK));
             m_selectTarget = tar;

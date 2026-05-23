@@ -189,6 +189,7 @@
     <ClInclude Include="src\DisplaySystem\Fade\Fade.h" />
     <ClInclude Include="src\GameMain.h" />
     <ClInclude Include="src\DisplaySystem\Icon\Icon.h" />
+    <ClInclude Include="src\System\Collision\Collision.h" />
     <ClInclude Include="src\System\InPut\Key\InPutKey.h" />
     <ClInclude Include="src\System\InPut\Pad\InPutPad.h" />
     <ClInclude Include="src\Scene\Manager\Manager.h" />
