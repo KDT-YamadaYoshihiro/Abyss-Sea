@@ -366,13 +366,12 @@ void BattleSystem::PEnd(std::shared_ptr<Character> arg_character) {
     }
 
     m_skDescDraw = false;
-    m_targetInput = TargetInput::P_NONE;
+    m_targetInput = TargetInput::ACTIONCHOICE;
     UpdataSP(arg_character);
 
     m_currentTurnIndex++;
     if (m_currentTurnIndex >= m_turnOrder.size()) {
         TurnEnd();
-        m_currentPhase = BATTLE_PHASE::TURN_END; // advance phase for next loop
         return;
     }
 }
@@ -387,7 +386,6 @@ void BattleSystem::EEnd(std::shared_ptr<Character> arg_character) {
     m_currentTurnIndex++;
     if (m_currentTurnIndex >= m_turnOrder.size()) {
         TurnEnd();
-        m_currentPhase = BATTLE_PHASE::TURN_END; // advance phase for next loop
         return;
     }
 }
@@ -403,6 +401,7 @@ void BattleSystem::TurnEnd() {
     TurnOrder();
     m_currentTurnIndex = 0;
     m_turn++;
+    m_currentPhase = BATTLE_PHASE::TURN_START; // reset to start next turn
 }
 
 void BattleSystem::TypeConversion() {
