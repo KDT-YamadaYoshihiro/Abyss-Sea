@@ -18,24 +18,24 @@ void BattleRenderer::Init() {
 void BattleRenderer::RenderBattle(std::shared_ptr<BattleSystem> sys) {
     if (!sys) return;
 
-    // ”wŒi
+	// BG
     int x = 0;
     int y = 0;
     m_ui->BgRender(x, y, WINDOW_W, WINDOW_H, CLoad::Instance().getBgGrh());
 
-    // ƒuƒŒƒ“ƒhƒ{ƒbƒNƒX
+    // é’ã„åŠé€æ˜ŽèƒŒæ™¯
     SetDrawBlendMode(DX_BLENDMODE_ALPHA, sys->GetBlendNum());
     DrawBox(0, 0, WINDOW_W, WINDOW_H, GetColor(0, 0, 255), true);
     SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 
-    // ƒ^[ƒ“”
+	// ã‚¿ãƒ¼ãƒ³æ•°è¡¨ç¤º
     SetFontSize(FONT_SIZE);
-    DrawFormatString(FONT_SIZE, 10, GetColor(255, 255, 255), "%2dƒ^[ƒ“–Ú", sys->GetTurn());
+    DrawFormatString(FONT_SIZE, 10, GetColor(255, 255, 255), "%2dã‚¿ãƒ¼ãƒ³ç›®", sys->GetTurn());
 
-    // ƒ^[ƒ“ƒI[ƒ_[ƒAƒCƒRƒ“
+	// è¡Œå‹•é †ã‚¢ã‚¤ã‚³ãƒ³
     DrawTurnOrderIcons(sys, 30, 50);
 
-    // ƒ~ƒbƒVƒ‡ƒ“•\Ž¦
+	// ã‚¹ãƒ†ãƒ¼ã‚¸æƒ…å ±è¡¨ç¤º
     int mx = 30, my = 150;
     SetDrawBlendMode(DX_BLENDMODE_ALPHA, 150);
     DrawBox(mx, my, mx + 300, my + 100, GetColor(0, 0, 0), TRUE);
@@ -43,27 +43,11 @@ void BattleRenderer::RenderBattle(std::shared_ptr<BattleSystem> sys) {
     SetFontSize(FONT_MINSIZE);
     ScreenManager::Instance().DrawStageUI(ScreenManager::Instance().getStageScreen(), mx + 30, my + 25);
 
-    // ƒ^[ƒQƒbƒg‘I‘ðƒT[ƒNƒ‹
-    if (sys->GetTargetInput() == TargetInput::TARGETCHOICE) {
-        SetFontSize(FONT_BIGSIZE);
-        m_ui->Button(sys->GetBoxX(), sys->GetBoxY(), sys->GetBoxX() + BUTTAN_WIDTH, sys->GetBoxY() + BUTTAN_HEIGHT, CLoad::Instance().getButtonGrh(BACK));
-        for (auto& t : sys->GetTargetList()) {
-            Position pos = sys->GetCharacterCenter(t);
-            DrawCircle(pos.x, pos.y, 40, GetColor(255, 0, 0), FALSE);
-        }
-    }
-
-    // ƒAƒNƒVƒ‡ƒ“ƒ{ƒ^ƒ“
-    if (sys->GetTargetInput() == TargetInput::ACTIONCHOICE) {
-        m_ui->Button(sys->GetAtButtonX(), sys->GetButtonY(), sys->GetAtButtonX() + sys->GetButtonSizeX(), sys->GetButtonY() + sys->GetButtonSizeY(), CLoad::Instance().getAtkButtonGrh());
-        m_ui->Button(sys->GetSkButtonX(), sys->GetButtonY(), sys->GetSkButtonX() + sys->GetButtonSizeX(), sys->GetButtonY() + sys->GetButtonSizeY(), CLoad::Instance().getSklButtonGrh());
-    }
-
     // SP
     auto sp = sys->GetSP();
     if (sp) m_ui->SkillPoint(530, WINDOW_H - 85, SP_RADIUS, sp->getSP(), sp->getMaxSP());
 
-    // ƒp[ƒeƒB•`‰æEƒXƒe[ƒ^ƒX
+    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æç”»
     auto party = ScreenManager::Instance().getParty();
     for (size_t i = 0; i < party.size(); i++) {
         int px = sys->GetPlayerPosX()[i] + (i % 2) * 50;
@@ -77,7 +61,7 @@ void BattleRenderer::RenderBattle(std::shared_ptr<BattleSystem> sys) {
         party[i]->DrawIcons(uiX, WINDOW_H - 160);
     }
 
-    // ƒGƒlƒ~[•`‰æ
+    // ã‚¨ãƒãƒŸãƒ¼æç”»
     for (auto& e : sys->GetEnemies()) {
         int ex = sys->GetEnemyPosX();
         int ey = sys->GetEnemyPosY();
@@ -89,7 +73,26 @@ void BattleRenderer::RenderBattle(std::shared_ptr<BattleSystem> sys) {
         if (!e->getAlive()) { e->DeadAnimDraw(); }
     }
 
-    // ƒGƒtƒFƒNƒgÄ¶
+    // ã‚¿ãƒ¼ã‚²ãƒƒãƒˆé¸æŠžãƒ»è¡Œå‹•é¸æŠžã®ãƒœã‚¿ãƒ³ã¨ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚µãƒ¼ã‚¯ãƒ«
+    if (sys->GetTargetInput() == TargetInput::ACTIONCHOICE) {
+        m_ui->Button(sys->GetAtButtonX(), sys->GetButtonY(), sys->GetAtButtonX() + sys->GetButtonSizeX(), sys->GetButtonY() + sys->GetButtonSizeY(), CLoad::Instance().getAtkButtonGrh());
+        m_ui->Button(sys->GetSkButtonX(), sys->GetButtonY(), sys->GetSkButtonX() + sys->GetButtonSizeX(), sys->GetButtonY() + sys->GetButtonSizeY(), CLoad::Instance().getSklButtonGrh());
+    }
+    else if (sys->GetTargetInput() == TargetInput::TARGETCHOICE) {
+		// Backãƒœã‚¿ãƒ³
+        int backX = sys->GetSkButtonX() + sys->GetButtonSizeX() + 20;
+        int backY = sys->GetButtonY();
+        m_ui->Button(backX, backY, backX + sys->GetButtonSizeX(), backY + sys->GetButtonSizeY(), CLoad::Instance().getButtonGrh(BACK));
+
+		// ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚µãƒ¼ã‚¯ãƒ«
+        for (auto& t : sys->GetTargetList()) {
+            Position pos = sys->GetCharacterCenter(t);
+            DrawCircle(pos.x, pos.y, 40, GetColor(255, 0, 0), FALSE);
+        }
+    }
+
+
+	// æ”»æ’ƒã‚¨ãƒ•ã‚§ã‚¯ãƒˆæç”»
     auto currentChara = sys->GetCurrentTurnCharacter();
     if (currentChara) {
         for (size_t p = 0; p < party.size(); p++) {
@@ -108,7 +111,7 @@ void BattleRenderer::RenderBattle(std::shared_ptr<BattleSystem> sys) {
 
     for (auto& p : party) p->powerRender();
 
-    // ƒXƒLƒ‹à–¾
+	// ã‚¹ã‚­ãƒ«èª¬æ˜Žæç”»
     if (sys->GetSkDescDraw() && currentChara) {
         int sx = 20, sy = WINDOW_H - 210, sw = 400, sh = 50;
         SetDrawBlendMode(DX_BLENDMODE_ALPHA, 100);
@@ -119,12 +122,12 @@ void BattleRenderer::RenderBattle(std::shared_ptr<BattleSystem> sys) {
         DrawFormatString(sx + 10, sy + 10 + FONT_MINSIZE, GetColor(255, 255, 255), currentChara->getDetails().c_str());
     }
 
-    // ƒƒjƒ…[ƒo[
+	// ãƒ¡ãƒ‹ãƒ¥ãƒ¼ãƒœã‚¿ãƒ³æç”»
     SetFontSize(FONT_BIGSIZE);
     int posX = WINDOW_W - 250, posY = 10;
     DrawExtendGraph(posX, posY, posX + 250, posY + 150, CLoad::Instance().getMenuButton(), true);
 
-    // ƒJƒbƒgƒCƒ“
+	// ã‚«ãƒƒãƒˆã‚¤ãƒ³æç”»
     for (auto& e : sys->GetEnemies()) e->CutinDraw();
     for (auto& p : party) p->CutinDraw();
 }
