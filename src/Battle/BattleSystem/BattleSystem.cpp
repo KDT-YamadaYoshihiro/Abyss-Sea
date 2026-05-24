@@ -10,6 +10,7 @@
 
 BattleSystem::BattleSystem()
     : m_currentPhase(BATTLE_PHASE::INIT),
+    m_turn(0),
     m_atButtonX(450),
     m_buttonY(WINDOW_H - 60),
     m_skButtonX(450 + 210),
@@ -236,7 +237,7 @@ void BattleSystem::TargetListCreate(std::shared_ptr<Character> arg_character) {
 }
 
 void BattleSystem::TargetChoice(std::shared_ptr<Character> arg_character) {
-    if (CheckBoxClick(m_boxX, m_boxY, BUTTAN_WIDTH, BUTTAN_HEIGHT)) {
+    if (Collision::CheckBoxClick(m_boxX, m_boxY, BUTTAN_WIDTH, BUTTAN_HEIGHT)) {
         // m_se->PlaySe(CLoad::Instance().getSeHandle(SE_CANCEL));
         m_targetInput = TargetInput::ACTIONCHOICE;
         m_skDescDraw = false;
