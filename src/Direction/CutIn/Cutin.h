@@ -6,6 +6,8 @@
 #include "Load/Load.h"
 #include "Direction/Effect/CEffect.h"
 
+class Sound;
+
 class Cutin{
 
 	// –¼‘O

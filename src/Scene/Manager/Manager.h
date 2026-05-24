@@ -7,6 +7,8 @@
 #include "Load/Load.h"
 #include "Mission/Manager/MissionManager.h"
 
+class Sound;
+
 class ScreenManager {
 
 	// 

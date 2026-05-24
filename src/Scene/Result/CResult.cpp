@@ -12,7 +12,7 @@ void CResult::Update()
 
 	// クリックしたテキストに選択変更
 	for (int i = 0; i < MAX; i++) {
-		if (CheckBoxClick(choice_text_x[i], choice_text_y[i], TEXT_SIZE * 7, TEXT_SIZE)) {
+		if (Mouse::CheckBoxClick(choice_text_x[i], choice_text_y[i], TEXT_SIZE * 7, TEXT_SIZE)) {
 			se->PlaySe(CLoad::Instance().getSeHandle(SE_CLICK));
 			choice_num = i;
 		}
@@ -72,7 +72,7 @@ void CResult::Update()
 		// (CResult ->	CStage
 		//				CBattle
 		//				CTitle )
-	if (CheckBoxClick(box_x, box_y, size_w, size_h) && result_frame <= 0) {
+	if (Mouse::CheckBoxClick(box_x, box_y, size_w, size_h) && result_frame <= 0) {
 
 		auto& players = ScreenManager::Instance().getParty();
 
