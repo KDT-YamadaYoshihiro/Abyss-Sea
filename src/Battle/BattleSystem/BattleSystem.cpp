@@ -372,6 +372,7 @@ void BattleSystem::PEnd(std::shared_ptr<Character> arg_character) {
     m_currentTurnIndex++;
     if (m_currentTurnIndex >= m_turnOrder.size()) {
         TurnEnd();
+        m_currentPhase = BATTLE_PHASE::TURN_END; // advance phase for next loop
         return;
     }
 }
@@ -386,6 +387,7 @@ void BattleSystem::EEnd(std::shared_ptr<Character> arg_character) {
     m_currentTurnIndex++;
     if (m_currentTurnIndex >= m_turnOrder.size()) {
         TurnEnd();
+        m_currentPhase = BATTLE_PHASE::TURN_END; // advance phase for next loop
         return;
     }
 }
