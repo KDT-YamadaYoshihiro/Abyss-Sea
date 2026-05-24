@@ -64,13 +64,10 @@ private:
     int m_endFrame;
     int m_boxX;
     int m_boxY;
-    int m_speed;
     bool m_skDescDraw;
 
     std::vector<int> m_playerPosX;
     std::vector<int> m_playerPosY;
-    int m_enemyPosX;
-    int m_enemyPosY;
 
     std::vector<std::shared_ptr<Character>> m_targetList;
     std::vector<std::shared_ptr<Character>> m_targets;
@@ -98,8 +95,6 @@ public:
 
     int GetTurn() const { return m_turn; }
     int GetBlendNum() const { return m_blendNum; }
-    int GetEnemyPosX() const { return m_enemyPosX; }
-    int GetEnemyPosY() const { return m_enemyPosY; }
     const std::vector<int>& GetPlayerPosX() const { return m_playerPosX; }
     const std::vector<int>& GetPlayerPosY() const { return m_playerPosY; }
     int GetAtButtonX() const { return m_atButtonX; }

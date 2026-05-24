@@ -51,8 +51,8 @@ protected:
 	int actionChoice = -1;
 
 	// クリック選択で使用する座標変数
-	int posX = -1;
-	int posY = -1;
+	float posX = -1;
+	float posY = -1;
 
 	// エフェクトアニメーション用
 	// ターゲット座標
@@ -151,10 +151,10 @@ public:
 
 	// 座標のセット,ゲット関数
 	// x
-	void setPosX(int arg_posX) { posX = arg_posX; }
+	void setPosX(float arg_posX) { posX = arg_posX; }
 	int getPosX() const { return posX; }
 	// y
-	void setPosY(int arg_posY) { posY = arg_posY; }
+	void setPosY(float arg_posY) { posY = arg_posY; }
 	int getPosY()const { return posY; }
 
 	// カットイン終了ゲット関数

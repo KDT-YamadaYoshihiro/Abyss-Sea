@@ -63,12 +63,8 @@ void BattleRenderer::RenderBattle(std::shared_ptr<BattleSystem> sys) {
 
     // エネミー描画
     for (auto& e : sys->GetEnemies()) {
-        int ex = sys->GetEnemyPosX();
-        int ey = sys->GetEnemyPosY();
-        e->setPosX(ex);
-        e->setPosY(ey);
         int id = e->getId() - 100;
-        e->Render(ex, ey, CLoad::Instance().getEnemyGrh(id));
+        e->Render(CLoad::Instance().getEnemyGrh(id));
         e->powerRender();
         if (!e->getAlive()) { e->DeadAnimDraw(); }
     }

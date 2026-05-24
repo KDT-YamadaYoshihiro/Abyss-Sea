@@ -23,7 +23,6 @@ BattleSystem::BattleSystem()
     m_endFrame(120),
     m_boxX(860),
     m_boxY(WINDOW_H - 90),
-    m_speed(5),
     m_skDescDraw(false)
 {
     m_playerPosX.resize(PLAYER_MAX);
@@ -32,8 +31,6 @@ BattleSystem::BattleSystem()
         m_playerPosX[i] = 300 + (i % 2) * 50;
         m_playerPosY[i] = WINDOW_H / 2 + 60;
     }
-    m_enemyPosX = WINDOW_W / 2 + 300;
-    m_enemyPosY = WINDOW_H / 2 + 150;
 }
 
 void BattleSystem::Init()
@@ -349,6 +346,11 @@ void BattleSystem::EnemyAction(std::shared_ptr<Character> arg_character) {
             arg_character->TakeAction(m_targets);
         }
 
+        for (auto& e : m_enemies)
+        {
+            e->setMoveCheck(true);
+        }
+
         auto& p = ScreenManager::Instance().getParty();
         for (size_t i = 0; i < p.size(); i++) {
             if (m_targetList[index]->getId() == p[i]->getId())
@@ -438,17 +440,9 @@ void BattleSystem::PlayerMove() {
 }
 
 void BattleSystem::EnemyMove() {
-    for (auto& enemy : m_enemies) {
-        if (enemy->getMoveCheck()) {
-            m_enemyPosX -= m_speed;
-        }
-        if (m_speed >= 0 && m_enemyPosX <= WINDOW_W / 2 + 280) {
-            m_speed *= -1;
-        }
-        if (m_speed <= 0 && m_enemyPosX >= WINDOW_W / 2 + 300) {
-            m_speed *= -1;
-            enemy->setMoveCheck(false);
-        }
+    for (auto& e : m_enemies)
+    {
+        e->Update();
     }
 }
 
