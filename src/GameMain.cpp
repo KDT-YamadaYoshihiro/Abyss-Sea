@@ -4,6 +4,7 @@
 // ‰Šú‰»ˆ—
 bool CGame::Init()
 {
+
 	SRand((int)time(NULL));
 	InputKeyInit();
 	InputPadInit();

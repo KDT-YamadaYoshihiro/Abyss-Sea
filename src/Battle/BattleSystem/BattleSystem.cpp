@@ -403,7 +403,7 @@ void BattleSystem::TurnEnd() {
     TurnOrder();
     m_currentTurnIndex = 0;
     m_turn++;
-    m_currentPhase = BATTLE_PHASE::TURN_START; // reset to start next turn
+    m_currentPhase = BATTLE_PHASE::TURN_START;
 }
 
 void BattleSystem::TypeConversion() {
