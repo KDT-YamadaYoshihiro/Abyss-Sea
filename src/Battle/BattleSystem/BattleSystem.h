@@ -41,7 +41,7 @@ private:
     ActionMode m_actionMode = ActionMode::E_NONE;
     PLAYER_ACTION m_playerAction = NONE_ACTION;
 
-    // 2. キャラクター・システムインスタンス
+    // キャラクター・システムインスタンス
     std::vector<std::shared_ptr<Enemy>> m_enemies;
     std::vector<std::shared_ptr<Character>> m_turnOrder; // 行動順リスト
     size_t m_currentTurnIndex = 0;
@@ -52,7 +52,7 @@ private:
     std::shared_ptr<Sound> m_se;
     std::shared_ptr<Calculation> m_cal;
 
-    // 3. 座標・演出用変数
+    // 座標・演出用変数
     int m_atButtonX;
     int m_skButtonX;
     int m_buttonY;
@@ -133,8 +133,4 @@ private:
     void UpdataSP(std::shared_ptr<Character> arg_character);
     void PlayerMove();
     void EnemyMove();
-
-    // 外部からの関数と仮定（DxLib等）
-    bool CheckBoxClick(int x, int y, int w, int h);
-    bool CheckCircleClick(int x, int y, float r);
 };
