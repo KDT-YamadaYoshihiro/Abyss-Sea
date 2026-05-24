@@ -1,6 +1,6 @@
 #include "CharacterFactory.h"
 #include "Character/Player/CPlayer.h"
-#include "Character/Enemy/CEnemy.h"
+#include "Character/Enemy/Enemy.h"
 
 //@CSV‚Ì1s‚ğ•ªŠ„‚·‚é
 std::vector<std::string> split(const std::string& line, char delimiter = ',') {

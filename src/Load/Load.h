@@ -25,7 +25,7 @@ class CLoad {
 	// メニューボタン
 	int menuBT;
 	// 各種ボタン
-	int button[BUTTON_MAX];
+	int button[UI_BUTTON_MAX];
 
 	//　プレイヤー関連
 	int PlayerGrh[PLAYER_MAX];
@@ -69,7 +69,7 @@ class CLoad {
 		// メニューボタン
 		menuBT = LoadGraph("data/bg/menu.png");
 
-		for (int i = 0; i < BUTTON_MAX; i++) {
+		for (int i = 0; i < UI_BUTTON_MAX; i++) {
 			char filepath[64];
 			sprintf_s(filepath, "data/ui/ui_%d.png", i);
 			button[i] = LoadGraph(filepath);

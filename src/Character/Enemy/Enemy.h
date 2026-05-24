@@ -1,5 +1,6 @@
 #pragma once
 #include "Character/Character.h"
+#include "Constants/define.h"
 
 // 基底エネミークラス
 class Enemy : public Character

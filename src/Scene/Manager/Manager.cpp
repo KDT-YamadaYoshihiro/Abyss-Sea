@@ -1,5 +1,6 @@
 #include "Manager.h"
 #include "Scene/Title/CTitle.h"
+#include "Direction/Sound/Sound.h"
 
 void ScreenManager::Init()
 {

@@ -139,6 +139,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\System\InPut\Mouse\Mouse.cpp" />
+    <ClCompile Include="src\Battle\BattleRenderer\BattleRenderer.cpp" />
+    <ClCompile Include="src\Battle\BattlePresenter\BattlePresenter.cpp" />
+    <ClCompile Include="src\Battle\BattleMenu\BattleMenu.cpp" />
+    <ClCompile Include="src\Battle\BattleSystem\BattleSystem.cpp" />
     <ClCompile Include="src\Character\Player\CPlayer.cpp" />
     <ClCompile Include="src\Direction\CutIn\Cutin.cpp" />
     <ClCompile Include="src\Scene\Battle\CBattle.cpp" />
@@ -149,6 +154,7 @@
     <ClCompile Include="src\Scene\Title\CTitle.cpp" />
     <ClCompile Include="src\GameMain.cpp" />
     <ClCompile Include="src\System\InPut\Key\InPutKey.cpp" />
+    <ClCompile Include="src\System\InPut\Mouse\Mouse.cpp" />
     <ClCompile Include="src\System\InPut\Pad\InPutPad.cpp" />
     <ClCompile Include="src\Scene\Manager\Manager.cpp" />
     <ClCompile Include="src\Mission\Factory\MissionFactory.cpp" />
@@ -157,6 +163,12 @@
     <ClCompile Include="src\DisplaySystem\UI\UI.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Battle\BattleRenderer\BattleRenderer.h" />
+    <ClInclude Include="src\Battle\BattlePresenter\BattlePresenter.h" />
+    <ClInclude Include="src\Battle\BattleMenu\BattleMenu.h" />
+    <ClInclude Include="src\Battle\BattleSystem\BattleSystem.h" />
+    <ClInclude Include="src\Constants\define.h" />
+    <ClInclude Include="src\Direction\Sound\Sound.h" />
     <ClInclude Include="src\Math\Calculation.h" />
     <ClInclude Include="src\Character\Attack.h" />
     <ClInclude Include="src\Character\HP.h" />
@@ -164,7 +176,7 @@
     <ClInclude Include="src\Scene\Battle\CBattle.h" />
     <ClInclude Include="src\Scene\Battle\CBattle_SP.h" />
     <ClInclude Include="src\Direction\Effect\CEffect.h" />
-    <ClInclude Include="src\Character\Enemy\CEnemy.h" />
+    <ClInclude Include="src\Character\Enemy\Enemy.h" />
     <ClInclude Include="src\Character\Character.h" />
     <ClInclude Include="src\Character\CharacterData.h" />
     <ClInclude Include="src\Character\Factory\CharacterFactory.h" />
