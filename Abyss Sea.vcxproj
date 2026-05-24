@@ -139,7 +139,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\System\InPut\Mouse\Mouse.cpp" />
     <ClCompile Include="src\Battle\BattleRenderer\BattleRenderer.cpp" />
     <ClCompile Include="src\Battle\BattlePresenter\BattlePresenter.cpp" />
     <ClCompile Include="src\Battle\BattleMenu\BattleMenu.cpp" />
