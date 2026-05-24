@@ -4,7 +4,6 @@
 #include "Mission/Manager/MissionManager.h"
 #include "Scene/Manager/Manager.h"
 #include "Load/Load.h"
-#include "System/Collision/Collision.h"
 
 
 CBattle::CBattle() {
@@ -13,7 +12,7 @@ CBattle::CBattle() {
 
 void CBattle::BattleInit() {
     battleMenu = std::make_unique<BattleMenu>();
-    // fade = std::make_shared<FadeAlpha>(); // 外部で生成済みと想定
+	fade = ScreenManager::Instance().getFade();
     m_battleSystem = std::make_shared<BattleSystem>();
     m_battleRenderer = std::make_shared<BattleRenderer>();
     m_battlePresenter = std::make_shared<BattlePresenter>(m_battleSystem, m_battleRenderer);
@@ -50,7 +49,7 @@ void CBattle::Update() {
 
         m_battleSystem->Update(); // 旧BattleMain()をロジック更新に置換
 
-        if (CheckBoxClick(WINDOW_W - 250, 10, 250, 150)) {
+        if (Mouse::CheckBoxClick(WINDOW_W - 250, 10, 250, 150)) {
             state = State::MENU;
         }
 

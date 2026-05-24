@@ -134,7 +134,7 @@ BattleMenuResult BattleMenu::Update()
 			if (i % 2 == 0) { size = MAX_VOL / 10; }
 			else { size = -MAX_VOL / 10; }
 
-			if (click_frame == 0 && CheckCircleClick(buttonPosX[i], buttonPosY[i] + size, 50)) {
+			if (click_frame == 0 && Mouse::CheckCircleClick(buttonPosX[i], buttonPosY[i] + size, 50)) {
 
 				int bgmVol = ScreenManager::Instance().getBgmVolume();
 				int seVol = ScreenManager::Instance().getSeVolume();

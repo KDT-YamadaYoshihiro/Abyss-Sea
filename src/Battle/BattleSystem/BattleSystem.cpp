@@ -6,7 +6,8 @@
 #include "Mission/Manager/MissionManager.h"
 #include "Scene/Battle/CBattle_SP.h"
 #include "Load/Load.h"
-#include "System/Collision/Collision.h"
+#include "System/InPut/Mouse/Mouse.h"
+#include "Direction/Sound/Sound.h"
 
 BattleSystem::BattleSystem()
     : m_currentPhase(BATTLE_PHASE::INIT),
@@ -66,7 +67,10 @@ void BattleSystem::Init()
     m_sp->ResetSP();
     ScreenManager::Instance().setBattleResult(BATTLE_RESULT::BATTLE);
 
-    // m_bgm->PlayBgm(CLoad::Instance().getBgmHandle(1 + m_stage));
+	m_bgm = ScreenManager::Instance().getbgm();
+	m_se = ScreenManager::Instance().getSe();
+
+    m_bgm->PlayBgm(CLoad::Instance().getBgmHandle(1 + m_stage));
     m_endFrame = 120;
 
     TurnOrder();
@@ -192,20 +196,20 @@ void BattleSystem::ProcessTurn()
 }
 
 void BattleSystem::ActionChoice(std::shared_ptr<Character> arg_character) {
-    if (Collision::CheckBoxClick(m_atButtonX, m_buttonY, m_buttonSizeX, m_buttonSizeY)) {
-        // m_se->PlaySe(CLoad::Instance().getSeHandle(SE_CLICK));
+    if (Mouse::CheckBoxClick(m_atButtonX, m_buttonY, m_buttonSizeX, m_buttonSizeY)) {
+         m_se->PlaySe(CLoad::Instance().getSeHandle(SE_CLICK));
         arg_character->setActionChoice(ATTACK);
         m_targetInput = TargetInput::LISTCREATE;
     }
-    else if (Collision::CheckBoxClick(m_skButtonX, m_buttonY, m_buttonSizeX, m_buttonSizeY)) {
+    else if (Mouse::CheckBoxClick(m_skButtonX, m_buttonY, m_buttonSizeX, m_buttonSizeY)) {
         if (m_sp->getSP() > 0) {
-            // m_se->PlaySe(CLoad::Instance().getSeHandle(SE_CLICK));
+             m_se->PlaySe(CLoad::Instance().getSeHandle(SE_CLICK));
             arg_character->setActionChoice(SKILL);
             m_skDescDraw = true;
             m_targetInput = TargetInput::LISTCREATE;
         }
         else {
-            // m_se->PlaySe(CLoad::Instance().getSeHandle(SE_CANCEL));
+             m_se->PlaySe(CLoad::Instance().getSeHandle(SE_CANCEL));
         }
     }
 }
@@ -237,8 +241,8 @@ void BattleSystem::TargetListCreate(std::shared_ptr<Character> arg_character) {
 }
 
 void BattleSystem::TargetChoice(std::shared_ptr<Character> arg_character) {
-    if (Collision::CheckBoxClick(m_boxX, m_boxY, BUTTAN_WIDTH, BUTTAN_HEIGHT)) {
-        // m_se->PlaySe(CLoad::Instance().getSeHandle(SE_CANCEL));
+    if (Mouse::CheckBoxClick(m_boxX, m_boxY, BUTTAN_WIDTH, BUTTAN_HEIGHT)) {
+         m_se->PlaySe(CLoad::Instance().getSeHandle(SE_CANCEL));
         m_targetInput = TargetInput::ACTIONCHOICE;
         m_skDescDraw = false;
         return;
@@ -248,9 +252,9 @@ void BattleSystem::TargetChoice(std::shared_ptr<Character> arg_character) {
         Position pos = GetCharacterCenter(tar);
         std::vector<std::shared_ptr<Character>> actTargets;
 
-        if (m_playerAction == NONE_ACTION && Collision::CheckCircleClick(pos.x, pos.y, 40.0f)) {
+        if (m_playerAction == NONE_ACTION && Mouse::CheckCircleClick(pos.x, pos.y, 40.0f)) {
             m_playerAction = CHOICE;
-            // m_se->PlaySe(CLoad::Instance().getSeHandle(SE_CLICK));
+             m_se->PlaySe(CLoad::Instance().getSeHandle(SE_CLICK));
             m_selectTarget = tar;
             TypeConversion();
 

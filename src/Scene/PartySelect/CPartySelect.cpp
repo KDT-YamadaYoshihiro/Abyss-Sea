@@ -14,7 +14,7 @@ void CPartySelect::Update()
 		// フレームの増加
 		if (frame < 30) { frame++; }
 		// 戦闘ボタンでスクリーンをバトル画面に切り替え。
-		if (frame == 30 && CheckBoxClick(boxX, boxY, sizeW, sizeH)) {
+		if (frame == 30 && Mouse::CheckBoxClick(boxX, boxY, sizeW, sizeH)) {
 			// スタートSE
 			se->PlaySe(CLoad::Instance().getSeHandle(SE_START));
 			// フェードアウトスタート関数
@@ -23,7 +23,7 @@ void CPartySelect::Update()
 		}
 
 		// 戻るボタンでスクリーンをステージ選択画面に切り替える
-		if (frame == 30 && CheckBoxClick(20, 20, sizeW, sizeH)) {
+		if (frame == 30 && Mouse::CheckBoxClick(20, 20, sizeW, sizeH)) {
 			se->PlaySe(CLoad::Instance().getSeHandle(SE_CANCEL));
 			// フェードアウトスタート関数
 			fade->fadeStart(fade->FADE_CLAUSE);
@@ -32,7 +32,7 @@ void CPartySelect::Update()
 
 		// パーティー枠をクリックで変更モードに（全キャラクター一覧を展開）
 		for (int i = 0; i < 4; i++) {
-			if (CheckBoxClick(baseX + spacingX * i, baseY, grhSizeX, grhSizeY)) {
+			if (Mouse::CheckBoxClick(baseX + spacingX * i, baseY, grhSizeX, grhSizeY)) {
 				se->PlaySe(CLoad::Instance().getSeHandle(SE_DECISION));
 				selectedSlot = i;
 				uiState = UI_PARTYSTATE::SELECTING;
@@ -49,14 +49,14 @@ void CPartySelect::Update()
 			int posX = 100 + (i % 5) * 120;
 			int posY = 200 + (i / 5) * 120;
 			// 一覧の画像をクリックでパーティメンバーの差し替え候補に
-			if (CheckBoxClick(posX, posY, 100, 100)) {
+			if (Mouse::CheckBoxClick(posX, posY, 100, 100)) {
 				se->PlaySe(CLoad::Instance().getSeHandle(SE_CLICK));
 				selectedIndex = i;
 			}
 		}
 
 		// 決定ボタンがクリックされたとき、差し替えを行う。
-		if (CheckBoxClick(boxX, boxY, sizeW, sizeH) && selectedIndex != -1) {
+		if (Mouse::CheckBoxClick(boxX, boxY, sizeW, sizeH) && selectedIndex != -1) {
 			auto newChar = allChara[selectedIndex];
 
 			// 差し替え候補がすでにパーティーにいるか確認。
@@ -88,7 +88,7 @@ void CPartySelect::Update()
 		}
 
 		// 一覧を閉じてパーティー確認画面に戻る。
-		if (CheckBoxClick(20, 20, 200, 100)) {
+		if (Mouse::CheckBoxClick(20, 20, 200, 100)) {
 			se->PlaySe(CLoad::Instance().getSeHandle(SE_CANCEL));
 			uiState = UI_PARTYSTATE::NORMAL;
 			frame = 0;

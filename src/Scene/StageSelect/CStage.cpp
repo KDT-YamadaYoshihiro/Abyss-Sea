@@ -22,7 +22,7 @@ void CStage::Update()
 
 		// ステージスクリーン中に決定ボタンが押されたら画面が切り替わる
 		// (CStage -> CPatySelect)
-		if (CheckBoxClick(boxX, boxY, boxSizeX, boxSizeY) == true) {
+		if (Mouse::CheckBoxClick(boxX, boxY, boxSizeX, boxSizeY) == true) {
 			// 決定SE
 			se->PlaySe(CLoad::Instance().getSeHandle(SE_DECISION));
 			// フェードアウトスタート関数
@@ -79,7 +79,7 @@ void CStage::Triangle()
 	// 円がClickされたら
 	for (int i = 0; i < STAGE_MAX; i++) {
 
-		if (CheckBoxClick(posX[i], posY[i], 700, 100)) {
+		if (Mouse::CheckBoxClick(posX[i], posY[i], 700, 100)) {
 			// 三角形の座標をClickした円の上部にする
 			stageNum = i;
 			se->PlaySe(CLoad::Instance().getSeHandle(SE_CLICK));

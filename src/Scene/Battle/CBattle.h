@@ -20,7 +20,6 @@ class CBattle : public ScreenBase {
     enum class State { BATTLE, MENU, DEAD_EFFECT, END };
     State state = State::BATTLE;
 
-    std::unique_ptr<BattleMenu> battleMenu;
     std::shared_ptr<FadeAlpha> fade;
     std::shared_ptr<Effect> effect;
     std::shared_ptr<Calculation> cal;
@@ -28,6 +27,7 @@ class CBattle : public ScreenBase {
     std::shared_ptr<BattleSystem> m_battleSystem;
     std::shared_ptr<BattleRenderer> m_battleRenderer;
     std::shared_ptr<BattlePresenter> m_battlePresenter;
+    std::unique_ptr<BattleMenu> battleMenu;
 
     int end_frame = 60;
 

@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\System\InPut\Mouse\Mouse.cpp" />
     <ClCompile Include="src\Battle\BattleRenderer\BattleRenderer.cpp" />
     <ClCompile Include="src\Battle\BattlePresenter\BattlePresenter.cpp" />
     <ClCompile Include="src\Battle\BattleMenu\BattleMenu.cpp" />
@@ -153,6 +154,7 @@
     <ClCompile Include="src\Scene\Title\CTitle.cpp" />
     <ClCompile Include="src\GameMain.cpp" />
     <ClCompile Include="src\System\InPut\Key\InPutKey.cpp" />
+    <ClCompile Include="src\System\InPut\Mouse\Mouse.cpp" />
     <ClCompile Include="src\System\InPut\Pad\InPutPad.cpp" />
     <ClCompile Include="src\Scene\Manager\Manager.cpp" />
     <ClCompile Include="src\Mission\Factory\MissionFactory.cpp" />
@@ -189,7 +191,6 @@
     <ClInclude Include="src\DisplaySystem\Fade\Fade.h" />
     <ClInclude Include="src\GameMain.h" />
     <ClInclude Include="src\DisplaySystem\Icon\Icon.h" />
-    <ClInclude Include="src\System\Collision\Collision.h" />
     <ClInclude Include="src\System\InPut\Key\InPutKey.h" />
     <ClInclude Include="src\System\InPut\Pad\InPutPad.h" />
     <ClInclude Include="src\Scene\Manager\Manager.h" />
