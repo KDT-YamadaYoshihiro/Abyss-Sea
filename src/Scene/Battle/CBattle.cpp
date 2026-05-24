@@ -93,12 +93,12 @@ void CBattle::Update() {
 }
 
 void CBattle::Render() {
-    if (state == State::MENU) {
-        battleMenu->Draw();
-    }
-    else {
-        m_battlePresenter->Render();
-    }
+     m_battlePresenter->Render();
+
+     if (state == State::MENU) {
+         battleMenu->Draw();
+     }
+
     // if(fade) fade->Draw();
 }
 

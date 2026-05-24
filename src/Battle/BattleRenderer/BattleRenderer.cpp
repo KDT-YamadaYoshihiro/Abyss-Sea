@@ -80,14 +80,14 @@ void BattleRenderer::RenderBattle(std::shared_ptr<BattleSystem> sys) {
     }
     else if (sys->GetTargetInput() == TargetInput::TARGETCHOICE) {
 		// Backボタン
-        int backX = sys->GetSkButtonX() + sys->GetButtonSizeX() + 20;
-        int backY = sys->GetButtonY();
-        m_ui->Button(backX, backY, backX + sys->GetButtonSizeX(), backY + sys->GetButtonSizeY(), CLoad::Instance().getButtonGrh(BACK));
+        int backX = sys->GetBoxX();
+        int backY = sys->GetBoxY();
+        m_ui->Button(backX, backY, backX + BUTTAN_WIDTH, backY + BUTTAN_HEIGHT, CLoad::Instance().getButtonGrh(BACK));
 
 		// ターゲットサークル
         for (auto& t : sys->GetTargetList()) {
             Position pos = sys->GetCharacterCenter(t);
-            DrawCircle(pos.x, pos.y, 40, GetColor(255, 0, 0), FALSE);
+            DrawCircle(pos.x - 20, pos.y - 15, 40, GetColor(255, 0, 0), FALSE);
         }
     }
 
