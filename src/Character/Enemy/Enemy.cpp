@@ -7,7 +7,6 @@ Enemy::Enemy(int id, const std::string& name, int hp, int atk, int def, int agr,
 {
 
     ui = std::make_shared<UI>();
-    deadEffect = std::make_shared<Effect>(CLoad::Instance().getEffectGrh(EFFECT_TYPE::EF_NONE));
     action = ENEMY_ACTION::TURN_START;
     posX = WINDOW_W / 2 + 300;
     posY = WINDOW_H / 2 + 150;
@@ -44,30 +43,6 @@ void Enemy::StartCutin()
     int handle = CLoad::Instance().getEfaceGrh(this->ID - 100);
     int seHandle = CLoad::Instance().getSeHandle(SE_CUTIN2);
     cutin->Start(WINDOW_W - 300, -300, handle, seHandle, Skill.Name, 30, 2, 60);
-}
-
-void Enemy::DeadAnimUpdate()
-{
-    if (hasDeadEffect()) { deadEffect->sidePlayAnim(); }
-}
-
-void Enemy::DeadAnimDraw()
-{
-    if (hasDeadEffect())
-    {
-        deadEffect->effectDraw(targetPosX, targetPosY, targetSizeW, targetSizeH);
-    }
-}
-
-void Enemy::PlayDeadEffect(int x, int y, int sizeW, int sizeH)
-{
-    if (!deadEffect->getEfDraw()) {
-        targetPosX = x;					// 座標設定
-        targetPosY = y;
-        targetSizeW = sizeW;
-        targetSizeH = sizeH;
-        deadEffect->effectStart();		// エフェクトスタート関数
-    }
 }
 
 void Enemy::TakeAction(std::vector<std::shared_ptr<Character>>& targets)

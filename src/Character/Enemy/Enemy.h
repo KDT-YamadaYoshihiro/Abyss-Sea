@@ -9,8 +9,8 @@ class Enemy : public Character
     // UI
     std::shared_ptr<UI> ui;
 
-    // 死亡時エフェクト
-    std::shared_ptr<Effect> deadEffect;
+    //// 死亡時エフェクト
+    //std::shared_ptr<Effect> deadEffect;
 
     // 行動状態
     ENEMY_ACTION action;
@@ -55,16 +55,6 @@ public:
 
 	// カットイン開始
     void StartCutin() override;
-
-    // エネミー側で使用
-    std::shared_ptr<Effect> getDeadEffect() const { return deadEffect; }
-    bool hasDeadEffect() const { return deadEffect->getEfDraw(); }
-    // エネミー死亡時のアニメーション更新
-    void DeadAnimUpdate();
-    // エネミー死亡時のアニメーション描画
-    void DeadAnimDraw();
-    // 死亡時アニメーションの再生関数
-    void PlayDeadEffect(int x, int y, int sizeW, int sizeH);
 
     // 攻撃内容
     void TakeAction(std::vector<std::shared_ptr<Character>>& targets) override;

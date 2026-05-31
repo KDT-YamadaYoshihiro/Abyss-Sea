@@ -66,7 +66,6 @@ void BattleRenderer::RenderBattle(std::shared_ptr<BattleSystem> sys) {
         int id = e->getId() - 100;
         e->Render(CLoad::Instance().getEnemyGrh(id));
         e->powerRender();
-        if (!e->getAlive()) { e->DeadAnimDraw(); }
     }
 
     // ターゲット選択・行動選択のボタンとターゲットサークル
