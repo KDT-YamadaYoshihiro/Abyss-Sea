@@ -3,16 +3,16 @@
 Enemy::Enemy(int id, const std::string& name, int hp, int atk, int def, int agr, int lv, int exp, const SkillData& skill)
     : Character(id, name, hp, atk, def, agr, lv, exp, skill),
     m_atMoveSpeed(5),
-    m_waitMoveSpeed(0.1f)
+    m_waitMoveSpeed(0.1f),
+	m_deathAlpha(255),
+	moveCheck(false)
 {
-
     ui = std::make_shared<UI>();
     action = ENEMY_ACTION::TURN_START;
     posX = WINDOW_W / 2 + 300;
     posY = WINDOW_H / 2 + 150;
     m_hpPosX = posX - 150;
     m_hpPosY = posY - 250;
-    moveCheck = false;
 }
 
 void Enemy::Update()
@@ -92,5 +92,15 @@ void Enemy::AttackMove()
     if (m_atMoveSpeed <= 0 && posX >= WINDOW_W / 2 + 300) {
         m_atMoveSpeed *= -1;
         moveCheck = false;
+    }
+}
+
+void Enemy::UpdateDeathFade()
+{
+    if (!Alive && m_deathAlpha > 0) {
+        m_deathAlpha -= 5;
+        if (m_deathAlpha < 0) {
+            m_deathAlpha = 0;
+        }
     }
 }
