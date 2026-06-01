@@ -22,7 +22,7 @@ void CStage::Update()
 
 		// ステージスクリーン中に決定ボタンが押されたら画面が切り替わる
 		// (CStage -> CPatySelect)
-		if (Mouse::CheckBoxClick(boxX, boxY, boxSizeX, boxSizeY) == true) {
+		if (Mouse::CheckBoxClick(boxX, boxY, boxSizeX, boxSizeY) == true && stageNum != -1) {
 			// 決定SE
 			se->PlaySe(CLoad::Instance().getSeHandle(SE_DECISION));
 			// フェードアウトスタート関数
