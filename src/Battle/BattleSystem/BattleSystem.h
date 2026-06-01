@@ -81,6 +81,8 @@ public:
     void Update();
     void Delete();
 
+    void StopBgm();
+
     // 
     const std::vector<std::shared_ptr<Enemy>>& GetEnemies() const { return m_enemies; }
     const std::vector<std::shared_ptr<Character>>& GetTurnOrder() const { return m_turnOrder; }
@@ -118,8 +120,8 @@ private:
     void TargetChoice(std::shared_ptr<Character> arg_character);
     void EnemyActionInit(std::shared_ptr<Character> arg_character);
     void EnemyAction(std::shared_ptr<Character> arg_character);
-    void PEnd(std::shared_ptr<Character> arg_character);
-    void EEnd(std::shared_ptr<Character> arg_character);
+    void PlayerEnd(std::shared_ptr<Character> arg_character);
+    void EnemyEnd(std::shared_ptr<Character> arg_character);
     void TurnEnd();
     void TurnOrder();
     void PlayEffectByType(std::shared_ptr<Character> actor, const std::vector<std::shared_ptr<Character>>& targets);

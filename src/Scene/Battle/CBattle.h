@@ -29,7 +29,7 @@ class CBattle : public ScreenBase {
     std::shared_ptr<BattlePresenter> m_battlePresenter;
     std::unique_ptr<BattleMenu> battleMenu;
 
-    int end_frame = 60;
+	bool endEffectPlayed = false;
 
 public:
     CBattle();

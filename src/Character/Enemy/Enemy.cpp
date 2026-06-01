@@ -3,16 +3,16 @@
 Enemy::Enemy(int id, const std::string& name, int hp, int atk, int def, int agr, int lv, int exp, const SkillData& skill)
     : Character(id, name, hp, atk, def, agr, lv, exp, skill),
     m_atMoveSpeed(5),
-    m_waitMoveSpeed(0.1f)
+    m_waitMoveSpeed(0.1f),
+	m_deathAlpha(255),
+	moveCheck(false)
 {
-
     ui = std::make_shared<UI>();
     action = ENEMY_ACTION::TURN_START;
     posX = WINDOW_W / 2 + 300;
     posY = WINDOW_H / 2 + 150;
     m_hpPosX = posX - 150;
     m_hpPosY = posY - 250;
-    moveCheck = false;
 }
 
 void Enemy::Update()
@@ -23,10 +23,12 @@ void Enemy::Update()
 
 void Enemy::Render(int arg_grh)
 {
+    SetDrawBlendMode(DX_BLENDMODE_ALPHA, m_deathAlpha);
     ui->EnemyRender(posX, posY, arg_grh, 0.2f);
-    //@HP‚Ì•`‰æ
+    SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+	// HPãƒãƒ¼ã®æç”»
     ui->HpRender(m_hpPosX,m_hpPosY, 300, 20, this->maxHp, this->HP, GetColor(0, 255, 0));
-    // –¼‘OEƒŒƒxƒ‹
+	// åå‰ã¨ãƒ¬ãƒ™ãƒ«ã®æç”»
     SetFontSize(20);
     DrawFormatString(m_hpPosX, m_hpPosY - 40, GetColor(255, 0, 0), "%s", this->Name.c_str());
     DrawFormatString(m_hpPosX, m_hpPosY - 20, GetColor(255, 0, 0), "Lv:%2d", this->Lv);
@@ -34,7 +36,7 @@ void Enemy::Render(int arg_grh)
 
 void Enemy::CutinDraw()
 {
-    // ƒJƒbƒgƒCƒ“•`‰æ
+	// ã‚«ãƒƒãƒˆã‚¤ãƒ³æç”»
     cutin->Draw();
 }
 
@@ -47,13 +49,13 @@ void Enemy::StartCutin()
 
 void Enemy::TakeAction(std::vector<std::shared_ptr<Character>>& targets)
 {
-    // ¶‘¶”»’è
+	// è¡Œå‹•ä¸èƒ½ãªã‚‰ä½•ã‚‚ã—ãªã„
     if (!Alive)
     {
         return;
     }
 
-    // ƒ^[ƒQƒbƒg‚ªŒˆ‚Ü‚ê‚ÎAƒ^[ƒQƒbƒg‚ğUŒ‚
+	// ãƒ€ãƒ¡ãƒ¼ã‚¸è¨ˆç®—ã¨ãƒ€ãƒ¡ãƒ¼ã‚¸è¡¨ç¤º
     for (auto& tar : targets) {
         int damage = cal->DamageCal(this->ATK, tar->getDefense());
         if (damage < 1)
@@ -69,6 +71,7 @@ void Enemy::TakeAction(std::vector<std::shared_ptr<Character>>& targets)
 
 void Enemy::WaitMove()
 {
+	// å¾…æ©Ÿä¸­ã®ä¸Šä¸‹ç§»å‹•
     if (!moveCheck) {
         posY -= m_waitMoveSpeed;
     }
@@ -83,6 +86,7 @@ void Enemy::WaitMove()
 
 void Enemy::AttackMove()
 {
+	// æ”»æ’ƒä¸­ã®å·¦å³ç§»å‹•
     if (moveCheck) {
         posX -= m_atMoveSpeed;
     }
@@ -92,5 +96,25 @@ void Enemy::AttackMove()
     if (m_atMoveSpeed <= 0 && posX >= WINDOW_W / 2 + 300) {
         m_atMoveSpeed *= -1;
         moveCheck = false;
+    }
+}
+
+bool Enemy::UpdateDeathFade()
+{
+    if (!Alive && m_deathAlpha > 0) {
+        m_deathAlpha -= 1;
+    }
+
+    if (m_deathAlpha < 0) {
+        m_deathAlpha = 0;
+    }
+
+    if (m_deathAlpha == 0)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
     }
 }
