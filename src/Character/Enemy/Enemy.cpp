@@ -19,14 +19,14 @@ void Enemy::Update()
 {
     WaitMove();
     AttackMove();
-}
+    UpdateDeathFade();
 
 void Enemy::Render(int arg_grh)
 {
     ui->EnemyRender(posX, posY, arg_grh, 0.2f);
-    //@HP‚Ì•`‰æ
+    //ï¿½@HPï¿½Ì•`ï¿½ï¿½
     ui->HpRender(m_hpPosX,m_hpPosY, 300, 20, this->maxHp, this->HP, GetColor(0, 255, 0));
-    // –¼‘OEƒŒƒxƒ‹
+    // ï¿½ï¿½ï¿½Oï¿½Eï¿½ï¿½ï¿½xï¿½ï¿½
     SetFontSize(20);
     DrawFormatString(m_hpPosX, m_hpPosY - 40, GetColor(255, 0, 0), "%s", this->Name.c_str());
     DrawFormatString(m_hpPosX, m_hpPosY - 20, GetColor(255, 0, 0), "Lv:%2d", this->Lv);
@@ -34,7 +34,7 @@ void Enemy::Render(int arg_grh)
 
 void Enemy::CutinDraw()
 {
-    // ƒJƒbƒgƒCƒ“•`‰æ
+    // ï¿½Jï¿½bï¿½gï¿½Cï¿½ï¿½ï¿½`ï¿½ï¿½
     cutin->Draw();
 }
 
@@ -47,13 +47,13 @@ void Enemy::StartCutin()
 
 void Enemy::TakeAction(std::vector<std::shared_ptr<Character>>& targets)
 {
-    // ¶‘¶”»’è
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     if (!Alive)
     {
         return;
     }
 
-    // ƒ^[ƒQƒbƒg‚ªŒˆ‚Ü‚ê‚ÎAƒ^[ƒQƒbƒg‚ðUŒ‚
+    // ï¿½^ï¿½[ï¿½Qï¿½bï¿½gï¿½ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ÎAï¿½^ï¿½[ï¿½Qï¿½bï¿½gï¿½ï¿½ï¿½Uï¿½ï¿½
     for (auto& tar : targets) {
         int damage = cal->DamageCal(this->ATK, tar->getDefense());
         if (damage < 1)
