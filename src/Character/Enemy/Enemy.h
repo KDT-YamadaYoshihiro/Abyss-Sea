@@ -63,7 +63,7 @@ public:
     // 攻撃Move
     void AttackMove();
 	// 死亡演出
-    void UpdateDeathFade();
+    bool UpdateDeathFade();
 	// 死亡演出のアルファ値のゲット
     int GetDeathAlpha() const { return m_deathAlpha; }
 };

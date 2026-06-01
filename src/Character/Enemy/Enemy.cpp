@@ -19,14 +19,16 @@ void Enemy::Update()
 {
     WaitMove();
     AttackMove();
-    UpdateDeathFade();
+}
 
 void Enemy::Render(int arg_grh)
 {
+    SetDrawBlendMode(DX_BLENDMODE_ALPHA, m_deathAlpha);
     ui->EnemyRender(posX, posY, arg_grh, 0.2f);
-    //�@HP�̕`��
+    SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+	// HPバーの描画
     ui->HpRender(m_hpPosX,m_hpPosY, 300, 20, this->maxHp, this->HP, GetColor(0, 255, 0));
-    // ���O�E���x��
+	// 名前とレベルの描画
     SetFontSize(20);
     DrawFormatString(m_hpPosX, m_hpPosY - 40, GetColor(255, 0, 0), "%s", this->Name.c_str());
     DrawFormatString(m_hpPosX, m_hpPosY - 20, GetColor(255, 0, 0), "Lv:%2d", this->Lv);
@@ -34,7 +36,7 @@ void Enemy::Render(int arg_grh)
 
 void Enemy::CutinDraw()
 {
-    // �J�b�g�C���`��
+	// カットイン描画
     cutin->Draw();
 }
 
@@ -47,13 +49,13 @@ void Enemy::StartCutin()
 
 void Enemy::TakeAction(std::vector<std::shared_ptr<Character>>& targets)
 {
-    // ��������
+	// 行動不能なら何もしない
     if (!Alive)
     {
         return;
     }
 
-    // �^�[�Q�b�g�����܂�΁A�^�[�Q�b�g���U��
+	// ダメージ計算とダメージ表示
     for (auto& tar : targets) {
         int damage = cal->DamageCal(this->ATK, tar->getDefense());
         if (damage < 1)
@@ -69,6 +71,7 @@ void Enemy::TakeAction(std::vector<std::shared_ptr<Character>>& targets)
 
 void Enemy::WaitMove()
 {
+	// 待機中の上下移動
     if (!moveCheck) {
         posY -= m_waitMoveSpeed;
     }
@@ -83,6 +86,7 @@ void Enemy::WaitMove()
 
 void Enemy::AttackMove()
 {
+	// 攻撃中の左右移動
     if (moveCheck) {
         posX -= m_atMoveSpeed;
     }
@@ -95,12 +99,22 @@ void Enemy::AttackMove()
     }
 }
 
-void Enemy::UpdateDeathFade()
+bool Enemy::UpdateDeathFade()
 {
     if (!Alive && m_deathAlpha > 0) {
-        m_deathAlpha -= 5;
-        if (m_deathAlpha < 0) {
-            m_deathAlpha = 0;
-        }
+        m_deathAlpha -= 1;
+    }
+
+    if (m_deathAlpha < 0) {
+        m_deathAlpha = 0;
+    }
+
+    if (m_deathAlpha == 0)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
     }
 }
