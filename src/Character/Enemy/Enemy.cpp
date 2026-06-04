@@ -45,7 +45,7 @@ void Enemy::StartCutin()
     cutin->Start(WINDOW_W - 300, -300, handle, seHandle, Skill.Name, 30, 2, 60);
 }
 
-void Enemy::TakeAction(std::vector<std::shared_ptr<Character>>& targets)
+void Enemy::TakeAction(std::vector<std::shared_ptr<Character>>& targets, int trun)
 {
     // 生存判定
     if (!Alive)
@@ -53,18 +53,57 @@ void Enemy::TakeAction(std::vector<std::shared_ptr<Character>>& targets)
         return;
     }
 
-    // ターゲットが決まれば、ターゲットを攻撃
+	if (trun % 3 == 0)
+	{
+        SkillAttack(targets);
+	}
+	else
+	{
+        NormalAttack(targets);
+	}
+}
+
+void Enemy::NormalAttack(std::vector<std::shared_ptr<Character>>& targets)
+{
     for (auto& tar : targets) {
+        // ダメージ量を計算
         int damage = cal->DamageCal(this->ATK, tar->getDefense());
+        // 0未満にしない
         if (damage < 1)
         {
             damage = 1;
         }
+        //　ダメージ関数
         tar->takeDamage(damage);
+        // アニメーション
         moveCheck = true;
+        // ダメージ描画
         tar->damageRenderStart(tar->getPosX() - 20, tar->getPosY() - 5, 20, damage);
-
     }
+}
+
+void Enemy::SkillAttack(std::vector<std::shared_ptr<Character>>& targets)
+{
+    int damage = -1;
+    int bace_atk = 0;
+
+    for (auto& tar : targets) {
+
+        // ダメージ量を計算
+        // スキル補正
+        bace_atk = this->ATK * this->Skill.power;
+        // ダメージ計算
+        damage = cal->DamageCal(bace_atk, Buff.atkMultiplier, getAtkbuff(), tar->getDefense());
+        // ０未満にしない
+        if (damage < 1) damage = 1;
+        //　ダメージ関数
+        tar->takeDamage(damage);
+		// アニメーション
+        moveCheck = true;
+        // ダメージ描画
+        tar->damageRenderStart(tar->getPosX() - 20, tar->getPosY() - 5, 20, damage);
+    }
+
 }
 
 void Enemy::WaitMove()

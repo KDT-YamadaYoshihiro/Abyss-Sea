@@ -68,7 +68,7 @@ void Player::LevelUp()
 	this->AGR = static_cast<int>(this->AGR * 1.2f);
 }
 
-void Player::TakeAction(std::vector<std::shared_ptr<Character>>& targets)
+void Player::TakeAction(std::vector<std::shared_ptr<Character>>& targets, int trun)
 {
 	// チェックの判定があれば、対象選択
 	if (!Alive)	return;
