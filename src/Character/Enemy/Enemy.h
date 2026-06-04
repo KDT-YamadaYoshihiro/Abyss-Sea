@@ -9,9 +9,6 @@ class Enemy : public Character
     // UI
     std::shared_ptr<UI> ui;
 
-    //// 死亡時エフェクト
-    //std::shared_ptr<Effect> deadEffect;
-
     // 行動状態
     ENEMY_ACTION action;
 
@@ -57,7 +54,11 @@ public:
 	// カットイン開始
     void StartCutin() override;
     // 攻撃内容
-    void TakeAction(std::vector<std::shared_ptr<Character>>& targets) override;
+    void TakeAction(std::vector<std::shared_ptr<Character>>& targets, int trun = 0) override;
+    // 通常攻撃
+	void NormalAttack(std::vector<std::shared_ptr<Character>>& targets);
+	// スキル攻撃
+	void SkillAttack(std::vector<std::shared_ptr<Character>>& targets);
     // 待機Move
     void WaitMove();
     // 攻撃Move

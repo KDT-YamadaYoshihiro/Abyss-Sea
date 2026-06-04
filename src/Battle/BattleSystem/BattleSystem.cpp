@@ -345,30 +345,87 @@ void BattleSystem::EnemyActionInit(std::shared_ptr<Character> arg_character) {
 }
 
 void BattleSystem::EnemyAction(std::shared_ptr<Character> arg_character) {
+    //if (arg_character->getCutinEnd()) {
+    //    for (auto& p : ScreenManager::Instance().getParty()) {
+    //        if (p->getAlive()) m_targetList.push_back(p);
+    //    }
+
+    //    int index = rand() % m_targetList.size();
+    //    m_selectTarget = m_targetList[index];
+    //    TypeConversion();
+
+    //    if (arg_character->getCutinEnd()) {
+    //        arg_character->TakeAction(m_targets);
+    //    }
+
+    //    for (auto& e : m_enemies)
+    //    {
+    //        e->setMoveCheck(true);
+    //    }
+
+    //    auto& p = ScreenManager::Instance().getParty();
+    //    for (size_t i = 0; i < p.size(); i++) {
+    //        if (m_targetList[index]->getId() == p[i]->getId())
+    //            p[i]->setAnimType(DAMAGE);
+    //    }
+
+    //    m_actionMode = ActionMode::END;
+    //}
+
+    bool isSkillTurn = (m_turn > 0 && m_turn % 3 == 0);
+
+    if (isSkillTurn && !arg_character->getCutinEnd()) {
+        return; 
+    }
+
     if (arg_character->getCutinEnd()) {
+
+        // 前回のターゲット情報をクリア
+        m_targetList.clear();
+        m_targets.clear();
+
+        // 生存しているパーティメンバー（味方）をリストアップ
         for (auto& p : ScreenManager::Instance().getParty()) {
-            if (p->getAlive()) m_targetList.push_back(p);
+            if (p->getAlive()) {
+                m_targetList.push_back(p);
+            }
         }
 
-        int index = rand() % m_targetList.size();
-        m_selectTarget = m_targetList[index];
-        TypeConversion();
-
-        if (arg_character->getCutinEnd()) {
-            arg_character->TakeAction(m_targets);
+        // 味方が全滅していたら何もせず終了
+        if (m_targetList.empty()) {
+            m_actionMode = ActionMode::END;
+            return;
         }
 
-        for (auto& e : m_enemies)
-        {
+        // ターゲットの決定（単体 or 全体）
+        if (isSkillTurn && arg_character->getTargetType() == SKILL_TARGET_TYPE::ALL_ALLY) {
+            // 【全体攻撃】生存している味方全員をターゲットリストにする
+            m_targets = m_targetList;
+        }
+        else {
+            // 【単体攻撃】生存者からランダムに1人選ぶ
+            int index = rand() % m_targetList.size();
+            m_selectTarget = m_targetList[index];
+            m_targets.push_back(m_selectTarget);
+
+            // 既存の型変換等のシステム処理
+            TypeConversion();
+        }
+
+        // エネミーの行動ルーチンを実行（ターゲットリストと現在のターン数を渡す）
+        arg_character->TakeAction(m_targets, m_turn);
+
+        // エネミーの移動フラグなどを更新
+        for (auto& e : m_enemies) {
             e->setMoveCheck(true);
         }
 
-        auto& p = ScreenManager::Instance().getParty();
-        for (size_t i = 0; i < p.size(); i++) {
-            if (m_targetList[index]->getId() == p[i]->getId())
-                p[i]->setAnimType(DAMAGE);
+        // 攻撃対象になった「全員」のモーションを被ダメージ（DAMAGE）に変更
+        for (auto& tar : m_targets) {
+            tar->setAnimType(DAMAGE);
         }
 
+        // 行動終了
         m_actionMode = ActionMode::END;
     }
 }

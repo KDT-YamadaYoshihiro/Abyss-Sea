@@ -8,4 +8,4 @@ ID,skillName,skilltype,targetType,skillPower,skilltTrun,EffectType,Details
 7001,フェアリーヒール,1,4,0.3,0,6,味方全体のHPを回復させる。
 8001,シャドウ・スラスト,0,3,1.2,0,4,敵全体に連撃の剣技を放つ。
 9001,セルフィナ・ブレイズ,0,3,1.2,0,5,敵全体に連続の魔法攻撃を放つ。
-9999,NoName,5,2,0,0,0,
+9999,NoName,0,4,1.6,0,0,ー

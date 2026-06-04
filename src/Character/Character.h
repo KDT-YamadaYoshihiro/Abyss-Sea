@@ -43,7 +43,10 @@ protected:
 
 	// カットインクラス
 	std::shared_ptr<Cutin> cutin;
-	// 
+
+	// アニメーション
+	GRTYPE AnimType;
+
 
 	// アイコン画像ハンドル変数
 	int faceGrh = -1;
@@ -140,6 +143,9 @@ public:
 	bool getDrawPower() const { return drawPower; }
 	int getPower() const { return Power; }
 
+	// アニメーションタイプのゲット、セット
+	void setAnimType(GRTYPE arg_type) { AnimType = arg_type; }
+	GRTYPE getAnimType() const { return AnimType; }
 
 	// アイコン画像のセット,ゲット関数
 	//void setFaceHandle(int handle) { faceGrh = handle; }
@@ -188,7 +194,7 @@ public:
 	virtual void Render(int arg_posX, int arg_posY, int arg_grh) = 0;
 
 	// 基本的な行動（攻撃）を仮想関数として定義
-	virtual void TakeAction(std::vector<std::shared_ptr<Character>>& targets) = 0;
+	virtual void TakeAction(std::vector<std::shared_ptr<Character>>& targets, int trun = 0) = 0;
 
 	// エフェクトの再生
 	void PlayAttackEffect(int x, int y, int sizeW, int sizeH) {

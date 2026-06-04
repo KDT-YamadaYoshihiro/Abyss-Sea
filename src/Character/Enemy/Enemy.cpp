@@ -47,7 +47,7 @@ void Enemy::StartCutin()
     cutin->Start(WINDOW_W - 300, -300, handle, seHandle, Skill.Name, 30, 2, 60);
 }
 
-void Enemy::TakeAction(std::vector<std::shared_ptr<Character>>& targets)
+void Enemy::TakeAction(std::vector<std::shared_ptr<Character>>& targets, int trun)
 {
 	// 行動不能なら何もしない
     if (!Alive)
@@ -55,18 +55,57 @@ void Enemy::TakeAction(std::vector<std::shared_ptr<Character>>& targets)
         return;
     }
 
-	// ダメージ計算とダメージ表示
+	if (trun % 3 == 0)
+	{
+        SkillAttack(targets);
+	}
+	else
+	{
+        NormalAttack(targets);
+	}
+}
+
+void Enemy::NormalAttack(std::vector<std::shared_ptr<Character>>& targets)
+{
     for (auto& tar : targets) {
+        // �_���[�W�ʂ��v�Z
         int damage = cal->DamageCal(this->ATK, tar->getDefense());
+        // 0�����ɂ��Ȃ�
         if (damage < 1)
         {
             damage = 1;
         }
+        //�@�_���[�W�֐�
         tar->takeDamage(damage);
+        // �A�j���[�V����
         moveCheck = true;
+        // �_���[�W�`��
         tar->damageRenderStart(tar->getPosX() - 20, tar->getPosY() - 5, 20, damage);
-
     }
+}
+
+void Enemy::SkillAttack(std::vector<std::shared_ptr<Character>>& targets)
+{
+    int damage = -1;
+    int bace_atk = 0;
+
+    for (auto& tar : targets) {
+
+        // �_���[�W�ʂ��v�Z
+        // �X�L���␳
+        bace_atk = this->ATK * this->Skill.power;
+        // �_���[�W�v�Z
+        damage = cal->DamageCal(bace_atk, Buff.atkMultiplier, getAtkbuff(), tar->getDefense());
+        // �O�����ɂ��Ȃ�
+        if (damage < 1) damage = 1;
+        //�@�_���[�W�֐�
+        tar->takeDamage(damage);
+		// �A�j���[�V����
+        moveCheck = true;
+        // �_���[�W�`��
+        tar->damageRenderStart(tar->getPosX() - 20, tar->getPosY() - 5, 20, damage);
+    }
+
 }
 
 void Enemy::WaitMove()

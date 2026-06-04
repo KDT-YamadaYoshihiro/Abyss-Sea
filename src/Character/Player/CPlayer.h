@@ -25,9 +25,6 @@ class Player : public Character {
 	// 最低ダメージ
 	int minDamage = -1;
 
-	// アニメーション
-	GRTYPE AnimType;
-
 public:
 
 
@@ -55,10 +52,6 @@ public:
 		return CLoad::Instance().getPfaceGrh(this->getId());
 	}
 
-	// アニメーションタイプのゲット、セット
-	void setAnimType(GRTYPE arg_type) { AnimType = arg_type; }
-	GRTYPE getAnimType() const { return AnimType; }
-
 	// UIへアニメーションの変更とUI上のタイプを取得
 	void setAnimChange(bool arg_change) { ui->setAnimWait(arg_change); }
 	bool getAnimChange() const { return ui->getAnimWait(); }
@@ -79,7 +72,7 @@ public:
 	// レベルアップ関数
 	void LevelUp();
 	// 行動選択関数
-	void TakeAction(std::vector<std::shared_ptr<Character>>& targets) override;
+	void TakeAction(std::vector<std::shared_ptr<Character>>& targets, int trun = 0) override;
 	// スキル
 	void UseSkill(std::shared_ptr<Character>& arg_targets, SKILL_TYPE arg_type, float arg_power, int arg_trun);
 	// 描画
