@@ -68,18 +68,18 @@ void Enemy::TakeAction(std::vector<std::shared_ptr<Character>>& targets, int tru
 void Enemy::NormalAttack(std::vector<std::shared_ptr<Character>>& targets)
 {
     for (auto& tar : targets) {
-        // �_���[�W�ʂ��v�Z
+		// ダメージ計算
         int damage = cal->DamageCal(this->ATK, tar->getDefense());
-        // 0�����ɂ��Ȃ�
+		// ダメージ最低保証
         if (damage < 1)
         {
             damage = 1;
         }
-        //�@�_���[�W�֐�
+		// ダメージを与える
         tar->takeDamage(damage);
-        // �A�j���[�V����
+		// 攻撃エフェクト開始
         moveCheck = true;
-        // �_���[�W�`��
+		// ダメージ表示開始
         tar->damageRenderStart(tar->getPosX() - 20, tar->getPosY() - 5, 20, damage);
     }
 }
@@ -91,18 +91,17 @@ void Enemy::SkillAttack(std::vector<std::shared_ptr<Character>>& targets)
 
     for (auto& tar : targets) {
 
-        // �_���[�W�ʂ��v�Z
-        // �X�L���␳
+		// スキル攻撃の基礎攻撃力計算
         bace_atk = this->ATK * this->Skill.power;
-        // �_���[�W�v�Z
+		// ダメージ計算
         damage = cal->DamageCal(bace_atk, Buff.atkMultiplier, getAtkbuff(), tar->getDefense());
-        // �O�����ɂ��Ȃ�
+		// ダメージ最低保証
         if (damage < 1) damage = 1;
-        //�@�_���[�W�֐�
+		// ダメージを与える
         tar->takeDamage(damage);
-		// �A�j���[�V����
+		// 攻撃エフェクト開始
         moveCheck = true;
-        // �_���[�W�`��
+		// ダメージ表示開始
         tar->damageRenderStart(tar->getPosX() - 20, tar->getPosY() - 5, 20, damage);
     }
 
