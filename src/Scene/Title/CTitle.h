@@ -2,6 +2,7 @@
 #include "Scene/Manager/Manager.h"
 #include "Character/Character.h"
 #include "Character/Factory/CharacterFactory.h"
+#include "Direction/BubbleEffect/BubbleEffect.h"
 
 // タイトルスクリーンクラス
 class CTitle : public ScreenBase {
@@ -12,16 +13,18 @@ class CTitle : public ScreenBase {
 	std::shared_ptr<Sound>bgm;
 	std::shared_ptr<Sound> se;
 
-	std::shared_ptr<UI> ui[UI_MAX];
+	std::shared_ptr<UI> ui;
 
 	std::shared_ptr<FadeAlpha> fade;
+
+	std::shared_ptr<BubbleEffect> bubble;
 
 	float posX = -1.0f;
 	float posY = -1.0f;
 	float sway = -1.0f;
 
-	int bgPosX[UI_MAX];
-	int bgPosY[UI_MAX];
+	int bgPosX;
+	int bgPosY;
 
 public:
 
@@ -41,18 +44,15 @@ public:
 		bgm = ScreenManager::Instance().getbgm();
 		se = ScreenManager::Instance().getSe();
 		fade = ScreenManager::Instance().getFade();
+		bubble = std::make_shared<BubbleEffect>();
 
-		for (int i = 0; i < UI_MAX; i++) {
-			ui[i] = std::make_shared<UI>();
+		ui = std::make_shared<UI>();
 			
-			bgPosX[0] = 0;
-			bgPosY[0] = 0;
+		bgPosX= 0;
+		bgPosY= 0;
+		
 
-			bgPosX[1] = WINDOW_W;
-			bgPosY[1] = 0;
-		}
-
-
+		bubble->Play(20.0f, 1, 1.0f, 600);
 	};
 
 	virtual ~CTitle();

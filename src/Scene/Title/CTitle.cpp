@@ -4,6 +4,7 @@
 // 更新処理
 void CTitle::Update()
 {
+
 	// フェードの更新処理
 	fade->fadeUpdate();
 
@@ -20,10 +21,7 @@ void CTitle::Update()
 		sway *= -1;
 	}
 
-	// 背景移動
-	for (int i = 0; i < UI_MAX; i++) {
-		//ui[i]->BgScroll(bgPosX[i], bgPosY[i], WINDOW_W, WINDOW_H);
-	}
+	bubble->Update();
 
 	// タイトルスクリーン宙にクリックすると画面が切り替わる。
 	// (CTitle -> CStage)
@@ -45,10 +43,9 @@ void CTitle::Update()
 void CTitle::Render()
 {
 	// 背景描画
-	for (int i = 0; i < UI_MAX; i++)
-	{
-		ui[i]->BgRender(bgPosX[i], bgPosY[i], WINDOW_W, WINDOW_H, CLoad::Instance().getBgGrh());
-	}
+	ui->BgRender(bgPosX, bgPosY, WINDOW_W, WINDOW_H, CLoad::Instance().getBgGrh());
+
+	bubble->Render();
 
 	// タイトル文字
 	DrawGraph(100, 200, CLoad::Instance().getTitleGrh(), true);

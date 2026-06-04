@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Direction\BubbleEffect\BubbleEffect.cpp" />
     <ClCompile Include="src\Battle\BattleRenderer\BattleRenderer.cpp" />
     <ClCompile Include="src\Battle\BattlePresenter\BattlePresenter.cpp" />
     <ClCompile Include="src\Battle\BattleMenu\BattleMenu.cpp" />
@@ -163,6 +164,7 @@
     <ClCompile Include="src\DisplaySystem\UI\UI.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Direction\BubbleEffect\BubbleEffect.h" />
     <ClInclude Include="src\Battle\BattleRenderer\BattleRenderer.h" />
     <ClInclude Include="src\Battle\BattlePresenter\BattlePresenter.h" />
     <ClInclude Include="src\Battle\BattleMenu\BattleMenu.h" />
