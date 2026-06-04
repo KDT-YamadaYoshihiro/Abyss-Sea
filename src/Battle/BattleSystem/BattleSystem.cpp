@@ -345,32 +345,6 @@ void BattleSystem::EnemyActionInit(std::shared_ptr<Character> arg_character) {
 }
 
 void BattleSystem::EnemyAction(std::shared_ptr<Character> arg_character) {
-    //if (arg_character->getCutinEnd()) {
-    //    for (auto& p : ScreenManager::Instance().getParty()) {
-    //        if (p->getAlive()) m_targetList.push_back(p);
-    //    }
-
-    //    int index = rand() % m_targetList.size();
-    //    m_selectTarget = m_targetList[index];
-    //    TypeConversion();
-
-    //    if (arg_character->getCutinEnd()) {
-    //        arg_character->TakeAction(m_targets);
-    //    }
-
-    //    for (auto& e : m_enemies)
-    //    {
-    //        e->setMoveCheck(true);
-    //    }
-
-    //    auto& p = ScreenManager::Instance().getParty();
-    //    for (size_t i = 0; i < p.size(); i++) {
-    //        if (m_targetList[index]->getId() == p[i]->getId())
-    //            p[i]->setAnimType(DAMAGE);
-    //    }
-
-    //    m_actionMode = ActionMode::END;
-    //}
 
     bool isSkillTurn = (m_turn > 0 && m_turn % 3 == 0);
 
@@ -418,6 +392,7 @@ void BattleSystem::EnemyAction(std::shared_ptr<Character> arg_character) {
         // エネミーの移動フラグなどを更新
         for (auto& e : m_enemies) {
             e->setMoveCheck(true);
+			m_se->PlaySe(CLoad::Instance().getSeHandle(SE_ATTACK));
         }
 
         // 攻撃対象になった「全員」のモーションを被ダメージ（DAMAGE）に変更

@@ -22,7 +22,7 @@ void CTitle::Update()
 
 	// 背景移動
 	for (int i = 0; i < UI_MAX; i++) {
-		ui[i]->BgScroll(bgPosX[i], bgPosY[i], WINDOW_W, WINDOW_H);
+		//ui[i]->BgScroll(bgPosX[i], bgPosY[i], WINDOW_W, WINDOW_H);
 	}
 
 	// タイトルスクリーン宙にクリックすると画面が切り替わる。

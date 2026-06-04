@@ -35,7 +35,7 @@ public:
 		fade(nullptr),
 		posX(WINDOW_W / 2.0f),
 		posY(600.0f),
-		sway(1.0f)
+		sway(0.1f)
 	{
 
 		bgm = ScreenManager::Instance().getbgm();
