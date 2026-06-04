@@ -119,7 +119,7 @@ void BattleSystem::Update()
                     }
                     for (auto& p : ScreenManager::Instance().getParty()) {
                         if (p->getAnimChange() && m_targetInput == TargetInput::END) {
-                            PEnd(character);
+                            PlayerEnd(character);
                         }
                     }
                 }
@@ -132,12 +132,12 @@ void BattleSystem::Update()
                         EnemyAction(character);
                     }
                     if (m_actionMode == ActionMode::END) {
-                        EEnd(character);
+                        EnemyEnd(character);
                     }
                 }
             }
             else {
-                PEnd(character);
+                PlayerEnd(character);
             }
         }
         else if (m_turnOrder.empty() || m_currentTurnIndex >= m_turnOrder.size()) {
@@ -159,6 +159,11 @@ void BattleSystem::Update()
 void BattleSystem::Delete()
 {
     m_enemies.clear();
+}
+
+void BattleSystem::StopBgm()
+{
+	m_bgm->stopBgm(CLoad::Instance().getBgmHandle(1 + m_stage));
 }
 
 void BattleSystem::CheckAliveStatus()
@@ -301,22 +306,28 @@ void BattleSystem::PlayEffectByType(std::shared_ptr<Character> actor, const std:
         switch (efType) {
         case EFFECT_TYPE::EF_SKILL1:
             for (auto& t : targets) actor->PlaySkillEffect(t->getPosX(), t->getPosY(), 300, 250);
+			m_se->PlaySe(CLoad::Instance().getSeHandle(SE_SKILL1));
             break;
         case EFFECT_TYPE::EF_SKILL2:
             for (auto& t : targets) actor->PlaySkillEffect(t->getPosX(), t->getPosY(), 350, 250);
+			m_se->PlaySe(CLoad::Instance().getSeHandle(SE_SKILL2));
             break;
         case EFFECT_TYPE::EF_ALL_SKILL1:
             for (auto& t : targets) actor->PlaySkillEffect(t->getPosX(), t->getPosY(), 100, 100);
+			m_se->PlaySe(CLoad::Instance().getSeHandle(SE_SKILL1));
             break;
         case EFFECT_TYPE::EF_ALL_SKILL2:
             for (auto& t : targets) actor->PlaySkillEffect(t->getPosX(), t->getPosY(), 250, 250);
+			m_se->PlaySe(CLoad::Instance().getSeHandle(SE_SKILL2));
             break;
         case EFFECT_TYPE::EF_HEAL:
             for (auto& t : targets) actor->PlaySkillEffect(t->getPosX(), t->getPosY(), 30, 40);
+			m_se->PlaySe(CLoad::Instance().getSeHandle(SE_HEAL));
             break;
         case EFFECT_TYPE::EF_BUFF:
         case EFFECT_TYPE::EF_DEBUFF:
             for (auto& t : targets) actor->PlaySkillEffect(t->getPosX(), t->getPosY(), 50, 40);
+			m_se->PlaySe(CLoad::Instance().getSeHandle(SE_BUFF));
             break;
         default:
             break;
@@ -324,6 +335,7 @@ void BattleSystem::PlayEffectByType(std::shared_ptr<Character> actor, const std:
     }
     else {
         for (auto& t : targets) actor->PlayAttackEffect(t->getPosX(), t->getPosY(), 50, 40);
+		m_se->PlaySe(CLoad::Instance().getSeHandle(SE_ATTACK));
     }
 }
 
@@ -418,7 +430,7 @@ void BattleSystem::EnemyAction(std::shared_ptr<Character> arg_character) {
     }
 }
 
-void BattleSystem::PEnd(std::shared_ptr<Character> arg_character) {
+void BattleSystem::PlayerEnd(std::shared_ptr<Character> arg_character) {
     for (auto& p : ScreenManager::Instance().getParty()) {
         p->setAnimType(WAIT);
         p->setAnimChange(false);
@@ -435,7 +447,7 @@ void BattleSystem::PEnd(std::shared_ptr<Character> arg_character) {
     }
 }
 
-void BattleSystem::EEnd(std::shared_ptr<Character> arg_character) {
+void BattleSystem::EnemyEnd(std::shared_ptr<Character> arg_character) {
     for (auto& p : ScreenManager::Instance().getParty()) {
         p->setAnimType(WAIT);
         p->setAnimChange(false);

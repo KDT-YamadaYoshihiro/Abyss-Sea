@@ -32,6 +32,7 @@ void CBattle::Update() {
 
     for (auto& e : m_battleSystem->GetEnemies()) {
         e->CutinUpdate();
+        endEffectPlayed = e->UpdateDeathFade();
     }
 
     for (auto& p : ScreenManager::Instance().getParty()) {
@@ -47,7 +48,7 @@ void CBattle::Update() {
     case State::BATTLE:
         if (fade && !fade->checkOpen()) { return; }
 
-        m_battleSystem->Update(); // 旧BattleMain()をロジック更新に置換
+        m_battleSystem->Update();
 
         if (Mouse::CheckBoxClick(WINDOW_W - 250, 10, 250, 150)) {
             state = State::MENU;
@@ -72,7 +73,7 @@ void CBattle::Update() {
             for (auto& p : ScreenManager::Instance().getParty()) {
                 p->setAlive(false);
             }
-            if (fade) fade->fadeStart(fade->FADE_CLAUSE);
+            state = State::END;
         }
         break;
 
@@ -88,6 +89,7 @@ void CBattle::Update() {
     MissionManager::Instance().TurnLimit(ScreenManager::Instance().getStageScreen(), m_battleSystem->GetTurn());
 
     if (fade && fade->checkClause() && m_battleSystem->IsBattleOver()) {
+        m_battleSystem->StopBgm();
         ScreenManager::Instance().ChangeScreen<CResult>();
     }
 }
@@ -98,12 +100,9 @@ void CBattle::Render() {
      if (state == State::MENU) {
          battleMenu->Draw();
      }
-
-    // if(fade) fade->Draw();
 }
 
 void CBattle::PlayEndEffect() {
-    end_frame--;
     for (auto& e : m_battleSystem->GetEnemies()) {
         if (!e->getAlive()) {
             for (auto& p : ScreenManager::Instance().getParty()) p->setAnimType(GRTYPE::WIN);
@@ -112,12 +111,11 @@ void CBattle::PlayEndEffect() {
             for (auto& p : ScreenManager::Instance().getParty()) p->setAnimType(GRTYPE::LOSE);
         }
     }
-    if (end_frame <= 0) {
+    if (endEffectPlayed) {
         state = State::END;
     }
 }
 
 void CBattle::BattleEnd() {
     if (fade) fade->fadeStart(fade->FADE_CLAUSE);
-    // BGM停止処理などはSoundManagerへ移譲済とする
 }

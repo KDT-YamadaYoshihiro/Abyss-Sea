@@ -3,16 +3,16 @@
 Enemy::Enemy(int id, const std::string& name, int hp, int atk, int def, int agr, int lv, int exp, const SkillData& skill)
     : Character(id, name, hp, atk, def, agr, lv, exp, skill),
     m_atMoveSpeed(5),
-    m_waitMoveSpeed(0.1f)
+    m_waitMoveSpeed(0.1f),
+	m_deathAlpha(255),
+	moveCheck(false)
 {
-
     ui = std::make_shared<UI>();
     action = ENEMY_ACTION::TURN_START;
     posX = WINDOW_W / 2 + 300;
     posY = WINDOW_H / 2 + 150;
     m_hpPosX = posX - 150;
     m_hpPosY = posY - 250;
-    moveCheck = false;
 }
 
 void Enemy::Update()
@@ -23,10 +23,12 @@ void Enemy::Update()
 
 void Enemy::Render(int arg_grh)
 {
+    SetDrawBlendMode(DX_BLENDMODE_ALPHA, m_deathAlpha);
     ui->EnemyRender(posX, posY, arg_grh, 0.2f);
-    //@HP‚Ì•`‰æ
+    SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+	// HPãƒãƒ¼ã®æç”»
     ui->HpRender(m_hpPosX,m_hpPosY, 300, 20, this->maxHp, this->HP, GetColor(0, 255, 0));
-    // –¼‘OEƒŒƒxƒ‹
+	// åå‰ã¨ãƒ¬ãƒ™ãƒ«ã®æç”»
     SetFontSize(20);
     DrawFormatString(m_hpPosX, m_hpPosY - 40, GetColor(255, 0, 0), "%s", this->Name.c_str());
     DrawFormatString(m_hpPosX, m_hpPosY - 20, GetColor(255, 0, 0), "Lv:%2d", this->Lv);
@@ -34,7 +36,7 @@ void Enemy::Render(int arg_grh)
 
 void Enemy::CutinDraw()
 {
-    // ƒJƒbƒgƒCƒ“•`‰æ
+	// ã‚«ãƒƒãƒˆã‚¤ãƒ³æç”»
     cutin->Draw();
 }
 
@@ -47,7 +49,7 @@ void Enemy::StartCutin()
 
 void Enemy::TakeAction(std::vector<std::shared_ptr<Character>>& targets, int trun)
 {
-    // ¶‘¶”»’è
+	// è¡Œå‹•ä¸èƒ½ãªã‚‰ä½•ã‚‚ã—ãªã„
     if (!Alive)
     {
         return;
@@ -66,18 +68,18 @@ void Enemy::TakeAction(std::vector<std::shared_ptr<Character>>& targets, int tru
 void Enemy::NormalAttack(std::vector<std::shared_ptr<Character>>& targets)
 {
     for (auto& tar : targets) {
-        // ƒ_ƒ[ƒW—Ê‚ğŒvZ
+        // ï¿½_ï¿½ï¿½ï¿½[ï¿½Wï¿½Ê‚ï¿½ï¿½vï¿½Z
         int damage = cal->DamageCal(this->ATK, tar->getDefense());
-        // 0–¢–‚É‚µ‚È‚¢
+        // 0ï¿½ï¿½ï¿½ï¿½ï¿½É‚ï¿½ï¿½È‚ï¿½
         if (damage < 1)
         {
             damage = 1;
         }
-        //@ƒ_ƒ[ƒWŠÖ”
+        //ï¿½@ï¿½_ï¿½ï¿½ï¿½[ï¿½Wï¿½Öï¿½
         tar->takeDamage(damage);
-        // ƒAƒjƒ[ƒVƒ‡ƒ“
+        // ï¿½Aï¿½jï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½
         moveCheck = true;
-        // ƒ_ƒ[ƒW•`‰æ
+        // ï¿½_ï¿½ï¿½ï¿½[ï¿½Wï¿½`ï¿½ï¿½
         tar->damageRenderStart(tar->getPosX() - 20, tar->getPosY() - 5, 20, damage);
     }
 }
@@ -89,18 +91,18 @@ void Enemy::SkillAttack(std::vector<std::shared_ptr<Character>>& targets)
 
     for (auto& tar : targets) {
 
-        // ƒ_ƒ[ƒW—Ê‚ğŒvZ
-        // ƒXƒLƒ‹•â³
+        // ï¿½_ï¿½ï¿½ï¿½[ï¿½Wï¿½Ê‚ï¿½ï¿½vï¿½Z
+        // ï¿½Xï¿½Lï¿½ï¿½ï¿½â³
         bace_atk = this->ATK * this->Skill.power;
-        // ƒ_ƒ[ƒWŒvZ
+        // ï¿½_ï¿½ï¿½ï¿½[ï¿½Wï¿½vï¿½Z
         damage = cal->DamageCal(bace_atk, Buff.atkMultiplier, getAtkbuff(), tar->getDefense());
-        // ‚O–¢–‚É‚µ‚È‚¢
+        // ï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½É‚ï¿½ï¿½È‚ï¿½
         if (damage < 1) damage = 1;
-        //@ƒ_ƒ[ƒWŠÖ”
+        //ï¿½@ï¿½_ï¿½ï¿½ï¿½[ï¿½Wï¿½Öï¿½
         tar->takeDamage(damage);
-		// ƒAƒjƒ[ƒVƒ‡ƒ“
+		// ï¿½Aï¿½jï¿½ï¿½ï¿½[ï¿½Vï¿½ï¿½ï¿½ï¿½
         moveCheck = true;
-        // ƒ_ƒ[ƒW•`‰æ
+        // ï¿½_ï¿½ï¿½ï¿½[ï¿½Wï¿½`ï¿½ï¿½
         tar->damageRenderStart(tar->getPosX() - 20, tar->getPosY() - 5, 20, damage);
     }
 
@@ -108,6 +110,7 @@ void Enemy::SkillAttack(std::vector<std::shared_ptr<Character>>& targets)
 
 void Enemy::WaitMove()
 {
+	// å¾…æ©Ÿä¸­ã®ä¸Šä¸‹ç§»å‹•
     if (!moveCheck) {
         posY -= m_waitMoveSpeed;
     }
@@ -122,6 +125,7 @@ void Enemy::WaitMove()
 
 void Enemy::AttackMove()
 {
+	// æ”»æ’ƒä¸­ã®å·¦å³ç§»å‹•
     if (moveCheck) {
         posX -= m_atMoveSpeed;
     }
@@ -131,5 +135,25 @@ void Enemy::AttackMove()
     if (m_atMoveSpeed <= 0 && posX >= WINDOW_W / 2 + 300) {
         m_atMoveSpeed *= -1;
         moveCheck = false;
+    }
+}
+
+bool Enemy::UpdateDeathFade()
+{
+    if (!Alive && m_deathAlpha > 0) {
+        m_deathAlpha -= 1;
+    }
+
+    if (m_deathAlpha < 0) {
+        m_deathAlpha = 0;
+    }
+
+    if (m_deathAlpha == 0)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
     }
 }

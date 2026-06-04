@@ -12,15 +12,17 @@ class Enemy : public Character
     // 行動状態
     ENEMY_ACTION action;
 
+    // 攻撃スピード
+    float m_waitMoveSpeed;
+    int m_atMoveSpeed;
+
     // HP用座標
     int m_hpPosX;
     int m_hpPosY;
-
+	// 死亡時のアルファ値
+    int m_deathAlpha = 255;
     // エネミー用
     bool moveCheck = false;
-    // 攻撃スピード
-    int m_atMoveSpeed;
-    float m_waitMoveSpeed;
 
 public:
 
@@ -49,10 +51,8 @@ public:
     void Render(int arg_grh);
     // カットイン描画
     void CutinDraw() override;
-
 	// カットイン開始
     void StartCutin() override;
-
     // 攻撃内容
     void TakeAction(std::vector<std::shared_ptr<Character>>& targets, int trun = 0) override;
     // 通常攻撃
@@ -63,5 +63,8 @@ public:
     void WaitMove();
     // 攻撃Move
     void AttackMove();
-
+	// 死亡演出
+    bool UpdateDeathFade();
+	// 死亡演出のアルファ値のゲット
+    int GetDeathAlpha() const { return m_deathAlpha; }
 };
