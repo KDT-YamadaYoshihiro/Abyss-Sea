@@ -21,12 +21,13 @@ bool CGame::Init()
 	}
 	SetBackgroundColor(0, 0, 0);
 	SetMainWindowText("Abyss Sea");
-	if (DxLib_Init() == -1) { return -1; }
+	if (DxLib_Init() == -1) { return false; }
 
 	SetDrawScreen(DX_SCREEN_BACK);
 
 	ScreenManager::Instance().Init();
 
+	return true;
 }
 // ƒ‹[ƒvˆ—
 void CGame::Run()

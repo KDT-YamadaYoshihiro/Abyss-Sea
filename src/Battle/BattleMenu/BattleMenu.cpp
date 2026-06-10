@@ -175,9 +175,10 @@ BattleMenuResult BattleMenu::Update()
 
 		// 決定ボタンを押した際
 		if (CheckBoxClick(WINDOW_W / 2 - (FONT_BIGSIZE * 2), WINDOW_H - 100, BUTTAN_WIDTH, BUTTAN_HEIGHT)) {
+			// se再生
+			se->PlaySe(CLoad::Instance().getSeHandle(SE_CLICK));
 			// MENUの選択画面に戻る
 			m_menuState = MenuState::MAIN;
-			se->PlaySe(CLoad::Instance().getSeHandle(SE_CLICK));
 		}
 
 		break;
@@ -308,13 +309,16 @@ void BattleMenu::Draw()
 
 bool BattleMenu::CheckBoxClick(int arg_x, int arg_y, int arg_width, int arg_height)
 {
-	int mouseX, mouseY;
-	GetMousePoint(&mouseX, &mouseY);
+	bool lastDown = false;
+	bool down = (GetMouseInput() & MOUSE_INPUT_LEFT) != 0;
 
-	if ((GetMouseInput() & MOUSE_INPUT_LEFT) != 0) {
-		if (mouseX >= arg_x && mouseX <= arg_x + arg_width && mouseY >= arg_y && mouseY <= arg_y + arg_height) {
-			return true;
-		}
+	// クリック検知
+	if (down && !lastDown) {
+		int mx, my; GetMousePoint(&mx, &my);
+		if (mx >= arg_x && mx <= arg_x + arg_width && my >= arg_y && my <= arg_y + arg_height) { return true; }
 	}
+
+	lastDown = down;
+
 	return false;
 }
