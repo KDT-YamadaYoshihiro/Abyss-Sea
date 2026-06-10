@@ -309,7 +309,7 @@ void BattleMenu::Draw()
 
 bool BattleMenu::CheckBoxClick(int arg_x, int arg_y, int arg_width, int arg_height)
 {
-	static bool lastDown = false;
+	bool lastDown = false;
 	bool down = (GetMouseInput() & MOUSE_INPUT_LEFT) != 0;
 
 	// クリック検知
