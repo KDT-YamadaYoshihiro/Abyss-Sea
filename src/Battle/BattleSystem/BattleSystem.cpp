@@ -419,10 +419,6 @@ void BattleSystem::EnemyAction(std::shared_ptr<Character> arg_character) {
 }
 
 void BattleSystem::PlayerEnd(std::shared_ptr<Character> arg_character) {
-    for (auto& p : ScreenManager::Instance().getParty()) {
-        p->setAnimType(WAIT);
-        p->setAnimChange(false);
-    }
 
     m_skDescDraw = false;
     m_targetInput = TargetInput::ACTIONCHOICE;
@@ -436,10 +432,6 @@ void BattleSystem::PlayerEnd(std::shared_ptr<Character> arg_character) {
 }
 
 void BattleSystem::EnemyEnd(std::shared_ptr<Character> arg_character) {
-    for (auto& p : ScreenManager::Instance().getParty()) {
-        p->setAnimType(WAIT);
-        p->setAnimChange(false);
-    }
 
     m_actionMode = ActionMode::E_NONE;
     m_currentTurnIndex++;

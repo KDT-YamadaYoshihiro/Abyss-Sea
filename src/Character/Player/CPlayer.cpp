@@ -4,6 +4,13 @@ void Player::AnimUpdata()
 {
 	ui->PlayerAnim(AnimType);
 
+	// 自動的に待機状態に戻る
+	if (AnimType != WAIT && getAnimChange())
+	{
+		AnimType = WAIT;
+		setAnimChange(false);
+	}
+
 	switch (Skill.effectType)
 	{
 	case EFFECT_TYPE::EF_NONE:
