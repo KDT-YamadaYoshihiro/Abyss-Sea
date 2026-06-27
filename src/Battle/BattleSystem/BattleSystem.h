@@ -77,13 +77,27 @@ public:
     BattleSystem();
     ~BattleSystem() = default;
 
+    /// <summary>
+    /// 初期化
+    /// </summary>
     void Init();
+
+    /// <summary>
+    /// 更新処理
+    /// </summary>
     void Update();
+
+    /// <summary>
+    /// 終了処理
+    /// </summary>
     void Delete();
 
+    /// <summary>
+    /// BGM停止処理
+    /// </summary>
     void StopBgm();
 
-    // 
+    // 各取得セット関数
     const std::vector<std::shared_ptr<Enemy>>& GetEnemies() const { return m_enemies; }
     const std::vector<std::shared_ptr<Character>>& GetTurnOrder() const { return m_turnOrder; }
     const std::vector<std::shared_ptr<Character>>& GetTargetList() const { return m_targetList; }
@@ -113,21 +127,83 @@ public:
     Position GetCharacterCenter(std::shared_ptr<Character> arg_chara);
 
 private:
+
+    /// <summary>
+    /// 生存確認
+    /// </summary>
     void CheckAliveStatus();
+    /// <summary>
+    /// ターン列挙子の初期化
+    /// </summary>
     void ProcessTurn();
+    /// <summary>
+    /// プレイヤーの行動選択
+    /// </summary>
+    /// <param name="arg_character"></param>
     void ActionChoice(std::shared_ptr<Character> arg_character);
+    /// <summary>
+    /// 攻撃対象の生成
+    /// </summary>
+    /// <param name="arg_character"></param>
     void TargetListCreate(std::shared_ptr<Character> arg_character);
+    /// <summary>
+    /// 攻撃対象の選択
+    /// </summary>
+    /// <param name="arg_character"></param>
     void TargetChoice(std::shared_ptr<Character> arg_character);
+    /// <summary>
+    /// エネミー行動準備
+    /// </summary>
+    /// <param name="arg_character"></param>
     void EnemyActionInit(std::shared_ptr<Character> arg_character);
+    /// <summary>
+    /// エネミーの行動
+    /// </summary>
+    /// <param name="arg_character"></param>
     void EnemyAction(std::shared_ptr<Character> arg_character);
+    /// <summary>
+    /// プレイヤーの行動終了
+    /// </summary>
+    /// <param name="arg_character"></param>
     void PlayerEnd(std::shared_ptr<Character> arg_character);
+    /// <summary>
+    /// エネミーの行動終了
+    /// </summary>
+    /// <param name="arg_character"></param>
     void EnemyEnd(std::shared_ptr<Character> arg_character);
+    /// <summary>
+    /// ターン終了
+    /// </summary>
     void TurnEnd();
+    /// <summary>
+    /// 行動順の作成
+    /// </summary>
     void TurnOrder();
+    /// <summary>
+    /// プレイヤー再生エフェクト
+    /// </summary>
+    /// <param name="actor"></param>
+    /// <param name="targets"></param>
     void PlayEffectByType(std::shared_ptr<Character> actor, const std::vector<std::shared_ptr<Character>>& targets);
+    /// <summary>
+    /// 
+    /// </summary>
     void TypeConversion();
+    /// <summary>
+    /// 
+    /// </summary>
     void ListClear();
+    /// <summary>
+    /// SPの更新
+    /// </summary>
+    /// <param name="arg_character"></param>
     void UpdataSP(std::shared_ptr<Character> arg_character);
+    /// <summary>
+    /// プレイヤーの挙動
+    /// </summary>
     void PlayerMove();
+    /// <summary>
+    /// エネミーの挙動
+    /// </summary>
     void EnemyMove();
 };

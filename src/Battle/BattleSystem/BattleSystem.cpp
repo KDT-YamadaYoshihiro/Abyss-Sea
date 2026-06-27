@@ -76,8 +76,10 @@ void BattleSystem::Init()
 
 void BattleSystem::Update()
 {
+    // 生存確認
     CheckAliveStatus();
 
+    // バトル修了確認
     if (IsBattleOver()) {
         return;
     }
@@ -86,6 +88,7 @@ void BattleSystem::Update()
     if (m_blendNum <= 0) { m_blendSpeed *= -1; }
     if (m_blendNum >= 50) { m_blendSpeed *= -1; }
 
+    // ターン
     switch (m_currentPhase)
     {
     case BATTLE_PHASE::TURN_START:
@@ -304,26 +307,32 @@ void BattleSystem::PlayEffectByType(std::shared_ptr<Character> actor, const std:
 
     if (actor->getActionChoice() == SKILL) {
         switch (efType) {
+            // アキラ:剣スキル
         case EFFECT_TYPE::EF_SKILL1:
             for (auto& t : targets) actor->PlaySkillEffect(t->getPosX(), t->getPosY(), 300, 250);
 			m_se->PlaySe(CLoad::Instance().getSeHandle(SE_SKILL1));
             break;
+            // エル:魔法スキル
         case EFFECT_TYPE::EF_SKILL2:
             for (auto& t : targets) actor->PlaySkillEffect(t->getPosX(), t->getPosY(), 350, 250);
 			m_se->PlaySe(CLoad::Instance().getSeHandle(SE_SKILL2));
             break;
+            // アルデウス:剣スキル
         case EFFECT_TYPE::EF_ALL_SKILL1:
             for (auto& t : targets) actor->PlaySkillEffect(t->getPosX(), t->getPosY(), 100, 100);
 			m_se->PlaySe(CLoad::Instance().getSeHandle(SE_SKILL1));
             break;
+            // アルディナ:魔法スキル
         case EFFECT_TYPE::EF_ALL_SKILL2:
             for (auto& t : targets) actor->PlaySkillEffect(t->getPosX(), t->getPosY(), 250, 250);
 			m_se->PlaySe(CLoad::Instance().getSeHandle(SE_SKILL2));
             break;
+            // アリア,エリナ:回復スキル
         case EFFECT_TYPE::EF_HEAL:
             for (auto& t : targets) actor->PlaySkillEffect(t->getPosX(), t->getPosY(), 30, 40);
 			m_se->PlaySe(CLoad::Instance().getSeHandle(SE_HEAL));
             break;
+            // ピノット、カゲ、ライゼル:バフスキル
         case EFFECT_TYPE::EF_BUFF:
         case EFFECT_TYPE::EF_DEBUFF:
             for (auto& t : targets) actor->PlaySkillEffect(t->getPosX(), t->getPosY(), 50, 40);
@@ -334,7 +343,11 @@ void BattleSystem::PlayEffectByType(std::shared_ptr<Character> actor, const std:
         }
     }
     else {
-        for (auto& t : targets) actor->PlayAttackEffect(t->getPosX(), t->getPosY(), 50, 40);
+        // その他、通常攻撃
+        for (auto& t : targets)
+        {
+            actor->PlayAttackEffect(t->getPosX(), t->getPosY(), 50, 40);
+        }
 		m_se->PlaySe(CLoad::Instance().getSeHandle(SE_ATTACK));
     }
 }
@@ -395,7 +408,7 @@ void BattleSystem::EnemyAction(std::shared_ptr<Character> arg_character) {
 			m_se->PlaySe(CLoad::Instance().getSeHandle(SE_ATTACK));
         }
 
-        // 攻撃対象になった「全員」のモーションを被ダメージ（DAMAGE）に変更
+        // 攻撃対象になった「全員」のモーションを被ダメージに変更
         for (auto& tar : m_targets) {
             tar->setAnimType(DAMAGE);
         }
